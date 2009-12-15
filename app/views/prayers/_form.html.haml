@@ -1,0 +1,16 @@
+- form_for @prayer do |f|
+  = f.error_messages
+  %p
+    = f.label :title
+    %br
+    = f.text_field :title
+  %p
+    = f.label :body
+    %br
+    = f.text_area :body
+  %p
+    = f.check_box :private
+    = f.label :private
+    
+  %p
+    = f.submit "Submit"

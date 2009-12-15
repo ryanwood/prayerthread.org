@@ -1,0 +1,87 @@
+# !primary_color = #4B7399
+!primary_color = #FFF
+
+!light_blue = #6D98AB
+!blue       = #00275E
+!yellow     = #FEB729
+!gray       = #A8B1B8
+!white      = #FFFFFF
+!black      = #000000
+
+body
+  :font-size 80%
+  :font-family "Lucida Grande", "Helvetica Neue", Arial, Helvetica, sans-serif
+
+#header
+  :padding 10px 0
+  #context
+    :float right
+  #menu
+    ul
+      :display inline
+      :list-style-type none
+      :padding 0
+      :margin 0
+      li
+        :display inline
+        :font-size 18px
+        :margin 5px
+        :padding-left 10px
+        :border-left= 1px "solid" !gray
+      li.first
+        :padding-left 0
+        :border-left-width 0
+
+// Flash Overrides
+.success, .notice, .error
+  :color #000
+  :padding 5px 8px
+  :margin 10px 0
+.success, .notice
+  :background-color #CFC
+  :border solid 1px #6C6
+.error
+  :background-color #FCC
+  :border solid 1px #C66
+
+.fieldWithErrors
+  :display inline
+
+#errorExplanation
+  :width 400px
+  :border 2px solid #CF0000
+  :padding 0
+  :padding-bottom 12px
+  :margin-bottom 20px
+  :background-color #fff
+  / #f0f0f0
+  h2
+    :text-align left
+    :padding 5px 5px 5px 15px
+    :margin 0
+    :font
+      :weight bold
+      :size 12px
+    :background-color #c00
+    :color #fff
+  p
+    :color #333
+    :margin-bottom 0
+    :padding 8px
+  ul
+    :margin 2px 24px
+    li
+      :font-size 12px
+      :list-style disc
+
+table#pretty
+  :width 600px
+  :border-collapse collapse
+  tr
+    :vertical-align top
+  th, td
+    :text-align left
+    :padding 10px
+    :border-style solid 
+    :border-color = !black
+    :border-width 1px

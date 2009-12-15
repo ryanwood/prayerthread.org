@@ -1,0 +1,15 @@
+- title "Prayers"
+
+%table#pretty
+  %tr
+  - for prayer in @prayers
+    %tr
+      %td
+        .prayer_title= link_to h(prayer.title), prayer
+        .prayer_user= "by #{h prayer.user.username}"
+      %td
+        = link_to 'Edit', edit_prayer_path(prayer)
+        |
+        = link_to 'Destroy', prayer, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Prayer", new_prayer_path
