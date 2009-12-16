@@ -1,0 +1,21 @@
+- title "Groups"
+
+- unless @groups.empty?
+  %table#pretty
+    - for group in @groups
+      %tr
+        %td= h group.name
+        %td.actions
+          = link_to 'Show', group
+          |
+          = link_to 'Edit', edit_group_path(group)
+          |
+          = link_to 'Destroy', group, :confirm => 'Are you sure?', :method => :delete
+- else
+  %p 
+    You are not a member of any prayers groups.
+    %br
+    Would you like to
+    = link_to "create one now", new_group_path
+    ?
+%p= link_to "New Group", new_group_path

@@ -11,7 +11,9 @@
 body
   :font-size 80%
   :font-family "Lucida Grande", "Helvetica Neue", Arial, Helvetica, sans-serif
-
+p
+  :padding-top 5px
+  
 #header
   :padding 10px 0
   #context
@@ -77,11 +79,16 @@ body
 table#pretty
   :width 600px
   :border-collapse collapse
+  :border-top= 1px "solid" !blue
+  :border-right= 1px "solid" !blue
   tr
     :vertical-align top
   th, td
     :text-align left
     :padding 10px
-    :border-style solid 
-    :border-color = !black
-    :border-width 1px
+    :border-left= 1px "solid" !blue
+    :border-bottom= 1px "solid" !blue
+  td.actions
+    :width 150px
+    :text-align center
+    :border-left-width 0

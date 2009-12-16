@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   validates_length_of :password, :minimum => 4, :allow_blank => true
   
   has_many :prayers
+  has_many :memberships
+  has_many :groups, :through => :memberships
   
   # login can be either username or email address
   def self.authenticate(login, pass)

@@ -1,0 +1,20 @@
+- title "Group: #{h @group.name}"
+
+%h2 Members
+%ul
+- @group.users.each do |user|
+  %li
+    = "#{h user.username} (#{user.email})"
+    - if user == @group.owner
+      \-
+      %strong Owner
+      
+/ %p= link_to "Invite others to join this group", new_invitation_path
+%p Invite others to join this group (TO DO)
+
+%p
+  = link_to "Edit", edit_group_path(@group)
+  |
+  = link_to "Destroy", @group, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", groups_path
