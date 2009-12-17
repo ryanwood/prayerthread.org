@@ -1,7 +1,10 @@
 - title "Edit Prayer"
 
-= render :partial => 'form'
-
+- semantic_form_for @prayer do |form|
+  = form.error_messages
+  = render :partial => "inputs", :locals => { :form => form }
+  = form.buttons
+  
 %p
   = link_to "Show", prayer_path(@prayer)
   |

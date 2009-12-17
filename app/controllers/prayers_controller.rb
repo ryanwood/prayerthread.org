@@ -1,12 +1,12 @@
 class PrayersController < ApplicationController
-  before_filter :login_required
+  before_filter :authenticate
   
   def index
-    @prayers = Prayer.all
+    @prayers = current_user.prayers
   end
   
   def show
-    @prayer = Prayer.find(params[:id])
+    @prayer = current_user.prayers.find(params[:id])
   end
   
   def new
@@ -25,7 +25,7 @@ class PrayersController < ApplicationController
   end
   
   def edit
-    @prayer = Prayer.find(params[:id])
+    @prayer = current_user.prayers.find(params[:id])
   end
   
   def update
@@ -39,7 +39,7 @@ class PrayersController < ApplicationController
   end
   
   def destroy
-    @prayer = Prayer.find(params[:id])
+    @prayer = current_user.prayers.find(params[:id])
     @prayer.destroy
     flash[:notice] = "Successfully destroyed prayer."
     redirect_to prayers_url

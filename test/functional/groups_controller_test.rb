@@ -1,68 +1,80 @@
 require 'test_helper'
 
 class GroupsControllerTest < ActionController::TestCase
-  context "index action" do
-    should "render index template" do
+  def setup
+    @group = Factory(:group)
+    sign_in_as @group.owner
+  end
+  
+  context "on GET to :index" do
+    setup do
       get :index
-      assert_template 'index'
-    end
+      @another_group = Factory(:group)
+    end  
+    should_assign_to :groups
+    should_respond_with :success
+    should_render_template :index
+    should_not_set_the_flash
   end
   
-  context "show action" do
-    should "render show template" do
-      get :show, :id => Group.first
-      assert_template 'show'
-    end
+  context "on GET to :show" do
+    setup { get :show, :id => @group.id }
+    should_assign_to :group
+    should_respond_with :success
+    should_render_template :show
+    should_not_set_the_flash
   end
   
-  context "new action" do
-    should "render new template" do
-      get :new
-      assert_template 'new'
-    end
+  context "on GET to :new" do
+    setup { get :new }
+    should_respond_with :success
   end
   
-  context "create action" do
-    should "render new template when model is invalid" do
-      Group.any_instance.stubs(:valid?).returns(false)
-      post :create
-      assert_template 'new'
+  context "on POST to :create" do
+    context "when model is invalid" do
+      setup do
+        Group.any_instance.stubs(:valid?).returns(false)
+        post :create
+      end
+      should_assign_to :group
+      should_render_template :new
     end
     
-    should "redirect when model is valid" do
-      Group.any_instance.stubs(:valid?).returns(true)
-      post :create
-      assert_redirected_to group_url(assigns(:group))
+    context "when model is valid" do
+      setup do
+        Group.any_instance.stubs(:valid?).returns(true)
+        post :create
+      end
+      should_assign_to :group
+      should_redirect_to( "the group" ) { group_path(assigns(:group)) }
     end
   end
   
-  context "edit action" do
-    should "render edit template" do
-      get :edit, :id => Group.first
-      assert_template 'edit'
+  context "on GET to :edit" do
+    setup { get :edit, :id => @group }
+    should_assign_to :group
+    should_respond_with :success
+    should_render_template :edit
+    should_not_set_the_flash
+  end
+  
+  context "on PUT to :update" do
+    setup { put :update, :id => @group, :group => { :name => "Updated Title" } }
+    should_redirect_to( "the group" ) { group_path(assigns(:group)) }
+    should "update the group's name" do
+      assert assigns(:group).name == "Updated Title"
     end
   end
   
-  context "update action" do
-    should "render edit template when model is invalid" do
-      Group.any_instance.stubs(:valid?).returns(false)
-      put :update, :id => Group.first
-      assert_template 'edit'
-    end
-  
-    should "redirect when model is valid" do
-      Group.any_instance.stubs(:valid?).returns(true)
-      put :update, :id => Group.first
-      assert_redirected_to group_url(assigns(:group))
-    end
+  context "on DELETE to :destroy" do
+    setup { delete :destroy, :id => @group }
+    should_change( "the number of groups", :by => -1 ) { Group.count }
+    should_redirect_to( "the group list" ) { groups_url }
   end
   
-  context "destroy action" do
-    should "destroy model and redirect to index action" do
-      group = Group.first
-      delete :destroy, :id => group
-      assert_redirected_to groups_url
-      assert !Group.exists?(group.id)
-    end
+  def valid_group
+    {
+      :name => "My Group"
+    }
   end
 end

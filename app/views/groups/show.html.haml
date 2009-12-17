@@ -1,16 +1,18 @@
 - title "Group: #{h @group.name}"
 
 %h2 Members
-%ul
-- @group.users.each do |user|
-  %li
-    = "#{h user.username} (#{user.email})"
-    - if user == @group.owner
-      \-
-      %strong Owner
+%table
+  - @group.users.each do |user|
+    %tr
+      %td.name= h user.name
+      %td.email= user.email
+      %td.status
+        - if user == @group.owner
+          %strong Owner
+        - else
+          Member
       
-/ %p= link_to "Invite others to join this group", new_invitation_path
-%p Invite others to join this group (TO DO)
+%p= link_to "Invite others to join this group", new_group_invitation_path(@group)
 
 %p
   = link_to "Edit", edit_group_path(@group)

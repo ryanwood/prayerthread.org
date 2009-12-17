@@ -1,6 +1,9 @@
 - title "Edit Group"
 
-= render :partial => 'form'
+- semantic_form_for @group do |form|
+  = form.error_messages
+  = render :partial => "inputs", :locals => { :form => form }
+  = form.buttons
 
 %p
   = link_to "Show", group_path(@group)

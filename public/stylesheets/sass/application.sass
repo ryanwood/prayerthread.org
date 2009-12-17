@@ -15,7 +15,7 @@ p
   :padding-top 5px
   
 #header
-  :padding 10px 0
+  :padding 20px 0
   #context
     :float right
   #menu
@@ -33,6 +33,11 @@ p
       li.first
         :padding-left 0
         :border-left-width 0
+        
+#footer
+  :margin 20px 0
+  :font-size 80%
+  :text-align left
 
 // Flash Overrides
 .success, .notice, .error
@@ -45,6 +50,8 @@ p
 .error
   :background-color #FCC
   :border solid 1px #C66
+
+// Form Errors
 
 .fieldWithErrors
   :display inline
@@ -76,19 +83,16 @@ p
       :font-size 12px
       :list-style disc
 
-table#pretty
-  :width 600px
+table
+  :width 100%
   :border-collapse collapse
-  :border-top= 1px "solid" !blue
-  :border-right= 1px "solid" !blue
   tr
     :vertical-align top
   th, td
     :text-align left
-    :padding 10px
-    :border-left= 1px "solid" !blue
-    :border-bottom= 1px "solid" !blue
+    :padding 10px 0
+    :background url(../images/dotted_horizontal_border.png) bottom repeat-x
   td.actions
-    :width 150px
-    :text-align center
-    :border-left-width 0
+    :text-align right
+    
+// Formtastic Overrides

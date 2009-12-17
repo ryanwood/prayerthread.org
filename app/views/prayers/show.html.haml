@@ -1,14 +1,8 @@
-- title "Prayer"
+- title h(@prayer.title)
+%p= h @prayer.body
 
 %p
-  %strong Title:
-  =h @prayer.title
-%p
-  %strong Body:
-  =h @prayer.body
-%p
-  %strong User:
-  =h @prayer.user_id
+  %strong= "by #{h @prayer.name}"
 
 %p
   = link_to "Edit", edit_prayer_path(@prayer)

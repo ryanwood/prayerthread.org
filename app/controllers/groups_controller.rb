@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_filter :login_required
+  before_filter :authenticate
   
   def index
     @groups = current_user.groups

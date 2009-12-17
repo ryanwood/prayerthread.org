@@ -1,8 +1,14 @@
+base: &base
+  do_not_reply: no-reply@prayerthread.org
+
 development:
+  <<: *base
   domain: localhost:3000
 
 test:
+  <<: *base
   domain: test.host
 
 production:
-  domain: example.com
+  <<: *base
+  domain: prayerthread.heroku.com

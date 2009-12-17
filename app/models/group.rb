@@ -1,12 +1,13 @@
 class Group < ActiveRecord::Base
   attr_accessible :name
   belongs_to :owner, :class_name => "User"
-  has_many :memberships
+  has_many :memberships, :dependent => :destroy
   has_many :users, :through => :memberships
+  has_many :invitations
   
   after_create :ensure_owner_is_a_member
   
-  validates_presence_of :owner, :on => :create, :message => "can't be blank"
+  validates_presence_of :name, :owner_id
   
   protected
   

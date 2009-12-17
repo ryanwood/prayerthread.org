@@ -6,7 +6,9 @@
       %tr
         %td= h group.name
         %td.actions
-          = link_to 'Show', group
+          = link_to "Invite", new_group_invitation_path(group)
+          |
+          = link_to 'Members', group
           |
           = link_to 'Edit', edit_group_path(group)
           |

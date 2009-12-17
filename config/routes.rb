@@ -1,12 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :groups
-
-  map.signup 'signup', :controller => 'users', :action => 'new'
-  map.logout 'logout', :controller => 'sessions', :action => 'destroy'
-  map.login 'login', :controller => 'sessions', :action => 'new'
-  map.resources :sessions
-  map.resources :users
+  map.resources :groups do |group|
+    group.resources :invitations
+  end
   map.resources :prayers
+  
+  map.invitation 'invite/:token', :controller => 'users', :action => 'new'
 
   # The priority is based upon order of creation: first created -> highest priority.
 

@@ -1,0 +1,7 @@
+- title "New Invitation"
+
+%p Enter the email address of the person you wish to invite to this group.
+
+= render :partial => 'form'
+
+%p= link_to "Back to the #{h @group.name} group", @group

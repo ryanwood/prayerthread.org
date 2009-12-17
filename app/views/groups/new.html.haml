@@ -1,5 +1,8 @@
 - title "New Group"
 
-= render :partial => 'form'
+- semantic_form_for @group do |form|
+  = form.error_messages
+  = render :partial => "inputs", :locals => { :form => form }
+  = form.buttons
 
 %p= link_to "Back to List", groups_path

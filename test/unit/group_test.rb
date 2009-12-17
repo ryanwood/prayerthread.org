@@ -1,7 +1,9 @@
 require 'test_helper'
 
 class GroupTest < ActiveSupport::TestCase
-  should "be valid" do
-    assert Group.new.valid?
+  def setup
+    # @group = Factory(:group)
   end
+  
+  should_validate_presence_of :name
 end

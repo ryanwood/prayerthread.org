@@ -8,7 +8,8 @@ require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
   config.gem 'haml'
-  # config.gem 'formtastic', :source => 'http://gemcutter.org'
+  config.gem 'clearance', :source => 'http://gemcutter.org'
+  config.gem 'formtastic', :source => 'http://gemcutter.org'
   
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
@@ -41,4 +42,8 @@ Rails::Initializer.run do |config|
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
+  
+  HOST = "localhost:3000"
+  DO_NOT_REPLY = "donotreply@prayerthread.com"
+  
 end
