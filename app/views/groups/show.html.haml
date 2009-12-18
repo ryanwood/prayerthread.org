@@ -1,8 +1,19 @@
 - title "Group: #{h @group.name}"
-
+%p
+  -if current_user == @group.owner
+    = link_to "Edit", edit_group_path(@group)
+    |
+    = link_to "Invite others to join this group", new_group_invitation_path(@group)
+    |
+  = link_to "View All Groups", groups_path
+  
 %h2 Members
 %table
-  - @group.users.each do |user|
+  %tr
+    %th Name
+    %th Email
+    %th Status
+  - @members.each do |user|
     %tr
       %td.name= h user.name
       %td.email= user.email
@@ -11,12 +22,18 @@
           %strong Owner
         - else
           Member
-      
-%p= link_to "Invite others to join this group", new_group_invitation_path(@group)
+-if current_user == @group.owner
+  - unless @invitations.empty?
+    %h2 Pending Invitations
+    %table
+      %tr
+        %th Email
+        %th Sent
+      - @invitations.each do |invitation|
+        %tr
+          %td.email= h invitation.recipient_email
+          %td.sent
+            = time_ago_in_words(invitation.sent_at || invitation.created_at)
+            ago
 
-%p
-  = link_to "Edit", edit_group_path(@group)
-  |
-  = link_to "Destroy", @group, :confirm => 'Are you sure?', :method => :delete
-  |
-  = link_to "View All", groups_path
+  %p= link_to "Delete this group", @group, :confirm => 'Are you sure?', :method => :delete

@@ -3,8 +3,7 @@ ActionController::Routing::Routes.draw do |map|
     group.resources :invitations
   end
   map.resources :prayers
-  
-  map.invitation 'invite/:token', :controller => 'users', :action => 'new'
+  map.confirmation "confirm/:token", :controller => :invitations, :action => :confirm 
 
   # The priority is based upon order of creation: first created -> highest priority.
 

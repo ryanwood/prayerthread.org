@@ -6,13 +6,12 @@
       %tr
         %td= h group.name
         %td.actions
-          = link_to "Invite", new_group_invitation_path(group)
-          |
           = link_to 'Members', group
-          |
-          = link_to 'Edit', edit_group_path(group)
-          |
-          = link_to 'Destroy', group, :confirm => 'Are you sure?', :method => :delete
+          -if current_user == group.owner
+            |
+            = link_to "Invite", new_group_invitation_path(group)
+            |
+            = link_to 'Edit', edit_group_path(group)
 - else
   %p 
     You are not a member of any prayers groups.

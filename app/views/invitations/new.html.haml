@@ -2,6 +2,10 @@
 
 %p Enter the email address of the person you wish to invite to this group.
 
-= render :partial => 'form'
+- semantic_form_for [@group, @invitation] do |form|
+  = form.error_messages
+  = render :partial => "inputs", :locals => { :form => form }
+  - form.buttons do
+    = form.commit_button "Invite"
 
 %p= link_to "Back to the #{h @group.name} group", @group

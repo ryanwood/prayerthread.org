@@ -1,0 +1,13 @@
+- if @invitation
+  %h2 Thanks for coming.
+  %p
+    %strong Your invitation is waiting...
+  %p We just need to confirm who you are and we'll take you right to your prayer group.
+- else
+  %h2 Sign up
+
+- semantic_form_for @user do |form|
+  = form.error_messages
+  = render :partial => "/users/inputs", :locals => { :form => form }
+  - form.buttons do
+    = form.commit_button "Sign up"
