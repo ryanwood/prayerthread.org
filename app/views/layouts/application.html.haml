@@ -16,18 +16,9 @@
     #container.container
       #header
         #context
-          - if signed_in?
-            = "Welcome #{current_user.name}! Not you?"
-            = link_to "Sign out", sign_out_path
-          - else
-            = link_to "Sign up", sign_up_path
-            or
-            = link_to "Sign in", sign_in_path
-        - if signed_in?  
-          #menu
-            %ul
-              %li.first= link_to "Prayers", prayers_path
-              %li= link_to "Groups", groups_path
+          = render :partial => "/layouts/context"
+        - if signed_in?
+          = render :partial => "/layouts/menu"
             
       - flash.each do |name, msg|
         = content_tag :div, msg, :id => "flash_#{name}", :class => name
