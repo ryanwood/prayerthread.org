@@ -1,0 +1,3 @@
+haml
+clearance --source gemcutter.com
+formtastic  --source gemcutter.com
