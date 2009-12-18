@@ -1,5 +1,5 @@
 class Group < ActiveRecord::Base
-  attr_accessible :name
+  attr_accessible :name, :owner_id
   belongs_to :owner, :class_name => "User"
   has_many :memberships, :dependent => :destroy
   has_many :users, :through => :memberships

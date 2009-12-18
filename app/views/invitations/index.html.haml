@@ -1,19 +1,17 @@
 - title "Invitations"
 
+%p Here are your current pending invitations
+
 %table
   %tr
+    %th Sent By
     %th Group
-    %th Recipent email
-    %th Sent at
-    %th Accepted at
+    %th Sent
+    %th
   - for invitation in @invitations
     %tr
-      %td= h invitation.group_id
-      %td= h invitation.recipent_email
-      %td= h invitation.sent_at
-      %td= h invitation.accepted_at
-      %td= link_to 'Show', invitation
-      %td= link_to 'Edit', edit_invitation_path(invitation)
-      %td= link_to 'Destroy', invitation, :confirm => 'Are you sure?', :method => :delete
-
-%p= link_to "New Invitation", new_invitation_path
+      %td= h invitation.sender.name
+      %td= h invitation.group.name
+      %td= time_ago_in_words(invitation.sent_at)
+      %td= link_to 'Accept', accept_invitation_path(invitation)
+      / %td= link_to 'Delete', invitation, :confirm => 'Are you sure?', :method => :delete

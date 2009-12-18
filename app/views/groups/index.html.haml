@@ -1,5 +1,7 @@
 - title "Groups"
 
+= render :partial => "/invitations/notice"
+
 - unless @groups.empty?
   %table#pretty
     - for group in @groups

@@ -46,7 +46,48 @@ class InvitationsControllerTest < ActionController::TestCase
       setup { delete :destroy, :group_id => @group.id, :id => @invitation }
       should_change( "the number of invitations", :by => -1 ) { Invitation.count }
       should_redirect_to( "the invitation list" ) { group_url(@group) }
-    end  
+    end 
   end
   
+  context "on GET to :confirm" do
+    setup do
+      @recipient_email = 'john@doe.com'
+      @invitation = Factory(:invitation, :recipient_email => @recipient_email)
+    end
+    
+    context "when the recipient is unknown" do
+      setup { get :confirm, :id => @invitation.id, :token => @invitation.token }
+      should_not_set_the_flash
+      should_redirect_to( "sign up" ) { sign_up_path( :token => @invitation.token ) }
+    end
+    
+    context "when the recipient is known" do
+      setup do 
+        Factory(:user, :email => @recipient_email)
+        get :confirm, :id => @invitation.id, :token => @invitation.token
+      end
+      should_redirect_to( "accept the invitation" ) { accept_invitation_path(@invitation, :token => @invitation.token) }
+    end
+  end
+  
+  context "on GET to :accept" do
+    setup do
+      @invitation = Factory(:invitation)
+      sign_in_as Factory(:user, :email => 'john@doe.com' )
+    end
+    
+    context "when invitation exists" do
+      setup do
+        get :accept, :id => @invitation.id, :token => @invitation.token
+      end
+      should_redirect_to( "the group" ) { group_path( @invitation.group ) }
+    end
+    
+    context "when invitation does not exist" do
+      setup do
+        get :accept, :id => 0, :token => 123
+      end
+      should_redirect_to( "home" ) { root_path }
+    end
+  end
 end

@@ -24,15 +24,19 @@ class InvitationTest < ActiveSupport::TestCase
   context "when accepted" do
     setup do
       @invitation = Factory(:invitation)
+      @acceptor = Factory(:user)
+      Membership.expects(:create)
       assert !@invitation.accepted?
+      @invitation.accept!(@acceptor)
     end
     should "create a membership" do
-      Membership.expects(:create)
-      @invitation.accept!
+      assert @invitation.accepted?
     end
     should "set accepted_at" do
-      @invitation.accept!
-      assert @invitation.accepted?
+      assert_not_nil @invitation.accepted_at
+    end
+    should "set accepted_user_id" do
+      assert_not_nil @invitation.accepted_user_id
     end
   end
   

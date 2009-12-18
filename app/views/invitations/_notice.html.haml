@@ -1,0 +1,5 @@
+-if current_user.pending_invitations.size > 0
+  .box
+    %strong= "You have #{pluralize(current_user.pending_invitations.size, 'pending invitation')}."
+    = link_to "Click here to review and accept", invitations_path
+    \.

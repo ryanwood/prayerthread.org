@@ -5,10 +5,11 @@ class Invitation < ActiveRecord::Base
   
   belongs_to :group
   belongs_to :sender, :class_name => "User"
-  has_one :recipient, :class_name => "User"
+  belongs_to :accepted_user, :class_name => "User"
   
   validates_presence_of :recipient_email, :on => :create, :message => "can't be blank"
   validates_format_of :recipient_email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
+  validates_uniqueness_of :recipient_email, :scope => :group_id, :on => :create, :message => "has already been invited to this group"
   
   before_save :initialize_invitation_token
   
@@ -19,9 +20,13 @@ class Invitation < ActiveRecord::Base
     !accepted_at.nil?
   end
   
-  def accept!
-    update_attribute :accepted_at, Time.now
-    Membership.create( :user => recipient, :group => group )
+  def accept!(user)
+    unless accepted?
+      self.accepted_at = Time.now
+      self.accepted_user = user
+      save!
+      Membership.create( :group => self.group, :user => user )
+    end
   end
   
   protected

@@ -4,13 +4,12 @@ class CreateInvitations < ActiveRecord::Migration
       t.integer :group_id, :sender_id
       t.string :recipient_email, :token
       t.datetime :sent_at, :accepted_at
+      t.integer :accepted_user_id
       t.timestamps
-    end    
-    add_column :users, :invitation_id, :integer
+    end
   end
   
   def self.down
-    remove_column :users, :invitation_id
     drop_table :invitations
   end
 end
