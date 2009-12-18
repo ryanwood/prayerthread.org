@@ -9,4 +9,3 @@ doc/app
 config/database.yml
 *.tmproj
 vendor/gems
-public/stylesheets/application.css

@@ -1,0 +1,84 @@
+
+body {
+  font-size: 80%;
+  font-family: "Lucida Grande", "Helvetica Neue", Arial, Helvetica, sans-serif; }
+
+p {
+  padding-top: 5px; }
+
+#header {
+  padding: 20px 0; }
+  #header #context {
+    float: right; }
+  #header #menu ul {
+    display: inline;
+    list-style-type: none;
+    padding: 0;
+    margin: 0; }
+    #header #menu ul li {
+      display: inline;
+      font-size: 18px;
+      margin: 5px;
+      padding-left: 10px;
+      border-left: 1px solid #a8b1b8; }
+    #header #menu ul li.first {
+      padding-left: 0;
+      border-left-width: 0; }
+
+#footer {
+  margin: 20px 0;
+  font-size: 80%;
+  text-align: left; }
+
+.success, .notice, .error {
+  color: #000;
+  padding: 5px 8px;
+  margin: 10px 0; }
+
+.success, .notice {
+  background-color: #CFC;
+  border: solid 1px #6C6; }
+
+.error {
+  background-color: #FCC;
+  border: solid 1px #C66; }
+
+.fieldWithErrors {
+  display: inline; }
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid #CF0000;
+  padding: 0;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #fff; }
+  #errorExplanation h2 {
+    text-align: left;
+    padding: 5px 5px 5px 15px;
+    margin: 0;
+    font-weight: bold;
+    font-size: 12px;
+    background-color: #c00;
+    color: #fff; }
+  #errorExplanation p {
+    color: #333;
+    margin-bottom: 0;
+    padding: 8px; }
+  #errorExplanation ul {
+    margin: 2px 24px; }
+    #errorExplanation ul li {
+      font-size: 12px;
+      list-style: disc; }
+
+table {
+  width: 100%;
+  border-collapse: collapse; }
+  table tr {
+    vertical-align: top; }
+  table th, table td {
+    text-align: left;
+    padding: 10px 0;
+    background: url(../images/dotted_horizontal_border.png) bottom repeat-x; }
+  table td.actions {
+    text-align: right; }
