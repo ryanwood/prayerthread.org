@@ -3,32 +3,45 @@ require File.dirname(__FILE__) + '/../test_helper'
 class PrayersControllerTest < ActionController::TestCase
   
   def setup
-    @prayer = Factory(:prayer)
-    sign_in_as @prayer.user
+    @user = Factory(:user)
+    @group = Factory(:group, :owner => @user)
+    @prayer = Factory(:prayer, :user => @user, :groups => [@group])
+    @prayer_not_allowed = Factory(:prayer, :user => Factory(:user))
+    sign_in_as @user
   end
   
   context "on GET to :index" do
-    setup do
-      get :index
-      @another_prayer = Factory(:prayer)
-    end  
+    setup { get :index }
     should_assign_to :prayers
     should_respond_with :success
     should_render_template :index
     should_not_set_the_flash
     
-    should "only show my prayers" do
+    should "only show prayers in my groups" do
       assert_equal Prayer.count, 2
       assert_equal assigns(:prayers).size, 1
     end
   end
   
   context "on GET to :show" do
-    setup { get :show, :id => @prayer.id }
-    should_assign_to :prayer
-    should_respond_with :success
-    should_render_template :show
-    should_not_set_the_flash
+    
+    context "with prayer in my groups" do
+      setup do
+        get :show, :id => @prayer.id
+      end
+      should_assign_to :prayer
+      should_respond_with :success
+      should_render_template :show
+      should_not_set_the_flash
+    end
+    
+    context "with prayer outside my groups" do
+      should "raise an error" do
+        assert_raise ActiveRecord::RecordNotFound do
+          get :show, :id => @prayer_not_allowed.id
+        end
+      end
+    end
   end
   
   context "on GET to :new" do

@@ -36,3 +36,8 @@ Factory.define :invitation do |f|
   f.after_build {|i| i.sender = i.group.owner }
 end
 
+Factory.define :membership do |f|
+  f.association :group
+  f.association :user
+end
+

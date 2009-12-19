@@ -9,6 +9,7 @@ class PrayersController < ApplicationController
     @prayer = Prayer.find(:first, 
       :joins => :groups,
       :conditions => { :id => params[:id], :groups => { :id => current_user.groups }} )
+    raise ActiveRecord::RecordNotFound, "Record not found" unless @prayer
   end
   
   def new
