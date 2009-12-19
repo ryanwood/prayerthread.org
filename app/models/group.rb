@@ -4,6 +4,7 @@ class Group < ActiveRecord::Base
   has_many :memberships, :dependent => :destroy
   has_many :users, :through => :memberships
   has_many :invitations
+  has_and_belongs_to_many :prayers
   
   after_create :ensure_owner_is_a_member
   

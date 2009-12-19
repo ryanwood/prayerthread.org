@@ -1,6 +1,7 @@
 - title h(@prayer.title)
 %p= h @prayer.body
-
+%p
+  %strong= "in #{group_list(@prayer)}"
 %p
   %strong= "by #{h @prayer.name}"
 

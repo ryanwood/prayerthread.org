@@ -6,6 +6,9 @@ body {
 p {
   padding-top: 5px; }
 
+h1 {
+  font-size: 2.5em; }
+
 #header {
   padding: 20px 0; }
   #header #context {
@@ -30,7 +33,7 @@ p {
   font-size: 80%;
   text-align: left; }
 
-.success, .notice, .error {
+.success, .notice, .error, .failure {
   color: #000;
   padding: 5px 8px;
   margin: 10px 0; }
@@ -39,7 +42,7 @@ p {
   background-color: #CFC;
   border: solid 1px #6C6; }
 
-.error {
+.error, .failure {
   background-color: #FCC;
   border: solid 1px #C66; }
 
@@ -78,7 +81,13 @@ table {
     vertical-align: top; }
   table th, table td {
     text-align: left;
-    padding: 10px 0;
+    padding: 5px 0;
     background: url(../images/dotted_horizontal_border.png) bottom repeat-x; }
   table td.actions {
     text-align: right; }
+
+table#prayer_list td.prayer span {
+  font-size: 0.8em;
+  color: #666; }
+table#prayer_list a.prayer_title {
+  font-weight: bold; }

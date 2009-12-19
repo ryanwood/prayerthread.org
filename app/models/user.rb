@@ -11,6 +11,10 @@ class User < ActiveRecord::Base
   
   validates_presence_of :first_name, :last_name
   
+  def prayer_thread
+    @prayer_thread = Prayer.for_groups(groups)
+  end
+  
   def name
     "#{first_name} #{last_name}"
   end

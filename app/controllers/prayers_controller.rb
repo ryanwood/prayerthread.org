@@ -2,15 +2,18 @@ class PrayersController < ApplicationController
   before_filter :authenticate
   
   def index
-    @prayers = current_user.prayers
+    @prayers = current_user.prayer_thread
   end
   
   def show
-    @prayer = current_user.prayers.find(params[:id])
+    @prayer = Prayer.find(:first, 
+      :joins => :groups,
+      :conditions => { :id => params[:id], :groups => { :id => current_user.groups }} )
   end
   
   def new
     @prayer = Prayer.new
+    @groups = current_user.groups
   end
   
   def create

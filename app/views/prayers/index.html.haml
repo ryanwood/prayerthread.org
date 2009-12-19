@@ -2,17 +2,7 @@
 
 = render :partial => "/invitations/notice"
 
-%p= link_to "New Prayer", new_prayer_path
+%p= link_to "Add a Prayer", new_prayer_path
 
-%table
-  %tr
-  - for prayer in @prayers
-    %tr
-      %td
-        = link_to h(prayer.title), prayer
-        %small= "by #{h prayer.name}"
-      %td.actions
-        = link_to 'Edit', edit_prayer_path(prayer)
-        |
-        = link_to 'Destroy', prayer, :confirm => 'Are you sure?', :method => :delete
+= render :partial => "list"
 

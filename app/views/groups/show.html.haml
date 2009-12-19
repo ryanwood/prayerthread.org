@@ -5,6 +5,8 @@
     |
     = link_to "Invite others to join this group", new_group_invitation_path(@group)
     |
+    = link_to "Delete this group", @group, :confirm => 'Are you sure?', :method => :delete
+    |
   = link_to "View All Groups", groups_path
   
 %h2 Members
@@ -22,6 +24,10 @@
           %strong Owner
         - else
           Member
+          
+%h2 Recent Prayers
+=render :partial => "/prayers/list"
+
 -if current_user == @group.owner
   - unless @invitations.empty?
     %h2 Pending Invitations
@@ -35,5 +41,3 @@
           %td.sent
             = time_ago_in_words(invitation.sent_at || invitation.created_at)
             ago
-
-  %p= link_to "Delete this group", @group, :confirm => 'Are you sure?', :method => :delete
