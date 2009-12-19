@@ -11,7 +11,7 @@ class Prayer < ActiveRecord::Base
         :groups => { :id => groups.map {|g| g.id } } 
       }, 
       :order => 'updated_at DESC',
-      :group => :id
+      :group => 'prayers.id'
     }
   }
 end
