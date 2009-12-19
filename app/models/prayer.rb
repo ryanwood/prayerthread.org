@@ -6,12 +6,12 @@ class Prayer < ActiveRecord::Base
   
   named_scope :for_groups, lambda { |groups| 
     {
+      :select => "DISTINCT prayers.*",
       :joins => :groups, 
       :conditions => { 
         :groups => { :id => groups.map {|g| g.id } } 
       }, 
-      :order => 'updated_at DESC',
-      :group => 'prayers.id'
+      :order => 'updated_at DESC'
     }
   }
 end
