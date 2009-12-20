@@ -12,8 +12,7 @@ class InvitationsController < ApplicationController
   end
   
   def create
-    @invitation = Invitation.new(params[:invitation])
-    @invitation.group = @group
+    @invitation = @group.invitations.build(params[:invitation])
     @invitation.sender = current_user
     if @invitation.save
       flash[:notice] = "Successfully sent invitation for #{@invitation.recipient_email}."
@@ -24,9 +23,13 @@ class InvitationsController < ApplicationController
   end
   
   def destroy
-    @invitation = Invitation.find(params[:id])
-    @invitation.destroy
-    flash[:notice] = "Successfully destroyed invitation."
+    @invitation = @group.invitations.find(params[:id])
+    if @invitation && current_user == @group.owner
+      @invitation.destroy
+      flash[:notice] = "Successfully cancelled invitation."
+    else
+      flash[:error] = "Only the group owner can cancel an invitation"
+    end
     redirect_to group_url(@group)
   end
   

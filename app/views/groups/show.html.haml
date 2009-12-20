@@ -29,15 +29,4 @@
 =render :partial => "/prayers/list"
 
 -if current_user == @group.owner
-  - unless @invitations.empty?
-    %h2 Pending Invitations
-    %table
-      %tr
-        %th Email
-        %th Sent
-      - @invitations.each do |invitation|
-        %tr
-          %td.email= h invitation.recipient_email
-          %td.sent
-            = time_ago_in_words(invitation.sent_at || invitation.created_at)
-            ago
+  =render :partial => "/invitations/pending"

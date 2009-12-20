@@ -41,12 +41,40 @@ class InvitationsControllerTest < ActionController::TestCase
         end
       end
     end
-
-    context "on DELETE to :destroy" do
-      setup { delete :destroy, :group_id => @group.id, :id => @invitation }
-      should_change( "the number of invitations", :by => -1 ) { Invitation.count }
-      should_redirect_to( "the invitation list" ) { group_url(@group) }
-    end 
+  end
+  
+  context "on DELETE to :destroy" do
+    context "when authenticated as the group owner" do
+      setup do
+        @invitation = Factory(:invitation)
+        @group = @invitation.group
+        sign_in_as @group.owner
+      end
+      should "cancel the invitation" do
+        Invitation.any_instance.expects(:destroy)
+        delete :destroy, :group_id => @group.id, :id => @invitation
+      end
+      should "redirect to the group" do
+        delete :destroy, :group_id => @group.id, :id => @invitation
+        assert_redirected_to group_url(@group)
+      end
+    end
+    
+    context "when not authenticated as the group owner" do
+      setup do
+        @invitation = Factory(:invitation)
+        @group = @invitation.group
+        sign_in_as Factory(:user)
+      end
+      should "not cancel the invitation" do
+        Invitation.any_instance.expects(:destroy).never
+        delete :destroy, :group_id => @group.id, :id => @invitation
+      end
+      should "redirect to the group" do
+        delete :destroy, :group_id => @group.id, :id => @invitation
+        assert_redirected_to group_url(@group)
+      end
+    end
   end
   
   context "on GET to :confirm" do

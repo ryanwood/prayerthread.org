@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :prayers
   map.resources :groups do |group|
-    group.resources :invitations, :only => [:new, :create]
+    group.resources :invitations, :only => [:new, :create, :destroy]
   end  
   # Lists the current users pending invitations
   map.resources :invitations, :only => [:index, :accept, :confirm], :member => { :accept => :get, :confirm => :get }
