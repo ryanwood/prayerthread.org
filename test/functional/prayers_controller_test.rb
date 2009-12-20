@@ -3,10 +3,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 class PrayersControllerTest < ActionController::TestCase
   
   def setup
-    @user = Factory(:user)
+    @user = Factory(:email_confirmed_user)
     @group = Factory(:group, :owner => @user)
     @prayer = Factory(:prayer, :user => @user, :groups => [@group])
-    @prayer_not_allowed = Factory(:prayer, :user => Factory(:user))
+    @prayer_not_allowed = Factory(:prayer, :user => Factory(:email_confirmed_user))
     sign_in_as @user
   end
   

@@ -8,7 +8,7 @@
       %tr
         %td= h group.name
         %td.actions
-          = link_to 'Members', group
+          = link_to 'Detail', group
           -if current_user == group.owner
             |
             = link_to "Invite", new_group_invitation_path(group)

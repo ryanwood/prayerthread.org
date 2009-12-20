@@ -15,7 +15,9 @@
     %th Name
     %th Email
     %th Status
-  - @members.each do |user|
+    %th 
+  - @memberships.each do |membership|
+    - user = membership.user
     %tr
       %td.name= h user.name
       %td.email= user.email
@@ -24,6 +26,9 @@
           %strong Owner
         - else
           Member
+      %td.actions
+        -if user != @group.owner && ( current_user == @group.owner || current_user == user )
+          = link_to "Remove", membership_path(membership), :method => :delete 
           
 %h2 Recent Prayers
 =render :partial => "/prayers/list"

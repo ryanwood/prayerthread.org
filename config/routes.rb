@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   end  
   # Lists the current users pending invitations
   map.resources :invitations, :only => [:index, :accept, :confirm], :member => { :accept => :get, :confirm => :get }
-
+  map.resources :memberships, :only => :destroy
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
