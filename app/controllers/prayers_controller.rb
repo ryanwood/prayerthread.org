@@ -2,13 +2,11 @@ class PrayersController < ApplicationController
   before_filter :authenticate
   
   def index
-    @prayers = current_user.prayer_thread
+    @prayers = Prayer.all_for(current_user)
   end
   
   def show
-    @prayer = Prayer.find(:first, 
-      :joins => :groups,
-      :conditions => { :id => params[:id], :groups => { :id => current_user.groups }} )
+    @prayer = Prayer.find_for(params[:id], current_user)
     raise ActiveRecord::RecordNotFound, "Record not found" unless @prayer
   end
   
