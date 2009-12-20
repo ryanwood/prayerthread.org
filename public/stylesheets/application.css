@@ -91,3 +91,6 @@ table#prayer_list td.prayer span {
   color: #666; }
 table#prayer_list a.prayer_title {
   font-weight: bold; }
+
+a.delete {
+  color: #990000; }

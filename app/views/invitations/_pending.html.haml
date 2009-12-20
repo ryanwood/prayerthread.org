@@ -14,4 +14,5 @@
         %td
           = link_to "Cancel", group_invitation_path(invitation.group, invitation), |
             :method => :delete, |
-            :confirm => "Are you want to cancel the invitation sent to #{h invitation.recipient_email}?" |
+            :confirm => "Are you want to cancel the invitation sent to #{h invitation.recipient_email}?", |
+            :class => 'delete' |
