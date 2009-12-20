@@ -21,12 +21,12 @@ end
 Factory.define :prayer do |f|
   f.title "My Request"
   f.body "Lord help me to honor you"
-  f.association :user
+  f.association :user, :factory => :email_confirmed_user
 end
 
 Factory.define :group do |f|
   f.name "My group"
-  f.association :owner, :factory => :user
+  f.association :owner, :factory => :email_confirmed_user
 end
 
 Factory.define :invitation do |f|
@@ -38,6 +38,6 @@ end
 
 Factory.define :membership do |f|
   f.association :group
-  f.association :user
+  f.association :user, :factory => :email_confirmed_user
 end
 
