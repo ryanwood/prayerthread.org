@@ -1,13 +1,20 @@
 - title h(@prayer.title)
-%p= h @prayer.body
+.box
+  :textile
+    #{h @prayer.body}
 %p
-  %strong= "in #{group_list(@prayer)}"
-%p
-  %strong= "by #{h @prayer.name}"
+  Last updated
+  = time_ago_in_words(@prayer.updated_at)
+  ago by
+  %strong= h @prayer.name
+  %br  
+  Shown in
+  = group_list(@prayer)
 
 %p
-  = link_to "Edit", edit_prayer_path(@prayer)
-  |
-  = link_to "Destroy", @prayer, :confirm => 'Are you sure?', :method => :delete
-  |
+  - if current_user == @prayer.user
+    = link_to "Edit", edit_prayer_path(@prayer)
+    |
+    = link_to "Destroy", @prayer, :confirm => 'Are you sure?', :method => :delete
+    |
   = link_to "View All", prayers_path
