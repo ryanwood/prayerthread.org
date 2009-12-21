@@ -83,18 +83,48 @@ class InvitationsControllerTest < ActionController::TestCase
       @invitation = Factory(:invitation, :recipient_email => @recipient_email)
     end
     
-    context "when the recipient is unknown" do
-      setup { get :confirm, :id => @invitation.id, :token => @invitation.token }
-      should_not_set_the_flash
-      should_redirect_to( "sign up" ) { sign_up_path( :token => @invitation.token ) }
+    context "when no valid invitation is found" do
+      setup { get :confirm, :id => @invitation.id, :token => 'BADTOKEN' }
+      should "redirect to the root path" do
+        assert_not_nil flash[:error]
+        assert_redirected_to root_url
+      end
     end
     
-    context "when the recipient is known" do
-      setup do 
-        Factory(:user, :email => @recipient_email)
+    context "when the recipient is unknown" do
+      setup { get :confirm, :id => @invitation.id, :token => @invitation.token }
+      should_not_assign_to :user
+      should_not_set_the_flash
+      should_redirect_to( "sign up with a token" ) { sign_up_path( :token => @invitation.token ) }
+    end
+    
+    context "when a user is logged in" do
+      setup do
+        @user = Factory(:email_confirmed_user, :email => @recipient_email)
+        assert_nil @invitation.recipient_id
+        sign_in_as @user
         get :confirm, :id => @invitation.id, :token => @invitation.token
       end
-      should_redirect_to( "accept the invitation" ) { accept_invitation_path(@invitation, :token => @invitation.token) }
+      should_assign_to :invitation, :user
+      should 'assign the user as the invitation recipient' do
+        assert_equal assigns(:user).id, assigns(:invitation).recipient_id
+      end
+      should_not_set_the_flash
+      should_redirect_to( "the invitation list" ) { invitations_path }
+    end
+    
+    context "when the recipient_email is matched but not logged in" do
+      setup do
+        @user = Factory(:email_confirmed_user, :email => @recipient_email)
+        assert_nil @invitation.recipient_id
+        get :confirm, :id => @invitation.id, :token => @invitation.token
+      end
+      should_assign_to :invitation, :user
+      should 'assign the user as the invitation recipient' do
+        assert_equal assigns(:user).id, assigns(:invitation).recipient_id
+      end
+      should_set_the_flash_to "Please sign in to accept your invitation."
+      should_redirect_to( "the invitation list" ) { invitations_path }
     end
   end
   

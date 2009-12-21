@@ -4,7 +4,7 @@ class InvitationsController < ApplicationController
   before_filter :forbid_missing_token, :only => [:confirm]
   
   def index
-    @invitations = current_user.pending_invitations
+    @invitations = current_user.invitations.pending
   end
   
   def new
@@ -36,16 +36,17 @@ class InvitationsController < ApplicationController
   def confirm
     @invitation = Invitation.pending.find_by_token(params[:token])
     if @invitation
-      @user = User.find_by_email(@invitation.recipient_email)
+      @user = current_user || User.find_by_email(@invitation.recipient_email)
       if @user
-        flash[:notice] = "Please sign in to accept your invitation" if signed_out?
-        # known user, just send them home and they'll see the invite there
-        redirect_to accept_invitation_path(@invitation, :token => params[:token])
+        @user.invitations << @invitation
+        @user.save!
+        flash[:notice] = "Please sign in to accept your invitation." if signed_out?
+        redirect_to invitations_path
       else
-        # unknown user, let's send them to sign up with the token
         redirect_to sign_up_path( :token => params[:token] )
       end
     else
+      flash[:error] = "Unable to find a valid invitation."
       redirect_to root_path
     end
   end

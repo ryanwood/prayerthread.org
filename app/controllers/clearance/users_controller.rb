@@ -9,13 +9,14 @@ class Clearance::UsersController < ApplicationController
     @invitation = Invitation.find_by_token(params[:token]) if params[:token]
     if @invitation
       @user.email = @invitation.recipient_email
-      @user.invitation_id = @invitation.id
+      @user.invitation_token = @invitation.token
     end
     render :template => 'users/new'
   end
 
   def create
     @user = ::User.new params[:user]
+    @invitation = Invitation.find_by_token(params[:user][:invitation_token]) if params[:user][:invitation_token]
     if @user.save
       flash_notice_after_create
       redirect_to(url_after_create)

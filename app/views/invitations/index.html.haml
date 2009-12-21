@@ -1,6 +1,6 @@
 - title "Invitations"
 
-%p Here are your current pending invitations
+%p Here are your current pending invitations.
 
 %table
   %tr
@@ -12,6 +12,6 @@
     %tr
       %td= h invitation.sender.name
       %td= h invitation.group.name
-      %td= time_ago_in_words(invitation.sent_at)
-      %td= link_to 'Accept', accept_invitation_path(invitation)
+      %td= "#{time_ago_in_words(invitation.sent_at)} ago"
+      %td= link_to 'Accept', accept_invitation_path(invitation, :token => invitation.token)
       / %td= link_to 'Delete', invitation, :confirm => 'Are you sure?', :method => :delete

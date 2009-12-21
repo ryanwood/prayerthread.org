@@ -35,10 +35,5 @@ class InvitationTest < ActiveSupport::TestCase
     should "set accepted_at" do
       assert_not_nil @invitation.accepted_at
     end
-    should "set accepted_user_id" do
-      assert_not_nil @invitation.accepted_user_id
-    end
   end
-  
-  
 end

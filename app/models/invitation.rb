@@ -5,7 +5,7 @@ class Invitation < ActiveRecord::Base
   
   belongs_to :group
   belongs_to :sender, :class_name => "User"
-  belongs_to :accepted_user, :class_name => "User"
+  belongs_to :recipient, :class_name => "User"
   
   validates_presence_of :recipient_email, :on => :create, :message => "can't be blank"
   validates_format_of :recipient_email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
@@ -22,9 +22,7 @@ class Invitation < ActiveRecord::Base
   
   def accept!(user)
     unless accepted?
-      self.accepted_at = Time.now
-      self.accepted_user = user
-      save!
+      update_attribute( :accepted_at, Time.now )
       Membership.create( :group => self.group, :user => user )
     end
   end
