@@ -1,5 +1,16 @@
--if current_user.pending_invitations.size > 0
-  .box
-    %strong= "You have #{pluralize(current_user.pending_invitations.size, 'pending invitation')}."
-    = link_to "Click here to review and accept", invitations_path
-    \.
+.box
+  %h2 Your invitation is waiting...
+  %p
+    You've been invited by
+    %strong<= @invitation.sender.name
+    to join the 
+    %strong<= @invitation.group.name
+    prayer group.
+  %p 
+    We were unable to find your account from the email address on the invitation. |
+    After we confirm who you are and we'll take you right to your new prayer group. |
+  %p
+    %strong
+      If you already have an account, please 
+      = link_to( "sign in", accept_invitation_path(@invitation, :token => params[:token]))
+      to accept the invitation.
