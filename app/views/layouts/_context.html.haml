@@ -1,4 +1,5 @@
 - if signed_in?
+  = link_to( current_user.invitations.pending.count, invitations_path, :class => 'pending_invitation_count')
   = "Welcome #{current_user.name}! Not you?"
   = link_to "Sign out", sign_out_path
 - else

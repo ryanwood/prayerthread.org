@@ -81,10 +81,12 @@ table {
     vertical-align: top; }
   table th, table td {
     text-align: left;
-    padding: 5px 0;
+    padding: 5px;
     background: url(../images/dotted_horizontal_border.png) bottom repeat-x; }
   table td.actions {
     text-align: right; }
+  table td.actions, table td.updated {
+    white-space: nowrap; }
 
 table#prayer_list td.prayer span {
   font-size: 0.8em;
@@ -94,3 +96,18 @@ table#prayer_list a.prayer_title {
 
 a.delete {
   color: #990000; }
+
+a.pending_invitation_count {
+  -moz-background-clip: border;
+  -moz-background-inline-policy: continuous;
+  -moz-background-origin: padding;
+  -moz-border-radius: 5px;
+  background-color: #DDDDDD;
+  color: #999999;
+  display: inline-block;
+  font-size: 10px;
+  font-weight: bold;
+  margin-left: 2px;
+  padding: 1px 5px;
+  text-decoration: none;
+  text-shadow: none; }

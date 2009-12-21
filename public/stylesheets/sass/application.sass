@@ -92,10 +92,12 @@ table
     :vertical-align top
   th, td
     :text-align left
-    :padding 5px 0
+    :padding 5px
     :background url(../images/dotted_horizontal_border.png) bottom repeat-x
   td.actions
     :text-align right
+  td.actions, td.updated
+    :white-space nowrap
 
 table#prayer_list
   td.prayer
@@ -107,4 +109,21 @@ table#prayer_list
 
 a.delete
   :color= !red
+
+a.pending_invitation_count  
+  :-moz-background-clip border
+  :-moz-background-inline-policy continuous
+  :-moz-background-origin padding
+  :-moz-border-radius 5px
+  :background-color #DDDDDD
+  :color #999999
+  :display inline-block
+  :font-size 10px
+  :font-weight bold
+  :margin-left 2px
+  :padding 1px 5px
+  :text-decoration none
+  :text-shadow none
+  
+  
 // Formtastic Overrides
