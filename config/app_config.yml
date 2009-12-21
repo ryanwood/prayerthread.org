@@ -1,5 +1,5 @@
 base: &base
-  do_not_reply: no-reply@prayerthread.org
+  do_not_reply: donotreply@prayerthread.org
 
 development:
   <<: *base
