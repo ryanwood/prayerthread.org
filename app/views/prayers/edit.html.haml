@@ -12,30 +12,4 @@
 
 
 - content_for :sidebar do
-  %h3 Formatting Help
-  %p 
-    You can use 
-    = link_to "textile", "http://www.textism.com/tools/textile/", :target => '_blank'
-    formatting if you wish. Here are a few of the most common features:
-  %p
-    %table
-      %tr
-        %td To make text bold:
-        %td
-          %strong *Bold*
-      %tr
-        %td To emphasize text:
-        %td
-          %em _Emphasis_
-      %tr
-        %td To insert a link:
-        %td
-          %strong "linktext":url
-      %tr
-        %td Bulleted lists:
-        %td
-          %strong *
-      %tr
-        %td Numbered list:
-        %td
-          %strong #
+  = render :partial => "/shared/formatting_help"

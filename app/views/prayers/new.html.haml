@@ -6,3 +6,6 @@
   = form.buttons
   
 %p= link_to "Back to List", prayers_path
+
+- content_for :sidebar do
+  = render :partial => "/shared/formatting_help"
