@@ -1,7 +1,7 @@
 - title h(@prayer.title)
 .box
   :textile
-    #{h @prayer.body}
+    #{@prayer.body}
 %p
   Last updated
   = time_ago_in_words(@prayer.updated_at)
