@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :prayers
   has_many :memberships
   has_many :groups, :through => :memberships
-  has_many :owned_groups, :class_name => "group", :foreign_key => "owner_id"
+  has_many :owned_groups, :class_name => "Group", :foreign_key => "owner_id"
   has_many :invitations, :foreign_key => "recipient_id"
   
   validates_presence_of :first_name, :last_name
@@ -25,9 +25,12 @@ class User < ActiveRecord::Base
   
   def add_recipient_to_invitation
     if invitation_token
-      self.invitations << Invitation.find_by_token(invitation_token)
-      save(false)
-      invitation_token = nil
+      invitation = Invitation.find_by_token(invitation_token) 
+      if invitation
+        self.invitations << invitation
+        save(false)
+        invitation_token = nil
+      end
     end
   end
   
