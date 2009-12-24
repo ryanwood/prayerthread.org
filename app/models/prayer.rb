@@ -2,7 +2,7 @@ class Prayer < ActiveRecord::Base
   attr_accessible :title, :body, :group_ids
 
   belongs_to :user
-  has_many :comments
+  has_many :comments, :order => 'created_at DESC'
   has_and_belongs_to_many :groups
   
   delegate :name, :to => :user

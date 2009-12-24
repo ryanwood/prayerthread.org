@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   after_create :add_recipient_to_invitation
   
   has_many :prayers
+  has_many :comments
   has_many :memberships
   has_many :groups, :through => :memberships
   has_many :owned_groups, :class_name => "Group", :foreign_key => "owner_id"

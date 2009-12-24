@@ -6,10 +6,6 @@ class CommentsController < ApplicationController
     @comments = @prayer.comments
   end
   
-  def show
-    @comment = Comment.find(params[:id])
-  end
-  
   def new
     @comment = Comment.new
   end
@@ -26,8 +22,7 @@ class CommentsController < ApplicationController
   end
   
   def edit
-    @comment = Comment.find(params[:id])
-    raise ActionController::Forbidden unless current_user == @comment.user
+    @comment = current_user.comments.find(params[:id])
   end
   
   def update
@@ -41,10 +36,10 @@ class CommentsController < ApplicationController
   end
   
   def destroy
-    @comment = Comment.find(params[:id])
+    @comment = current_user.comments.find(params[:id])
     @comment.destroy
     flash[:notice] = "Successfully destroyed comment."
-    redirect_to comments_url
+    redirect_to prayer_comments_url(@prayer)
   end
   
   private

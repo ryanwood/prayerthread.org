@@ -8,6 +8,15 @@ class CommentsControllerTest < ActionController::TestCase
     sign_in_as @comment.user
   end
   
+  context "on GET to :index" do
+    setup { get :index, :prayer_id => @prayer }
+    should_assign_to :comments
+    should_assign_to( :prayer ) { @prayer }
+    should_respond_with :success
+    should_render_template :index
+    should_not_set_the_flash
+  end
+  
   context "on GET to :new" do
     setup { get :new, :prayer_id => @prayer }
     should_assign_to :comment
@@ -31,9 +40,31 @@ class CommentsControllerTest < ActionController::TestCase
       setup do
         sign_in_as Factory(:email_confirmed_user)
       end
-      should "raise a Forbidden error" do
-        assert_raise( ActionController::Forbidden ) {
+      should "raise a Record Not Found error" do
+        assert_raise( ActiveRecord::RecordNotFound ) {
           get :edit, :id => @comment, :prayer_id => @prayer
+        }
+      end
+    end
+  end
+  
+  context "on DELETE to :destroy" do
+    context "with a comment you own" do
+      setup { delete :destroy, :id => @comment, :prayer_id => @prayer }
+      should_assign_to :comment
+      should_assign_to( :prayer ) { @prayer }
+      should_respond_with :redirect
+      should_redirect_to("the comment list for the current prayer") { prayer_comments_url(@prayer) }
+      should_set_the_flash_to /Success/
+    end
+    
+    context "with a comment you don't own" do
+      setup do
+        sign_in_as Factory(:email_confirmed_user)
+      end
+      should "raise a Record Not Found error" do
+        assert_raise( ActiveRecord::RecordNotFound ) {
+          delete :destroy, :id => @comment, :prayer_id => @prayer
         }
       end
     end

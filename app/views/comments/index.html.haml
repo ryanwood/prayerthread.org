@@ -1,7 +1,8 @@
-%h3 Recent Comments
+- title "Comments for #{@prayer.title}"
+%p= link_to "Back to Prayer", @prayer
 #comment_list
-  - unless @recent_comments.empty?
-    - @recent_comments.each do |comment|
+  - unless @comments.empty?
+    - @comments.each do |comment|
       %div[comment]{ :class => comment.user == comment.prayer.user ? "update" : "" }
         :textile
           #{comment.body}
@@ -9,6 +10,6 @@
           = "said #{comment.user.name} #{time_ago_in_words(comment.created_at)} ago"
           - if current_user == comment.user
             = "[#{link_to "edit", edit_prayer_comment_path(comment.prayer, comment)}]"
-    %p= link_to "View all Comments", prayer_comments_path(@prayer)
+            = "[#{link_to "delete", prayer_comment_path(comment.prayer, comment), :confirm => 'Are you sure?', :method => :delete}]"
   - else
     No comments yet...

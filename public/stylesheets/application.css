@@ -112,17 +112,17 @@ a.pending_invitation_count {
   text-decoration: none;
   text-shadow: none; }
 
-#recent_comment_list .recent_comment {
+#comment_list .comment {
   padding: 5px;
   margin: 10px 0;
   background-color: #eee; }
-  #recent_comment_list .recent_comment p {
+  #comment_list .comment p {
     padding: 0 0 3px 0;
     margin: 0; }
-  #recent_comment_list .recent_comment p.who {
+  #comment_list .comment p.who {
     font-size: 0.7em;
     font-style: italic; }
-#recent_comment_list .recent_comment.update {
+#comment_list .comment.update {
   background: #E5ECF9; }
 
 /* <div class='recent_comment' id='recent_comment_1'>
