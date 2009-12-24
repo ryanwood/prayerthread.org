@@ -29,7 +29,7 @@ class PrayersControllerTest < ActionController::TestCase
       setup do
         get :show, :id => @prayer.id
       end
-      should_assign_to :prayer
+      should_assign_to :prayer, :recent_comments
       should_respond_with :success
       should_render_template :show
       should_not_set_the_flash

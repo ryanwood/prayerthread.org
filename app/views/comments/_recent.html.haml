@@ -1,0 +1,13 @@
+%h3 Recent Comments
+#recent_comment_list
+  - unless @recent_comments.empty?
+    - @recent_comments.each do |comment|
+      %div[comment, :recent]{ :class => comment.user == comment.prayer.user ? "update" : "" }
+        :textile
+          #{comment.body}
+        %p.who
+          = "said #{comment.user.name} #{time_ago_in_words(comment.created_at)} ago"
+          - if current_user == comment.user
+            = "[#{link_to "edit", edit_prayer_comment_path(comment.prayer, comment)}]"
+  - else
+    No comments yet...
