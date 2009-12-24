@@ -5,7 +5,8 @@ class CommentsControllerTest < ActionController::TestCase
   def setup
     @comment = Factory(:comment)
     @prayer = @comment.prayer
-    sign_in_as @comment.user
+    @user = @comment.user
+    sign_in_as @user
   end
   
   context "on GET to :index" do
@@ -69,6 +70,48 @@ class CommentsControllerTest < ActionController::TestCase
       end
     end
   end
+  
+  context "on POST to :create" do
+    should "render new template when model is invalid" do
+      Comment.any_instance.stubs(:valid?).returns(false)
+      post :create, :prayer_id => @prayer.id
+      assert_template 'new'
+    end
+    
+    context "when the model is valid" do
+      setup do
+        Comment.any_instance.stubs(:valid?).returns(true)
+        post :create, :prayer_id => @prayer.id
+      end
+      should "redirect to the prayer" do
+        assert_redirected_to prayer_url(assigns(:prayer))
+      end
+      should "set the comment user" do
+        assert_equal @user, assigns(:comment).user
+      end
+    end    
+    should "only create comments for prayers I have access"
+  end
+  
+  context "on PUT to :update" do
+    should "render new template when model is invalid" do
+      Comment.any_instance.stubs(:valid?).returns(false)
+      put :update, :prayer_id => @prayer.id, :id => @comment.id
+      assert_template 'edit'
+    end
+    
+    context "when the model is valid" do
+      setup do
+        Comment.any_instance.stubs(:valid?).returns(true)
+        put :update, :prayer_id => @prayer.id, :id => @comment.id
+      end
+      should "redirect to the prayer" do
+        assert_redirected_to prayer_url(assigns(:prayer))
+      end
+    end
+    should "only edit comments that I own"
+  end
+  
 
   # 
   # 

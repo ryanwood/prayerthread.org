@@ -29,7 +29,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     if @comment.update_attributes(params[:comment])
       flash[:notice] = "Successfully updated comment."
-      redirect_to @comment
+      redirect_to @prayer
     else
       render :action => 'edit'
     end
