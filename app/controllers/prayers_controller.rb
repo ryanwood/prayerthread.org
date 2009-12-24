@@ -8,6 +8,7 @@ class PrayersController < ApplicationController
   def show
     @prayer = Prayer.find_for(params[:id], current_user)
     raise ActiveRecord::RecordNotFound, "Record not found" unless @prayer
+    @recent_comments = @prayer.comments.recent
   end
   
   def new

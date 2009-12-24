@@ -1,8 +1,11 @@
 class Prayer < ActiveRecord::Base
   attr_accessible :title, :body, :group_ids
+
   belongs_to :user
-  delegate :name, :to => :user
+  has_many :comments
   has_and_belongs_to_many :groups
+  
+  delegate :name, :to => :user
   
   named_scope :all_for, lambda { |user|
     groups = user.groups 

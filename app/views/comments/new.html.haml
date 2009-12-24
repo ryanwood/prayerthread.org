@@ -1,0 +1,16 @@
+- title "Add a New Comment"
+
+%p= link_to "Back to Prayer", @prayer
+
+- semantic_form_for [@prayer, @comment] do |form|
+  = form.error_messages
+  = render :partial => "inputs", :locals => { :form => form }
+  = form.buttons
+
+%h3 You are commenting on the following prayer:
+.box
+  :textile
+    #{@prayer.body}
+    
+- content_for :sidebar do
+  = render :partial => "/shared/formatting_help"

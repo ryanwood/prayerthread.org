@@ -1,0 +1,14 @@
+- title "Edit your Comment"
+
+- semantic_form_for [@prayer, @comment] do |form|
+  = form.error_messages
+  = render :partial => "inputs", :locals => { :form => form }
+  = form.buttons
+
+%p
+  = link_to "Show", prayer_comment_path(@prayer, @comment)
+  |
+  = link_to "View All", prayer_comments_path(@prayer)
+
+- content_for :sidebar do
+  = render :partial => "/shared/formatting_help"

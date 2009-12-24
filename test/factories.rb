@@ -24,6 +24,12 @@ Factory.define :prayer do |f|
   f.association :user, :factory => :email_confirmed_user
 end
 
+Factory.define :comment do |f|
+  f.body "Keep praying!"
+  f.association :prayer
+  f.association :user, :factory => :email_confirmed_user
+end
+
 Factory.define :group do |f|
   f.name "My group"
   f.association :owner, :factory => :email_confirmed_user

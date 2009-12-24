@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :prayers
+  map.resources :prayers, :has_many => :comments
   map.resources :groups do |group|
     group.resources :invitations, :only => [:new, :create, :destroy]
   end  
