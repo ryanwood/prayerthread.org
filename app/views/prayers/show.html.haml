@@ -12,7 +12,7 @@
   = group_list(@prayer)
 
 %p
-  - if current_user == @prayer.user
+  - if can?( :manage, @prayer )
     = link_to "Add an Update", new_prayer_comment_path(@prayer)
     |
     = link_to "Edit", edit_prayer_path(@prayer)

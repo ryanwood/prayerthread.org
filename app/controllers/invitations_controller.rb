@@ -24,7 +24,7 @@ class InvitationsController < ApplicationController
   
   def destroy
     @invitation = @group.invitations.find(params[:id])
-    if @invitation && current_user == @group.owner
+    if can? :destroy, @invitation
       @invitation.destroy
       flash[:notice] = "Successfully cancelled invitation."
     else
