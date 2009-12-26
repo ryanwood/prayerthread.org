@@ -3,8 +3,8 @@
   :textile
     #{@prayer.body}
 %p
-  Last updated
-  = time_ago_in_words(@prayer.updated_at)
+  Created
+  = time_ago_in_words(@prayer.created_at)
   ago by
   %strong= h @prayer.name
   %br  

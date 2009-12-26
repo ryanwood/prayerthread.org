@@ -15,7 +15,7 @@
           %span= truncate(h(prayer.body), :length => 80)
           %br
           %small= "by #{h prayer.name} in #{group_list(prayer)}"
-        %td.updated= "#{time_ago_in_words(prayer.updated_at)} ago"
+        %td.updated= "#{time_ago_in_words(prayer.thread_updated_at)} ago"
         %td.actions
           -if prayer.user == current_user
             = link_to 'Edit', edit_prayer_path(prayer)

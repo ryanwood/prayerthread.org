@@ -8,7 +8,12 @@
         %p.who
           = "said #{comment.user.name} #{time_ago_in_words(comment.created_at)} ago"
           - if current_user == comment.user
-            = "[#{link_to "edit", edit_prayer_comment_path(comment.prayer, comment)}]"
+            |
+            = link_to "edit", edit_prayer_comment_path(comment.prayer, comment)
+            |
+            = link_to "delete", prayer_comment_path(comment.prayer, comment), |
+              :method => :delete, |
+              :confirm => "Are you sure you want to delete this comment?" |
     %p= link_to "View all Comments", prayer_comments_path(@prayer)
   - else
     No comments yet...

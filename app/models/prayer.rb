@@ -5,6 +5,8 @@ class Prayer < ActiveRecord::Base
   has_many :comments, :order => 'created_at DESC'
   has_and_belongs_to_many :groups
   
+  before_create :mark_thread_updated
+  
   delegate :name, :to => :user
   
   named_scope :all_for, lambda { |user|
@@ -13,7 +15,7 @@ class Prayer < ActiveRecord::Base
       :select => "DISTINCT prayers.*",
       :include => :groups, 
       :conditions => ['groups.id IN (?) OR prayers.user_id = ?', groups.map {|g| g.id }, user.id],
-      :order => 'prayers.updated_at DESC'
+      :order => 'prayers.thread_updated_at DESC'
     }
   }
   
@@ -26,6 +28,12 @@ class Prayer < ActiveRecord::Base
         user.id, 
         user.groups]
     )
+  end
+  
+  protected
+  
+  def mark_thread_updated
+    self.thread_updated_at = Time.now
   end
   
 end
