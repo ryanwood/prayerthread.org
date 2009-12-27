@@ -7,14 +7,20 @@ class CommentsController < ApplicationController
   end
   
   def new
-    @comment = Comment.new
+    @comment = @prayer.comments.build
   end
   
   def create
-    @comment = @prayer.comments.build(params[:comment])
+    @comment = Comment.new(params[:comment])
+    @comment.prayer = @prayer
     @comment.user = current_user
+    msg = ''
+    if params[:comment] && params[:comment].has_key?(:prayer)
+      @comment.prayer.answered = params[:comment][:prayer][:answered]
+      msg = " and marked the prayer answered"
+    end
     if @comment.save
-      flash[:notice] = "Successfully created comment."
+      flash[:notice] = "Successfully created comment#{msg}."
       redirect_to @prayer
     else
       render :action => 'new'

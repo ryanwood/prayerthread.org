@@ -125,8 +125,12 @@ a.pending_invitation_count {
 #comment_list .comment.update {
   background: #E5ECF9; }
 
-/* <div class='recent_comment' id='recent_comment_1'>
- *         <p class='commentor'>Ryan Wood says:</p>
- *         <p>I love this thing.</p>
- *         <p class='when'>added about 23 hours ago</p>
- *       </div> */
+.answered {
+  font-weight: bold;
+  color: white;
+  background: #00275e;
+  text-align: right;
+  padding: 3px; }
+
+input[type="checkbox"], input[type="radio"], input.checkbox, input.radio {
+  top: 0; }

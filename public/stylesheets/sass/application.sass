@@ -138,12 +138,14 @@ a.pending_invitation_count
       :font-style italic
   .comment.update
     :background #E5ECF9
-/*
-  <div class='recent_comment' id='recent_comment_1'>
-          <p class='commentor'>Ryan Wood says:</p>
-          <p>I love this thing.</p>
-          <p class='when'>added about 23 hours ago</p>
-        </div>
 
-  
+.answered
+  :font-weight bold
+  :color= !white
+  :background= !blue
+  :text-align right
+  :padding 3px
+
 // Formtastic Overrides
+input[type="checkbox"], input[type="radio"], input.checkbox, input.radio
+  :top 0

@@ -1,13 +1,15 @@
-- title "Add a New Comment"
+- title can?( :manage, @prayer ) ? "Add an Update" : "Add a New Comment"
 
 %p= link_to "Back to Prayer", @prayer
 
 - semantic_form_for [@prayer, @comment] do |form|
   = form.error_messages
-  = render :partial => "inputs", :locals => { :form => form }
-  = form.buttons
+  = render :partial => "inputs", :locals => { :form => form, :is_owner => @is_owner }
+  - form.buttons do
+    = form.commit_button can?( :manage, @prayer ) ? "Add Update" : "Add Comment"
 
-%h3 You are commenting on the following prayer:
+- desc = can?( :manage, @prayer ) ? "sharing an update" : "commenting"
+%h3= "You are #{desc} on the following prayer:"
 .box
   :textile
     #{@prayer.body}

@@ -1,5 +1,5 @@
 class Prayer < ActiveRecord::Base
-  attr_accessible :title, :body, :group_ids
+  attr_accessible :title, :body, :answered, :group_ids
 
   belongs_to :user
   has_many :comments, :order => 'created_at DESC'

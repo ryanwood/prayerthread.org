@@ -89,7 +89,7 @@ class CommentsControllerTest < ActionController::TestCase
       should "set the comment user" do
         assert_equal @user, assigns(:comment).user
       end
-    end    
+    end
     should "only create comments for prayers I have access"
   end
   

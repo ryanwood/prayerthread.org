@@ -1,4 +1,6 @@
 - title h(@prayer.title)
+- if @prayer.answered?
+  .answered This prayer has been answered!
 .box
   :textile
     #{@prayer.body}
@@ -17,7 +19,8 @@
     |
     = link_to "Edit", edit_prayer_path(@prayer)
     |
-    = link_to "Destroy", @prayer, :confirm => 'Are you sure?', :method => :delete
+    = link_to "Delete", @prayer, :method => :delete, |
+      :confirm => 'Are you sure? This will permanently delete this prayer and all it\'s comments.' |
     |
   - else
     = link_to "Add a Comment or Encouragement", new_prayer_comment_path(@prayer)

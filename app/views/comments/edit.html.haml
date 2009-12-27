@@ -1,9 +1,10 @@
-- title "Edit your Comment"
+- title "Edit your #{can?( :manage, @prayer ) ? 'Update' : 'Comment'}"
 
 - semantic_form_for [@prayer, @comment] do |form|
   = form.error_messages
   = render :partial => "inputs", :locals => { :form => form }
-  = form.buttons
+  - form.buttons do
+    = form.commit_button can?( :manage, @prayer ) ? "Edit Update" : "Edit Comment"
 
 %p
   = link_to "View All", prayer_comments_path(@prayer)
