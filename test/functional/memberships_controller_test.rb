@@ -5,7 +5,7 @@ class MembershipsControllerTest < ActionController::TestCase
     @owner_user = Factory(:email_confirmed_user)
     @member_user = Factory(:email_confirmed_user)
     @not_allowed_user = Factory(:email_confirmed_user)
-    @group = Factory(:group, :owner => @owner_user )    
+    @group = Factory(:group, :owner => @owner_user )
     @membership = Factory(:membership, :group => @group, :user => @member_user)
   end
   context "on DELETE to :destroy" do
@@ -25,7 +25,12 @@ class MembershipsControllerTest < ActionController::TestCase
     
     context "when authenticated as the group owner" do
       setup { sign_in_as @owner_user }
-      should "delete any membership in the group" do
+      should "not delete their membership in the group" do
+        membership = Membership.find_by_user_id( @owner_user )
+        Membership.any_instance.expects(:destroy).never
+        delete :destroy, :id => membership
+      end
+      should "delete any other membership in the group" do
         Membership.any_instance.expects(:destroy)
         delete :destroy, :id => @membership
       end
