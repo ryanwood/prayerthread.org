@@ -10,142 +10,146 @@
 !red        = #990000
 
 body
-  :font-size 80%
-  :font-family "Lucida Grande", "Helvetica Neue", Arial, Helvetica, sans-serif
+  font-size: 80%
+  font-family: "Lucida Grande", "Helvetica Neue", Arial, Helvetica, sans-serif
 p
-  :padding-top 5px
+  padding-top: 5px
 h1
-  :font-size 2.5em
+  font-size: 2.5em
 #header
-  :padding 20px 0
+  padding: 20px 0
   #context
-    :float right
+    float: right
   #menu
     ul
-      :display inline
-      :list-style-type none
-      :padding 0
-      :margin 0
+      display: inline
+      list-style-type: none
+      padding: 0
+      margin: 0
       li
-        :display inline
-        :font-size 18px
-        :margin 5px
-        :padding-left 10px
-        :border-left= 1px "solid" !gray
+        display: inline
+        font-size: 18px
+        margin: 5px
+        padding-left: 10px
+        border-left:= 1px "solid" !gray
       li.first
-        :padding-left 0
-        :border-left-width 0
+        padding-left: 0
+        border-left-width: 0
         
 #footer
-  :margin 20px 0
-  :font-size 80%
-  :text-align left
+  margin: 20px 0
+  font-size: 80%
+  text-align: left
 
 // Flash Overrides
 .success, .notice, .error, .failure
-  :color #000
-  :padding 5px 8px
-  :margin 10px 0
+  color: #000
+  padding: 5px 8px
+  margin: 10px 0
 .success, .notice
-  :background-color #CFC
-  :border solid 1px #6C6
+  background-color: #CFC
+  border: solid 1px #6C6
 .error, .failure
-  :background-color #FCC
-  :border solid 1px #C66
+  background-color: #FCC
+  border: solid 1px #C66
 
 // Form Errors
 
 .fieldWithErrors
-  :display inline
+  display: inline
 
 #errorExplanation
-  :width 400px
-  :border 2px solid #CF0000
-  :padding 0
-  :padding-bottom 12px
-  :margin-bottom 20px
-  :background-color #fff
+  width: 400px
+  border: 2px solid #CF0000
+  padding: 0
+  padding-bottom: 12px
+  margin-bottom: 20px
+  background-color: #fff
   / #f0f0f0
   h2
-    :text-align left
-    :padding 5px 5px 5px 15px
-    :margin 0
-    :font
-      :weight bold
-      :size 12px
-    :background-color #c00
-    :color #fff
+    text-align: left
+    padding: 5px 5px 5px 15px
+    margin: 0
+    font:
+      weight: bold
+      size: 12px
+    background-color: #c00
+    color: #fff
   p
-    :color #333
-    :margin-bottom 0
-    :padding 8px
+    color: #333
+    margin-bottom: 0
+    padding: 8px
   ul
-    :margin 2px 24px
+    margin: 2px 24px
     li
-      :font-size 12px
-      :list-style disc
+      font-size: 12px
+      list-style: disc
 
 table
-  :width 100%
-  :border-collapse collapse
+  width: 100%
+  border-collapse: collapse
   tr
-    :vertical-align top
+    vertical-align: top
   th, td
-    :text-align left
-    :padding 5px
-    :background url(../images/dotted_horizontal_border.png) bottom repeat-x
+    text-align: left
+    padding: 5px
+    background: url(../images/dotted_horizontal_border.png) bottom repeat-x
   td.actions
-    :text-align right
+    text-align: right
   td.actions, td.updated
-    :white-space nowrap
+    white-space: nowrap
 
 table#prayer_list
   td.prayer
     span
-      :font-size 0.8em
+      font-size: 0.8em
       color: #666
   a.prayer_title
-    :font-weight bold
+    font-weight: bold
 
+table
+  td.group
+    font-size: 1.25em
+    
 a.delete
-  :color= !red
+  color:= !red
 
 a.pending_invitation_count  
-  :-moz-background-clip border
-  :-moz-background-inline-policy continuous
-  :-moz-background-origin padding
-  :-moz-border-radius 5px
-  :background-color #DDDDDD
-  :color #999999
-  :display inline-block
-  :font-size 10px
-  :font-weight bold
-  :margin-left 2px
-  :padding 1px 5px
-  :text-decoration none
-  :text-shadow none
+  -moz-background-clip: border
+  -moz-background-inline-policy: continuous
+  -moz-background-origin: padding
+  -moz-border-radius: 5px
+  background-color: #DDDDDD
+  color: #999999
+  display: inline-block
+  font-size: 10px
+  font-weight: bold
+  margin-left: 2px
+  padding: 1px 5px
+  text-decoration: none
+  text-shadow: none
 
 #comment_list
   .comment
-    :padding 5px
-    :margin 10px 0
-    :background-color #eee
+    padding: 5px
+    margin: 10px 0
+    background-color: #eee
     p
-      :padding 0 0 3px 0
-      :margin 0
+      padding: 0 0 3px 0
+      margin: 0
     p.who
-      :font-size 0.7em
-      :font-style italic
+      font-size: 0.7em
+      font-style: italic
   .comment.update
-    :background #E5ECF9
+    background: #E5ECF9
 
 .answered
-  :font-weight bold
-  :color= !white
-  :background= !blue
-  :text-align right
-  :padding 3px
+  font-weight: bold
+  color:= !white
+  background:= !blue
+  text-align: right
+  padding: 3px
 
 // Formtastic Overrides
 input[type="checkbox"], input[type="radio"], input.checkbox, input.radio
-  :top 0
+  top: 0
