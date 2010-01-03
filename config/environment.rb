@@ -11,6 +11,7 @@ Rails::Initializer.run do |config|
   config.gem 'clearance', :source => 'http://gemcutter.org'
   config.gem 'formtastic', :source => 'http://gemcutter.org'
   config.gem 'cancan'
+  config.gem 'friendly_id'
   
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers

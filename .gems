@@ -2,3 +2,4 @@ haml
 clearance --source gemcutter.org
 formtastic  --source gemcutter.org
 cancan
+friendly_id
