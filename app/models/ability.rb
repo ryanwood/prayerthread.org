@@ -3,8 +3,15 @@ class Ability
 
   def initialize(user)
     @user = user || User.new
+    @permitted_groups = user.groups
     
-    can :manage, Prayer do |action, prayer|
+    alias_action :edit, :update, :destroy, :to => :modify
+    
+    can [:index, :create], Prayer
+    can :show, Prayer do |prayer|
+      prayer && (prayer.user == @user || has_access_to(prayer.groups) )
+    end
+    can :modify, Prayer do |prayer|
       prayer && prayer.user == @user
     end
 
@@ -14,7 +21,7 @@ class Ability
     #   @user.groups.each { |g| return true if allowed_groups.include?(g) }
     #   false
     # end
-    can [:update, :destroy], Comment do |comment|
+    can :modify, Comment do |comment|
       comment && comment.user == @user
     end
     
@@ -29,6 +36,10 @@ class Ability
       # 2. I don't own the group and it is my membership
       (@user == group.owner && @user != membership.user) || (@user != group.owner && @user == membership.user)
     end
+  end
+  
+  def has_access_to(groups)
+    !(@permitted_groups & groups).empty?
   end
   
 end
