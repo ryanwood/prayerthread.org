@@ -3,7 +3,7 @@
 
 class ApplicationController < ActionController::Base
   include Clearance::Authentication
-  include ExceptionNotifiable
+  # include ExceptionNotifiable
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
