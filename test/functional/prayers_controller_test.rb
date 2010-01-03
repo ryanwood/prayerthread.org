@@ -36,20 +36,20 @@ class PrayersControllerTest < ActionController::TestCase
     end
     
     context "with prayer outside my groups" do
-      should "raise an error" do
-        assert_raise ActiveRecord::RecordNotFound do
-          get :show, :id => @prayer_not_allowed.id
-        end
-      end
+      setup { get :show, :id => @prayer_not_allowed.id }
+      should_be_denied
     end
   end
   
   context "on GET to :new" do
     setup { get :new }
-    should_respond_with :success
-  end
+      should_respond_with :success
+    end
   
   context "on POST to :create" do
+    setup do
+      Prayer.any_instance.stubs(:title).returns("My Prayer") # For friendly_id
+    end
     context "when model is invalid" do
       setup do
         Prayer.any_instance.stubs(:valid?).returns(false)

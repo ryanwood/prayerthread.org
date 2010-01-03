@@ -37,11 +37,12 @@ class CommentsControllerTest < ActionController::TestCase
       should_not_set_the_flash
     end
     
-    should "deny access to a comment you don't own" do
-      sign_in_as Factory(:email_confirmed_user)
-      get :edit, :id => @comment, :prayer_id => @prayer
-      assert_response :redirect
-      assert_not_nil flash[:error]
+    context "with a comment you don't own" do
+      setup do
+        sign_in_as Factory(:email_confirmed_user)
+        delete :edit, :id => @comment, :prayer_id => @prayer
+      end
+      should_be_denied
     end
   end
   
@@ -55,11 +56,12 @@ class CommentsControllerTest < ActionController::TestCase
       should_set_the_flash_to /Success/
     end
     
-    should "deny access to a comment you don't own" do
-      sign_in_as Factory(:email_confirmed_user)
-      delete :destroy, :id => @comment, :prayer_id => @prayer
-      assert_response :redirect
-      assert_not_nil flash[:error]
+    context "with a comment you don't own" do
+      setup do
+        sign_in_as Factory(:email_confirmed_user)
+        delete :destroy, :id => @comment, :prayer_id => @prayer
+      end
+      should_be_denied
     end
   end
   

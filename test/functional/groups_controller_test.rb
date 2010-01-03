@@ -31,6 +31,9 @@ class GroupsControllerTest < ActionController::TestCase
   end
   
   context "on POST to :create" do
+    setup do
+      Group.any_instance.stubs(:name).returns("The Group") # for friendly_id
+    end
     context "when model is invalid" do
       setup do
         Group.any_instance.stubs(:valid?).returns(false)
@@ -72,9 +75,4 @@ class GroupsControllerTest < ActionController::TestCase
     should_redirect_to( "the group list" ) { groups_url }
   end
   
-  def valid_group
-    {
-      :name => "My Group"
-    }
-  end
 end

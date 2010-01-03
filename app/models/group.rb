@@ -6,6 +6,8 @@ class Group < ActiveRecord::Base
   has_many :invitations
   has_and_belongs_to_many :prayers
   
+  has_friendly_id :name, :use_slug => true
+  
   after_create :ensure_owner_is_a_member
   
   validates_presence_of :name, :owner_id

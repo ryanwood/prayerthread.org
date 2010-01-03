@@ -7,6 +7,8 @@ class Prayer < ActiveRecord::Base
   
   before_create :mark_thread_updated
   
+  has_friendly_id :title, :use_slug => true
+  
   delegate :name, :to => :user
   
   named_scope :all_for, lambda { |user|
