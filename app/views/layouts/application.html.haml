@@ -3,7 +3,7 @@
   
   %head
     %title
-      = h(yield(:title) || "Untitled")
+      = "PrayerThread :: #{h(yield(:title))}"
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
     = stylesheet_link_tag 'blueprint/screen', :media => "screen, projection"
     = stylesheet_link_tag 'blueprint/print', :media => "print"
@@ -32,4 +32,4 @@
         = yield(:sidebar)
         
       #footer.span-24.last
-        &copy;2009 sourcescape.com
+        Copyright &copy;2010 sourcescape.com
