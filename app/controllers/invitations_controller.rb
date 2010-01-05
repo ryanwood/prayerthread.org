@@ -4,7 +4,7 @@ class InvitationsController < ApplicationController
   before_filter :forbid_missing_token, :only => [:confirm]
   
   def index
-    @invitations = current_user.invitations.pending
+    @invitations = current_user.invitations.pending_and_ignored
   end
   
   def new
@@ -61,6 +61,16 @@ class InvitationsController < ApplicationController
       flash[:error] = "Unable to find a matching invitation"
       redirect_to root_path
     end
+  end
+  
+  def ignore
+    if @invitation = current_user.invitations.find(params[:id])
+      @invitation.update_attribute :ignored, true
+      flash[:notice] = "That invitation won't bother you anymore."
+    else
+      flash[:error] = "Unable to find a matching invitation"
+    end
+    redirect_to invitations_path
   end
   
   private

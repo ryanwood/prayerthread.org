@@ -13,7 +13,8 @@ class Invitation < ActiveRecord::Base
   
   before_save :initialize_invitation_token
   
-  named_scope :pending, :conditions => { :accepted_at => nil }
+  named_scope :pending, :conditions => { :accepted_at => nil, :ignored => false }
+  named_scope :pending_and_ignored, :conditions => { :accepted_at => nil }
   after_create :send_invitation_email, :unless => :accepted?
   
   def accepted?

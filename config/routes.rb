@@ -1,10 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :prayers, :has_many => :comments
   map.resources :groups do |group|
-    group.resources :invitations, :only => [:new, :create, :destroy]
+    group.resources :invitations, :only => [:new, :create]
   end  
   # Lists the current users pending invitations
-  map.resources :invitations, :only => [:index, :accept, :confirm], :member => { :accept => :get, :confirm => :get }
+  map.resources :invitations, 
+    :only => [:index, :destroy, :accept, :confirm], 
+    :member => { :accept => :get, :confirm => :get, :ignore => :put }
   map.resources :memberships, :only => :destroy
   # The priority is based upon order of creation: first created -> highest priority.
 

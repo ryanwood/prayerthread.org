@@ -22,7 +22,8 @@ h1 {
       display: inline;
       font-size: 18px;
       margin: 5px;
-      padding-left: 10px; }
+      padding-left: 10px;
+      border-left: 1px solid #a8b1b8; }
     #header #menu ul li.first {
       padding-left: 0;
       border-left-width: 0; }
