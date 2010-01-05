@@ -35,10 +35,17 @@ class AbilityTest < ActiveSupport::TestCase
     
     
     # Invitations
-    
-    should "only delete invitations from a group they own" do
+    should "delete invitations from a group they own" do
       group = Factory.build(:group, :owner => @user)
       invitation = Factory.build(:invitation, :group => group)
+      assert @ability.can?(:destroy, invitation)
+      assert @ability.cannot?(:destroy, Factory.build(:invitation))
+    end
+    
+    should "delete invitations they receive" do
+      group = Factory.build(:group, :owner => Factory(:email_confirmed_user))
+      invitation = Factory.build(:invitation, :group => group, :recipient => @user)
+      assert_equal @user, invitation.recipient
       assert @ability.can?(:destroy, invitation)
       assert @ability.cannot?(:destroy, Factory.build(:invitation))
     end

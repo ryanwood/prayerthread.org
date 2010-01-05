@@ -26,7 +26,7 @@ class Ability
     end
     
     can :destroy, Invitation do |invitation|
-      invitation && invitation.group.owner == @user
+      invitation && ( @user == invitation.group.owner || @user == invitation.recipient )
     end
     
     can :destroy, Membership do |membership|

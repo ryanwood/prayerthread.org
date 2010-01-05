@@ -44,35 +44,30 @@ class InvitationsControllerTest < ActionController::TestCase
   end
   
   context "on DELETE to :destroy" do
+    setup do
+       @invitation = Factory(:invitation)
+       sign_in_as Factory(:user)
+    end
+    
+    should "redirect to the invitation list" do
+      delete :destroy, :id => @invitation
+      assert_redirected_to invitations_url
+    end
+    
     context "when authenticated as the group owner" do
-      setup do
-        @invitation = Factory(:invitation)
-        @group = @invitation.group
-        sign_in_as @group.owner
+      setup do       
+        sign_in_as @invitation.group.owner
       end
       should "cancel the invitation" do
         Invitation.any_instance.expects(:destroy)
-        delete :destroy, :group_id => @group.id, :id => @invitation
-      end
-      should "redirect to the group" do
-        delete :destroy, :group_id => @group.id, :id => @invitation
-        assert_redirected_to group_url(@group)
+        delete :destroy, :id => @invitation
       end
     end
     
-    context "when not authenticated as the group owner" do
-      setup do
-        @invitation = Factory(:invitation)
-        @group = @invitation.group
-        sign_in_as Factory(:user)
-      end
+    context "when not authenticated as the group owner or recipient" do
       should "not cancel the invitation" do
         Invitation.any_instance.expects(:destroy).never
-        delete :destroy, :group_id => @group.id, :id => @invitation
-      end
-      should "redirect to the group" do
-        delete :destroy, :group_id => @group.id, :id => @invitation
-        assert_redirected_to group_url(@group)
+        delete :destroy, :id => @invitation
       end
     end
   end

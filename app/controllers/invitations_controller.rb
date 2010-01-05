@@ -1,6 +1,6 @@
 class InvitationsController < ApplicationController
   before_filter :authenticate, :except => :confirm
-  before_filter :load_group, :only => [:new, :create, :destroy]
+  before_filter :load_group, :only => [:new, :create]
   before_filter :forbid_missing_token, :only => [:confirm]
   
   def index
@@ -23,14 +23,14 @@ class InvitationsController < ApplicationController
   end
   
   def destroy
-    @invitation = @group.invitations.find(params[:id])
+    @invitation = Invitation.find(params[:id])
     if can? :destroy, @invitation
       @invitation.destroy
-      flash[:notice] = "Successfully cancelled invitation."
+      flash[:notice] = "Successfully deleted invitation."
     else
-      flash[:error] = "Only the group owner can cancel an invitation"
+      flash[:error] = "Sorry, only the group owner or recipient can delete an invitation"
     end
-    redirect_to group_url(@group)
+    redirect_to invitations_path
   end
   
   def confirm
