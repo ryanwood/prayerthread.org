@@ -131,5 +131,18 @@ a.pending_invitation_count {
   text-align: right;
   padding: 3px; }
 
-input[type="checkbox"], input[type="radio"], input.checkbox, input.radio {
+form#new_user, form#new_session {
+  padding: 2em;
+  margin: 2em 0;
+  border: 1px solid #999; }
+  form#new_user label, form#new_user input, form#new_session label, form#new_session input {
+    font-size: 1.5em; }
+  form#new_user input, form#new_session input {
+    margin-top: 3px;
+    padding: 2px; }
+
+form.formtastic fieldset ol li.error {
+  padding: 5px; }
+
+form.formtastic input[type="checkbox"], form.formtastic input[type="radio"], form.formtastic input.checkbox, form.formtastic input.radio {
   top: 0; }

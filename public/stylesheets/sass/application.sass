@@ -8,6 +8,7 @@
 !white      = #FFFFFF
 !black      = #000000
 !red        = #990000
+!box        = #E5ECF9
 
 body
   font-size: 80%
@@ -151,5 +152,19 @@ a.pending_invitation_count
   padding: 3px
 
 // Formtastic Overrides
-input[type="checkbox"], input[type="radio"], input.checkbox, input.radio
-  top: 0
+form#new_user, form#new_session
+  padding: 2em
+  margin: 2em 0
+  border: 1px solid #999
+  label, input
+    font-size: 1.5em
+  input
+    margin-top: 3px
+    padding: 2px
+    
+form.formtastic fieldset ol li.error
+  padding: 5px
+    
+form.formtastic
+  input[type="checkbox"], input[type="radio"], input.checkbox, input.radio
+    top: 0
