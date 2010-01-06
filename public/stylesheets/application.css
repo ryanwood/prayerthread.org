@@ -1,6 +1,6 @@
 
 body {
-  font-size: 80%;
+  font-size: 90%;
   font-family: "Lucida Grande", "Helvetica Neue", Arial, Helvetica, sans-serif; }
 
 p {
@@ -131,13 +131,12 @@ a.pending_invitation_count {
   text-align: right;
   padding: 3px; }
 
-form#new_user, form#new_session {
+form.formtastic {
   padding: 2em;
-  margin: 2em 0;
-  border: 1px solid #999; }
-  form#new_user label, form#new_user input, form#new_session label, form#new_session input {
-    font-size: 1.5em; }
-  form#new_user input, form#new_session input {
+  margin: 2em 0; }
+  form.formtastic label, form.formtastic input, form.formtastic textarea, form.formtastic select {
+    font-size: 1.25em; }
+  form.formtastic input {
     margin-top: 3px;
     padding: 2px; }
 
