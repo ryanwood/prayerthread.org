@@ -42,9 +42,23 @@ class PrayersControllerTest < ActionController::TestCase
   end
   
   context "on GET to :new" do
-    setup { get :new }
-      should_respond_with :success
+    should "be successful" do
+      get :new
+      assert_response :success
     end
+     context "the new form" do
+      should "only show groups they can post to" do
+        allowed = Factory(:group, :name => 'Allowed Group')
+        forbidden = Factory(:group, :name => "Forbidden Group")
+        @user.groups << allowed
+        get :new
+        assert_select 'li#prayer_groups_input' do
+          assert_select 'label', 'Allowed Group'
+          assert_select 'label', :count => 0, :text => "Forbidden Group"
+        end
+      end
+    end
+  end
   
   context "on POST to :create" do
     setup do

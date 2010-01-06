@@ -4,5 +4,5 @@
   / = form.input :private
   - if !form.object.new_record?
     = form.input :answered, :label => "This prayer has been answered"
-  = form.input :groups, :as => :check_boxes
+  = form.input :groups, :as => :check_boxes, :collection => current_user.groups
 
