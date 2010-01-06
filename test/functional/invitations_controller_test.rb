@@ -143,4 +143,35 @@ class InvitationsControllerTest < ActionController::TestCase
       should_redirect_to( "home" ) { root_path }
     end
   end
+  
+  context "on PUT to :ignore" do
+    setup do
+      @user = Factory(:user)
+      @invitation = Factory(:invitation, :recipient => @user)
+      sign_in_as @user
+    end
+    context "if owned by the user" do
+      should "ignore the invitation" do
+        assert_equal false, @invitation.ignored?
+        put :ignore, :id => @invitation
+        assert_equal true, assigns(:invitation).ignored?
+      end
+    end
+    context "if NOT owned by the user" do
+      setup { @invitation = Factory(:invitation, :recipient => Factory(:user) ) }
+      should "not change the invitation" do
+        Invitation.any_instance.expects(:update_attributes).never
+        put :ignore, :id => @invitation
+      end
+      should "set the error flash" do
+        put :ignore, :id => @invitation
+        assert_nil assigns(:invitation)
+        assert_not_nil flash[:error]
+      end
+    end
+    should "redirect to the invitations list" do
+      put :ignore, :id => @invitation
+      assert_redirected_to invitations_url
+    end
+  end
 end

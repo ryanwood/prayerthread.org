@@ -64,10 +64,11 @@ class InvitationsController < ApplicationController
   end
   
   def ignore
-    if @invitation = current_user.invitations.find(params[:id])
+    begin
+      @invitation = current_user.invitations.find(params[:id])
       @invitation.update_attribute :ignored, true
       flash[:notice] = "That invitation won't bother you anymore."
-    else
+    rescue ActiveRecord::RecordNotFound => ex
       flash[:error] = "Unable to find a matching invitation"
     end
     redirect_to invitations_path
