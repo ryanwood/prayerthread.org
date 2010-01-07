@@ -1,6 +1,6 @@
 
 body {
-  font-size: 90%;
+  font-size: 80%;
   font-family: "Lucida Grande", "Helvetica Neue", Arial, Helvetica, sans-serif; }
 
 p {
@@ -83,16 +83,19 @@ table {
     text-align: left;
     padding: 5px;
     background: url(../images/dotted_horizontal_border.png) bottom repeat-x; }
+  table td.name, table td.title {
+    font-weight: bold;
+    font-size: 1.25em; }
+    table td.name .meta, table td.title .meta {
+      font-weight: normal;
+      line-height: 1.5em;
+      font-size: 0.75em; }
+    table td.name span, table td.title span {
+      color: #666; }
   table td.actions {
     text-align: right; }
   table td.actions, table td.updated {
     white-space: nowrap; }
-
-table#prayer_list td.prayer span {
-  font-size: 0.8em;
-  color: #666; }
-table#prayer_list a.prayer_title {
-  font-weight: bold; }
 
 table td.group {
   font-size: 1.25em; }

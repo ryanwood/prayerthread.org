@@ -3,14 +3,12 @@
 = render :partial => "/invitations/pending_message"
 
 - unless @groups.empty?
-  %table#pretty
+  %table
     - for group in @groups
       %tr
-        %td= h group.name
+        %td.name= link_to h(group.name), group
         %td.actions
-          = link_to 'Detail', group
           -if current_user == group.owner
-            |
             = link_to "Invite", new_group_invitation_path(group)
             |
             = link_to 'Edit', edit_group_path(group)

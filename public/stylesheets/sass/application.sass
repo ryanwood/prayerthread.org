@@ -11,7 +11,7 @@
 !box        = #E5ECF9
 
 body
-  font-size: 90%
+  font-size: 80%
   font-family: "Lucida Grande", "Helvetica Neue", Arial, Helvetica, sans-serif
 p
   padding-top: 5px
@@ -95,18 +95,19 @@ table
     text-align: left
     padding: 5px
     background: url(../images/dotted_horizontal_border.png) bottom repeat-x
+  td.name, td.title
+    font-weight: bold
+    font-size: 1.25em
+    .meta
+      font-weight: normal
+      line-height: 1.5em
+      font-size: 0.75em
+    span
+      color: #666
   td.actions
     text-align: right
   td.actions, td.updated
     white-space: nowrap
-
-table#prayer_list
-  td.prayer
-    span
-      font-size: 0.8em
-      color: #666
-  a.prayer_title
-    font-weight: bold
 
 table
   td.group
