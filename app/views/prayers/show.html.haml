@@ -4,6 +4,13 @@
 .box
   :textile
     #{@prayer.body}
+    
+%p.strong
+  - if can?( :edit, @prayer )
+    = link_to "Add an update on this prayer", new_prayer_comment_path(@prayer)
+  - else
+    = link_to "Add a comment or encouragement regarding this prayer", new_prayer_comment_path(@prayer)
+
 %p
   Created
   = time_ago_in_words(@prayer.created_at)
@@ -14,18 +21,14 @@
   = group_list(@prayer)
 
 %p
-  - if can?( :manage, @prayer )
-    = link_to "Add an Update", new_prayer_comment_path(@prayer)
+  = link_to "Back to Prayer List", prayers_path
+  - if can?( :edit, @prayer )
     |
     = link_to "Edit", edit_prayer_path(@prayer)
+  - if can?( :destroy, @prayer )
     |
-    = link_to "Delete", @prayer, :method => :delete, |
+    = link_to "Delete", @prayer, :method => :delete,                                               |
       :confirm => 'Are you sure? This will permanently delete this prayer and all it\'s comments.' |
-    |
-  - else
-    = link_to "Add a Comment or Encouragement", new_prayer_comment_path(@prayer)
-    |    
-  = link_to "View All", prayers_path
   
 - content_for :sidebar do
   = render :partial => "/comments/recent"
