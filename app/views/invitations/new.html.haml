@@ -4,8 +4,12 @@
 
 - semantic_form_for [@group, @invitation] do |form|
   = form.error_messages
-  = render :partial => "inputs", :locals => { :form => form }
+  - form.inputs do
+    = form.input :recipient_email, :hint => "Use: name, email or 'John Doe &lt;john@company.com&gt;'"
   - form.buttons do
     = form.commit_button "Invite"
 
 %p= link_to "Back to the #{h @group.name} group", @group
+
+%script{ :type => "text/javascript" }
+  = format_related_users_for_autocomplete
