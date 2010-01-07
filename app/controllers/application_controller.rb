@@ -14,4 +14,9 @@ class ApplicationController < ActionController::Base
     flash[:error] = "Sorry, you can't exactly do that."
     redirect_to( root_url )
   end
+  
+  rescue_from ActiveRecord::RecordNotFound do
+    flash[:error] = "Sorry, we couldn't find what you were looking for."
+    redirect_to( :action => :index )
+  end
 end
