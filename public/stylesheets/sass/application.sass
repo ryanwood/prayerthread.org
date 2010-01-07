@@ -167,3 +167,46 @@ form.formtastic fieldset ol li.error
 form.formtastic
   input[type="checkbox"], input[type="radio"], input.checkbox, input.radio
     top: 0
+    
+// Autocomplete
+
+.ac_results
+  padding: 0px
+  background-color= !box
+  //
+    border: 1px solid black
+    background-color: white
+  overflow: hidden
+  z-index: 99999
+
+  ul
+    width: 100%
+    list-style-position: outside
+    list-style: none
+    padding: 0
+    margin: 0
+
+  li
+    margin: 0px
+    padding: 2px 5px
+    cursor: default
+    display: block
+    font: menu
+    // font-size: 12px
+    font-size: 1em
+    // line-height: 16px
+    line-height: 1.5em
+    overflow: hidden
+
+
+.ac_loading
+  background: white url('indicator.gif') right center no-repeat
+
+//
+  .ac_odd
+    background-color: #eee
+
+.ac_over
+  // background-color: #0A246A
+  background-color= !blue
+  color: white

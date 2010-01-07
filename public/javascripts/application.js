@@ -1,2 +1,17 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
+// set default
+var related_users = [];
+
+$(document).ready(function(){
+
+  $("#invitation_recipient_email").autocomplete(related_users, {
+    matchContains: true,
+    minChars: 0,
+    formatResult: function(data, i, total) {
+      // return data[0].replace('&lt;', '<').replace('&gt;','>');
+      var re = /&lt;(.+)&gt;/;
+      var email = re.exec(data[0]);
+      return email[1];
+    }
+  });
+
+});

@@ -22,6 +22,15 @@ class User < ActiveRecord::Base
     invitation.accept!(self) if invitation
   end
   
+  # Any user that is in a shared group
+  def related_users
+    User.all( 
+      :select => 'DISTINCT users.*',
+      :joins => :groups, 
+      :conditions => ["groups.id IN (?)", groups],
+      :order => "users.first_name, users.last_name" )
+  end
+  
   protected
   
   def add_recipient_to_invitation
