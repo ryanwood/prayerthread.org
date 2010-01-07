@@ -46,6 +46,6 @@ Rails::Initializer.run do |config|
   # config.i18n.default_locale = :de
   
   HOST = "localhost:3000"
-  DO_NOT_REPLY = "donotreply@prayerthread.com"
+  DO_NOT_REPLY = "donotreply@prayerthread.org"
   
 end
