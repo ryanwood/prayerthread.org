@@ -1,7 +1,7 @@
 - title "Group: #{h @group.name}"
 %p
   = link_to "View All Groups", groups_path
-  -if current_user == @group.owner
+  - if can? :modify, @group
     |
     = link_to "Invite others", new_group_invitation_path(@group)
     |
@@ -28,11 +28,11 @@
         - else
           Member
       %td.actions
-        -if user != @group.owner && ( current_user == @group.owner || current_user == user )
+        - if can? :destroy, membership
           = link_to "Remove", membership_path(membership), :method => :delete 
           
 %h2 Recent Prayers
 =render :partial => "/prayers/list"
 
--if current_user == @group.owner
+- if can? :modify, @group
   =render :partial => "/invitations/pending"

@@ -7,6 +7,11 @@ class Ability
     
     alias_action :edit, :update, :destroy, :to => :modify
     
+    can :create, Group
+    can :modify, Group do |group|
+      group && group.owner == @user
+    end
+    
     can [:index, :create], Prayer
     can :show, Prayer do |prayer|
       prayer && (prayer.user == @user || has_access_to(prayer.groups) )

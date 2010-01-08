@@ -32,6 +32,18 @@ class AbilityTest < ActiveSupport::TestCase
     #   assert @ability.can?(:create, Factory.build(:prayer, :user => @user))
     #   assert @ability.cannot?(:destroy, Factory.build(:prayer))
     # end
+
+    # Groups
+    
+    should "be able to create a group" do
+      assert @ability.can?(:create, Group)
+    end
+    
+    should "be able to modify a group as an owner" do
+      group = Factory.build(:group, :owner => @user )
+      assert @ability.can?(:modify, group)
+      assert @ability.cannot?(:modify, Factory.build(:group))
+    end
     
     
     # Invitations
