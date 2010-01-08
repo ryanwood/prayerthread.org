@@ -1,4 +1,8 @@
 - title "Edit Prayer"
+.box
+  To mark this prayer as answered, 
+  = link_to "create an update", new_prayer_comment_path(@prayer)
+  \.
 
 - semantic_form_for @prayer do |form|
   = form.error_messages
