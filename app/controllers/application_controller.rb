@@ -2,7 +2,9 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+  before_filter :ensure_domain
   include Clearance::Authentication
+  
   # include ExceptionNotifiable
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
@@ -19,4 +21,11 @@ class ApplicationController < ActionController::Base
     flash[:error] = "Sorry, we couldn't find what you were looking for."
     redirect_to( :action => :index )
   end
+
+  def ensure_domain
+    if RAILS_ENV == 'production' && request.env['HTTP_HOST'] != HOST
+      redirect_to HOST
+    end
+  end
 end
+
