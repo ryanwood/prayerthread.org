@@ -1,6 +1,6 @@
 class InvitationsController < ApplicationController
   before_filter :authenticate, :except => :confirm
-  before_filter :load_group, :only => [:new, :create]
+  before_filter :load_group, :only => [:new, :create, :resend]
   before_filter :forbid_missing_token, :only => [:confirm]
   
   def index
@@ -72,6 +72,17 @@ class InvitationsController < ApplicationController
       flash[:error] = "Unable to find a matching invitation"
     end
     redirect_to invitations_path
+  end
+  
+  def resend
+    @invitation = @group.invitations.find(params[:id])
+    if @invitation && can?( :create, @invitation )
+      @invitation.send_invitation_email
+      flash[:notice] = "Your invitation has been resent to #{@invitation.recipient_email}."
+    else
+      flash[:error] = "Sorry, you can't resend an invitation."
+    end
+    redirect_to @group
   end
   
   private

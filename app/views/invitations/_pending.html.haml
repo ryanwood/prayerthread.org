@@ -11,7 +11,9 @@
         %td.sent
           = time_ago_in_words(invitation.sent_at || invitation.created_at)
           ago
-        %td
+        %td.actions
+          = link_to "Resend", resend_group_invitation_path(@group, invitation), :method => :put
+          |
           = link_to "Delete", invitation_path(invitation), |
             :method => :delete, |
             :confirm => "Are you want to cancel the invitation sent to #{h invitation.recipient_email}?", |

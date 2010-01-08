@@ -28,18 +28,19 @@ class Invitation < ActiveRecord::Base
     end
   end
   
-  protected
-
-  def generate_invitation_token
-    self.token = Digest::SHA1.hexdigest("--#{Time.now.utc}--#{recipient_email}--")
-  end
-
-  def initialize_invitation_token
-    generate_invitation_token if new_record?
-  end
-
   def send_invitation_email
     InvitationMailer.deliver_invitation( self )
     update_attribute :sent_at, Time.now
   end
+  
+  protected
+
+    def generate_invitation_token
+      self.token = Digest::SHA1.hexdigest("--#{Time.now.utc}--#{recipient_email}--")
+    end
+
+    def initialize_invitation_token
+      generate_invitation_token if new_record?
+    end
+
 end

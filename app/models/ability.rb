@@ -25,6 +25,9 @@ class Ability
       comment && comment.user == @user
     end
     
+    can :create, Invitation do |invitation|
+      invitation && @user == invitation.group.owner
+    end
     can :destroy, Invitation do |invitation|
       invitation && ( @user == invitation.group.owner || @user == invitation.recipient )
     end

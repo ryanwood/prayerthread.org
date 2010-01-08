@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :prayers, :has_many => :comments
   map.resources :groups do |group|
-    group.resources :invitations, :only => [:new, :create]
+    group.resources :invitations, :only => [:new, :create, :resend], :member => { :resend => :put }
   end  
   # Lists the current users pending invitations
   map.resources :invitations, 
