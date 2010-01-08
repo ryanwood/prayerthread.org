@@ -1,4 +1,4 @@
-- title can?( :manage, @prayer ) ? "Add an Update" : "Add a New Comment"
+- title can?( :edit, @prayer ) ? "Add an Update" : "Add a New Comment"
 
 %p= link_to "Back to Prayer", @prayer
 
@@ -6,9 +6,9 @@
   = form.error_messages
   = render :partial => "inputs", :locals => { :form => form, :is_owner => @is_owner }
   - form.buttons do
-    = form.commit_button can?( :manage, @prayer ) ? "Add Update" : "Add Comment"
+    = form.commit_button can?( :edit, @prayer ) ? "Add Update" : "Add Comment"
 
-- desc = can?( :manage, @prayer ) ? "sharing an update" : "commenting"
+- desc = can?( :edit, @prayer ) ? "sharing an update" : "commenting"
 %h3= "You are #{desc} on the following prayer:"
 .box
   :textile
