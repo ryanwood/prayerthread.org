@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
 
   def ensure_domain
     if RAILS_ENV == 'production' && request.env['HTTP_HOST'] != HOST
-      redirect_to HOST
+      redirect_to "http://#{HOST}"
     end
   end
 end
