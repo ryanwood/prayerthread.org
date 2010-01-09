@@ -2,6 +2,8 @@
 var related_users = [];
 
 $(document).ready(function(){
+  
+  $('#group_tabs').tabs();
 
   $("#invitation_recipient_email").autocomplete(related_users, {
     matchContains: true,

@@ -186,3 +186,6 @@ form.formtastic input[type="checkbox"], form.formtastic input[type="radio"], for
 .ac_over {
   background-color: #00275e;
   color: white; }
+
+#group_tabs {
+  margin-top: 20px; }

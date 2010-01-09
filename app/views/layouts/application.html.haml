@@ -9,8 +9,8 @@
     = stylesheet_link_tag 'blueprint/print', :media => "print"
     /[if lt IE 8]
       = stylesheet_link_tag 'blueprint/ie', :media => "screen, projection"
-    = stylesheet_link_tag 'formtastic', 'jquery.autocomplete', 'application'
-    = javascript_include_tag 'jquery', 'jquery.autocomplete', 'application', :cache => true
+    = stylesheet_link_tag 'formtastic', 'jquery.autocomplete', 'smoothness/jquery-ui', 'application'
+    = javascript_include_tag 'jquery', 'jquery-ui.min', 'jquery.autocomplete', 'application', :cache => true
     = yield(:head)
   
   %body

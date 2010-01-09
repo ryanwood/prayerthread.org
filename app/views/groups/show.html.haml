@@ -1,35 +1,45 @@
 - title "Group: #{h @group.name}"
 
 %ul.inline
-  %li.first= link_to "View All Groups", groups_path
+  %li.first= link_to "My groups", groups_path
   - if can? :modify, @group
-    %li= link_to "Invite others", new_group_invitation_path(@group)
+    %li= link_to "Invite someone to this group", new_group_invitation_path(@group)
     %li= link_to "Edit", edit_group_path(@group)
     %li= link_to "Delete this group", @group, :confirm => 'Are you sure?', :method => :delete, :class => 'delete'
 
-%h2 Members
-%table
-  %tr
-    %th Name
-    %th Email
-    %th Status
-    %th 
-  - @memberships.each do |membership|
-    - user = membership.user
-    %tr
-      %td.name= h user.name
-      %td.email= user.email
-      %td.status
-        - if user == @group.owner
-          %strong Owner
-        - else
-          Member
-      %td.actions
-        - if can? :destroy, membership
-          = link_to "Remove", membership_path(membership), :method => :delete 
-          
-%h2 Recent Prayers
-=render :partial => "/prayers/list"
+#group_tabs
+  %ul
+    %li
+      %a{ :href => "#members" }Members
+    %li
+      %a{ :href => "#prayers" }Prayers
+    - if can? :modify, @group
+      %li
+        %a{ :href => "#invitations" }Invitations
 
-- if can? :modify, @group
-  =render :partial => "/invitations/pending"
+  #members
+    %table
+      %tr
+        %th Name
+        %th Email
+        %th Status
+        %th 
+      - @memberships.each do |membership|
+        - user = membership.user
+        %tr
+          %td.name= h user.name
+          %td.email= user.email
+          %td.status
+            - if user == @group.owner
+              %strong Owner
+            - else
+              Member
+          %td.actions
+            - if can? :destroy, membership
+              = link_to "Remove", membership_path(membership), :method => :delete 
+  #prayers
+    =render :partial => "/prayers/list"
+
+  - if can? :modify, @group
+    #invitations
+      =render :partial => "/invitations/pending"

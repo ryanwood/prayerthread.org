@@ -1,15 +1,15 @@
-- title "New Invitation"
+- title "Invite to #{@group.name}"
 
 %p Enter the email address of the person you wish to invite to this group.
 
 - semantic_form_for [@group, @invitation] do |form|
   = form.error_messages
   - form.inputs do
-    = form.input :recipient_email, :hint => "Use: name, email or 'John Doe &lt;john@company.com&gt;'"
+    = form.input :recipient_email, :hint => "Something such as 'john@company.com'"
   - form.buttons do
     = form.commit_button "Invite"
 
-%p= link_to "Back to the #{h @group.name} group", @group
+%p= link_to "Back to the group", @group
 
 %script{ :type => "text/javascript" }
   = format_related_users_for_autocomplete
