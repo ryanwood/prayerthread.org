@@ -9,6 +9,9 @@ p {
 h1 {
   font-size: 2.5em; }
 
+h2 {
+  margin-top: 15px; }
+
 .box {
   margin: 1em 0; }
 
@@ -16,25 +19,28 @@ h1 {
   padding: 20px 0; }
   #header #context {
     float: right; }
-  #header #menu ul {
-    display: inline;
-    list-style-type: none;
-    padding: 0;
-    margin: 0; }
-    #header #menu ul li {
-      display: inline;
-      font-size: 18px;
-      margin: 5px;
-      padding-left: 10px;
-      border-left: 1px solid #a8b1b8; }
-    #header #menu ul li.first {
-      padding-left: 0;
-      border-left-width: 0; }
+  #header ul#menu li {
+    font-size: 18px; }
 
 #footer {
   margin: 20px 0;
   font-size: 80%;
   text-align: left; }
+
+ul.inline {
+  display: inline;
+  list-style-type: none;
+  padding: 0;
+  margin: 0; }
+  ul.inline li {
+    display: inline;
+    margin: 0;
+    padding: 0 5px 0 7px;
+    border-left: 1px solid #a8b1b8; }
+  ul.inline li.first {
+    margin-left: 0;
+    padding-left: 0;
+    border-left-width: 0; }
 
 .success, .notice, .error, .failure {
   color: #000;
@@ -126,9 +132,10 @@ a.pending_invitation_count {
   #comment_list .comment p {
     padding: 0 0 3px 0;
     margin: 0; }
-  #comment_list .comment p.who {
-    font-size: 0.7em;
-    font-style: italic; }
+  #comment_list .comment .meta {
+    font-size: 0.7em; }
+    #comment_list .comment .meta .who {
+      font-style: italic; }
 #comment_list .comment.update {
   background: #E5ECF9; }
 

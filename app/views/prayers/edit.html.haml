@@ -9,10 +9,9 @@
   = render :partial => "inputs", :locals => { :form => form }
   = form.buttons
   
-%p
-  = link_to "Show", prayer_path(@prayer)
-  |
-  = link_to "View All", prayers_path
+%ul.inline
+  %li.first= link_to "Show", prayer_path(@prayer)
+  %li= link_to "View All", prayers_path
 
 
 - content_for :sidebar do

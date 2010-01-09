@@ -17,7 +17,7 @@
             = "by #{h prayer.name} in #{group_list(prayer)}"
         %td.updated= "#{time_ago_in_words(prayer.thread_updated_at)} ago"
         %td.actions
-          -if prayer.user == current_user
-            = link_to 'Edit', edit_prayer_path(prayer)
-            |
-            = link_to 'Delete', prayer, :confirm => 'Are you sure?', :method => :delete, :class => "delete"
+          - if can? :modify, prayer
+            %ul.inline
+              %li.first= link_to 'Edit', edit_prayer_path(prayer)
+              %li= link_to 'Delete', prayer, :confirm => 'Are you sure?', :method => :delete, :class => "delete"

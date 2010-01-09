@@ -1,15 +1,12 @@
 - title "Group: #{h @group.name}"
-%p
-  = link_to "View All Groups", groups_path
+
+%ul.inline
+  %li.first= link_to "View All Groups", groups_path
   - if can? :modify, @group
-    |
-    = link_to "Invite others", new_group_invitation_path(@group)
-    |
-    = link_to "Edit", edit_group_path(@group)
-    |
-    = link_to "Delete this group", @group, :confirm => 'Are you sure?', :method => :delete, :class => 'delete'
-  
-  
+    %li= link_to "Invite others", new_group_invitation_path(@group)
+    %li= link_to "Edit", edit_group_path(@group)
+    %li= link_to "Delete this group", @group, :confirm => 'Are you sure?', :method => :delete, :class => 'delete'
+
 %h2 Members
 %table
   %tr

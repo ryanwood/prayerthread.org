@@ -20,14 +20,12 @@
   Shown in
   = group_list(@prayer)
 
-%p
-  = link_to "Back to Prayer List", prayers_path
+%ul.inline
+  %li.first= link_to "Back to Prayer List", prayers_path
   - if can?( :edit, @prayer )
-    |
-    = link_to "Edit", edit_prayer_path(@prayer)
+    %li= link_to "Edit", edit_prayer_path(@prayer)
   - if can?( :destroy, @prayer )
-    |
-    = link_to "Delete", @prayer, :method => :delete,                                               |
+    %li= link_to "Delete", @prayer, :method => :delete,                                            |
       :confirm => 'Are you sure? This will permanently delete this prayer and all it\'s comments.' |
   
 - content_for :sidebar do
