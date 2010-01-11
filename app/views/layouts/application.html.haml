@@ -23,14 +23,15 @@
             
       - flash.each do |name, msg|
         = content_tag :div, msg, :id => "flash_#{name}", :class => name
-      
-      #content.span-17.colborder
+
+      #content{ :class => @content_for_sidebar ? "span-17 colborder" : "span-24 last" }
         - if show_title?
           %h1=h yield(:title)
         = yield
-        
-      #sidebar.span-6.last
-        = yield(:sidebar)
+
+      - if @content_for_sidebar
+        #sidebar.span-6.last
+          = yield(:sidebar)
         
       #footer.span-24.last
         Copyright &copy;2010 sourcescape.com
