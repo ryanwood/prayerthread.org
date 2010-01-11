@@ -12,6 +12,7 @@ Rails::Initializer.run do |config|
   config.gem 'formtastic', :version => '0.9.7', :source => 'http://gemcutter.org'
   config.gem 'cancan', :version => '1.0.2'
   config.gem 'friendly_id', :version => '2.2.7'
+  config.gem 'will_paginate', :version => '~> 2.3.11', :source => 'http://gemcutter.org'
   
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers

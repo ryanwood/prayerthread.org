@@ -3,7 +3,12 @@ class PrayersController < ApplicationController
   load_and_authorize_resource
   
   def index
-    @prayers = Prayer.all_for(current_user)
+    @prayers = Prayer.paginate :all,
+      :page => params[:page],
+      :select => "DISTINCT prayers.*",
+      :include => :groups, 
+      :conditions => ['groups.id IN (?) OR prayers.user_id = ?', current_user.groups.map {|g| g.id }, current_user.id],
+      :order => 'prayers.thread_updated_at DESC'
   end
   
   def show

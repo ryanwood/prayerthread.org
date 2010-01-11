@@ -3,3 +3,4 @@ clearance --version '>=0.8.4' --source gemcutter.org
 formtastic --version '>=0.9.7' --source gemcutter.org
 cancan --version '>=1.0.2'
 friendly_id --version '>=2.2.7'
+will_paginate --version '~> 2.3.11' --source gemcutter.org

@@ -21,3 +21,5 @@
             %ul.inline
               %li.first= link_to 'Edit', edit_prayer_path(prayer)
               %li= link_to 'Delete', prayer, :confirm => 'Are you sure?', :method => :delete, :class => "delete"
+            
+  = will_paginate @prayers, :params => { :anchor => "prayers" }, :param_name => 'prayers_page'
