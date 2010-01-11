@@ -12,4 +12,4 @@
 %p= link_to "Back to the group", @group
 
 %script{ :type => "text/javascript" }
-  = format_related_users_for_autocomplete
+  = format_related_users_for_autocomplete( @group )
