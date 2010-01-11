@@ -1,0 +1,19 @@
+%table
+  %tr
+    %th Name
+    %th Email
+    %th Status
+    %th 
+  - @memberships.each do |membership|
+    - user = membership.user
+    %tr
+      %td.name= h user.name
+      %td.email= user.email
+      %td.status
+        - if user == @group.owner
+          %strong Owner
+        - else
+          Member
+      %td.actions
+        - if can? :destroy, membership
+          = link_to "Remove", group_membership_path(@group, membership), :method => :delete

@@ -9,7 +9,7 @@
         %td.name= link_to h(group.name), group
         %td.actions
           - if can? :edit, group
-            = link_to "Invite", new_group_invitation_path(group)
+            = link_to "Invite", group_memberships_path(group)
             |
             = link_to 'Edit', edit_group_path(group)
 - else

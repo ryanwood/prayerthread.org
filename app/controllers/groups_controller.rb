@@ -7,9 +7,7 @@ class GroupsController < ApplicationController
   
   def show
     @group = current_user.groups.find(params[:id])
-    @prayers = @group.prayers.paginate :page => params[:prayers_page]
-    @memberships = @group.memberships
-    @invitations = @group.invitations.pending
+    @prayers = @group.prayers.paginate :page => params[:page]
   end
   
   def new

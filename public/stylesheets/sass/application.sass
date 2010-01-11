@@ -1,24 +1,34 @@
-# !primary_color = #4B7399
 !primary_color = #FFF
 
 !light_blue = #6D98AB
 !blue       = #00275E
 !yellow     = #FEB729
 !gray       = #A8B1B8
+!dark_gray  = #666
 !white      = #FFFFFF
 !black      = #000000
 !red        = #990000
 !box        = #E5ECF9
 
+@import autocomplete.sass
+@import formtastic_changes.sass
+
+/* Main */
 body
   font-size: 80%
   font-family: "Lucida Grande", "Helvetica Neue", Arial, Helvetica, sans-serif
 p
   padding: 3px 0
 h1
+  margin-top: 10px
   font-size: 2.5em
 h2
   margin-top: 15px
+  border-bottom= 1px "dotted" !light_blue
+h3
+  font-size: 1.4em
+  margin: 25px 0 10px 0
+  color= !dark_gray
 .box
   margin: 1em 0
 #header
@@ -30,7 +40,10 @@ h2
       font-size: 18px
       
 #footer
-  margin: 20px 0
+  border-top= 1px "solid" !gray
+  color= !dark_gray
+  margin: 30px 0
+  padding: 1em 0
   font-size: 80%
   text-align: left
   
@@ -160,65 +173,40 @@ a.pending_invitation_count
   text-align: right
   padding: 3px
 
-// Formtastic Overrides
-form.formtastic
-  padding: 2em
-  margin: 2em 0
-  label, input, textarea, select
-    font-size: 1.25em
-  input
-    margin-top: 3px
-    padding: 2px
-    
-form.formtastic fieldset ol li.error
-  padding: 5px
-    
-form.formtastic
-  input[type="checkbox"], input[type="radio"], input.checkbox, input.radio
-    top: 0
-    
-// Autocomplete
-
-.ac_results
-  padding: 0px
-  background-color= !box
-  //
-    border: 1px solid black
-    background-color: white
-  overflow: hidden
-  z-index: 99999
-
-  ul
-    width: 100%
-    list-style-position: outside
-    list-style: none
-    padding: 0
+#add_member_area
+  form
     margin: 0
-
-  li
-    margin: 0px
-    padding: 2px 5px
-    cursor: default
-    display: block
-    font: menu
-    // font-size: 12px
-    font-size: 1em
-    // line-height: 16px
-    line-height: 1.5em
-    overflow: hidden
-
-
-.ac_loading
-  background: white url('indicator.gif') right center no-repeat
-
+    padding: 0
+    fieldset.buttons
+      li
+        margin: 0
+  
+  
 //
-  .ac_odd
-    background-color: #eee
+  .slim_form
+    dt
+      float: left
+      margin-top: 5px
+      label
+        font-size: 1.1em
+    dd
+      margin: 0
+      padding: 0 0 0 150px
+      select
+        font-size: 1em
+        margin-right: 15px
+      input
+        margin: 0 15px 0 0
+        padding: 3px
+        font-size: 1.1em
+      .help
+        color = !blue
+        font-style: italic
 
-.ac_over
-  // background-color: #0A246A
-  background-color= !blue
-  color: white
-
-#group_tabs
-  margin-top: 20px
+ul.side_links
+  list-style-type: none
+  padding: 0
+  margin: 0
+  font-size: 1.2em
+  li
+    padding: 5px 0

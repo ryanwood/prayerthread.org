@@ -9,3 +9,5 @@
   = link_to "Show", group_path(@group)
   |
   = link_to "View All", groups_path
+  |
+  = link_to "Permanently Delete this Group", @group, :confirm => 'Are you sure?', :method => :delete, :class => 'delete'

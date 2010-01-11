@@ -1,4 +1,48 @@
+/* jQuery Autocomplete Formatting */
+.ac_results {
+  padding: 0px;
+  background-color: #F5F5DC;
+  overflow: hidden;
+  z-index: 99999; }
+  .ac_results ul {
+    width: 100%;
+    list-style-position: outside;
+    list-style: none;
+    padding: 0;
+    margin: 0; }
+  .ac_results li {
+    margin: 0px;
+    padding: 2px 5px;
+    cursor: default;
+    display: block;
+    font: menu;
+    font-size: 1em;
+    line-height: 1.5em;
+    overflow: hidden; }
 
+.ac_loading {
+  background: white url('indicator.gif') right center no-repeat; }
+
+.ac_over {
+  background-color: #00275e;
+  color: white; }
+
+/* Formtastic Overrides */
+form.formtastic {
+  padding: 2em;
+  margin: 2em 0; }
+  form.formtastic label, form.formtastic input, form.formtastic textarea {
+    font-size: 1.1em; }
+  form.formtastic input {
+    padding: 3px 0; }
+
+form.formtastic fieldset ol li.error {
+  padding: 5px; }
+
+form.formtastic input[type="checkbox"], form.formtastic input[type="radio"], form.formtastic input.checkbox, form.formtastic input.radio {
+  top: 0; }
+
+/* Main */
 body {
   font-size: 80%;
   font-family: "Lucida Grande", "Helvetica Neue", Arial, Helvetica, sans-serif; }
@@ -7,10 +51,17 @@ p {
   padding: 3px 0; }
 
 h1 {
+  margin-top: 10px;
   font-size: 2.5em; }
 
 h2 {
-  margin-top: 15px; }
+  margin-top: 15px;
+  border-bottom: 1px dotted #6d98ab; }
+
+h3 {
+  font-size: 1.4em;
+  margin: 25px 0 10px 0;
+  color: #666666; }
 
 .box {
   margin: 1em 0; }
@@ -23,7 +74,10 @@ h2 {
     font-size: 18px; }
 
 #footer {
-  margin: 20px 0;
+  border-top: 1px solid #a8b1b8;
+  color: #666666;
+  margin: 30px 0;
+  padding: 1em 0;
   font-size: 80%;
   text-align: left; }
 
@@ -144,48 +198,16 @@ a.pending_invitation_count {
   text-align: right;
   padding: 3px; }
 
-form.formtastic {
-  padding: 2em;
-  margin: 2em 0; }
-  form.formtastic label, form.formtastic input, form.formtastic textarea, form.formtastic select {
-    font-size: 1.25em; }
-  form.formtastic input {
-    margin-top: 3px;
-    padding: 2px; }
-
-form.formtastic fieldset ol li.error {
-  padding: 5px; }
-
-form.formtastic input[type="checkbox"], form.formtastic input[type="radio"], form.formtastic input.checkbox, form.formtastic input.radio {
-  top: 0; }
-
-.ac_results {
-  padding: 0px;
-  background-color: #e5ecf9;
-  overflow: hidden;
-  z-index: 99999; }
-  .ac_results ul {
-    width: 100%;
-    list-style-position: outside;
-    list-style: none;
-    padding: 0;
+#add_member_area form {
+  margin: 0;
+  padding: 0; }
+  #add_member_area form fieldset.buttons li {
     margin: 0; }
-  .ac_results li {
-    margin: 0px;
-    padding: 2px 5px;
-    cursor: default;
-    display: block;
-    font: menu;
-    font-size: 1em;
-    line-height: 1.5em;
-    overflow: hidden; }
 
-.ac_loading {
-  background: white url('indicator.gif') right center no-repeat; }
-
-.ac_over {
-  background-color: #00275e;
-  color: white; }
-
-#group_tabs {
-  margin-top: 20px; }
+ul.side_links {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1.2em; }
+  ul.side_links li {
+    padding: 5px 0; }

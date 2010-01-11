@@ -1,20 +1,20 @@
 - unless @invitations.empty?
-  %h2 Pending Invitations
-  %table
-    %tr
-      %th Email
-      %th Sent
-      %th 
-    - @invitations.each do |invitation|
+  #pendinginvitations
+    %table
       %tr
-        %td.email= h invitation.recipient_email
-        %td.sent
-          = time_ago_in_words(invitation.sent_at || invitation.created_at)
-          ago
-        %td.actions
-          %ul.inline
-            %li.first= link_to "Resend", resend_group_invitation_path(@group, invitation), :method => :put
-            %li= link_to "Delete", invitation_path(invitation), |
-              :method => :delete, |
-              :confirm => "Are you want to cancel the invitation sent to #{h invitation.recipient_email}?", |
-              :class => 'delete' |
+        %th Email
+        %th Sent
+        %th 
+      - @invitations.each do |invitation|
+        %tr
+          %td.email= h invitation.recipient_email
+          %td.sent
+            = time_ago_in_words(invitation.sent_at || invitation.created_at)
+            ago
+          %td.actions
+            %ul.inline
+              %li.first= link_to "Resend", resend_group_invitation_path(@group, invitation), :method => :put
+              %li= link_to "Delete", invitation_path(invitation), |
+                :method => :delete, |
+                :confirm => "Are you want to cancel the invitation sent to #{h invitation.recipient_email}?", |
+                :class => 'delete' |

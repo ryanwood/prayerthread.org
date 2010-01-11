@@ -1,45 +1,19 @@
-- title "Group: #{h @group.name}"
+- title "#{h(@group.name)} Prayers"
 
-%ul.inline
-  %li.first= link_to "My groups", groups_path
-  - if can? :modify, @group
-    %li= link_to "Invite someone to this group", new_group_invitation_path(@group)
-    %li= link_to "Edit", edit_group_path(@group)
-    %li= link_to "Delete this group", @group, :confirm => 'Are you sure?', :method => :delete, :class => 'delete'
-
-#group_tabs
-  %ul
-    %li
-      %a{ :href => "#members" }Members
-    %li
-      %a{ :href => "#prayers" }Prayers
-    - if can? :modify, @group
+-#
+  This is the layout for using jQuery tabs. Leaving in case I switch
+  #group_tabs
+    %ul
       %li
-        %a{ :href => "#invitations" }Invitations
+        %a{ :href => "#prayers" }Prayers
+      %li
+        %a{ :href => "#members" }Members
+      - if can? :modify, @group
+        %li
+          %a{ :href => "#invitations" }Invitations
 
-  #members
-    %table
-      %tr
-        %th Name
-        %th Email
-        %th Status
-        %th 
-      - @memberships.each do |membership|
-        - user = membership.user
-        %tr
-          %td.name= h user.name
-          %td.email= user.email
-          %td.status
-            - if user == @group.owner
-              %strong Owner
-            - else
-              Member
-          %td.actions
-            - if can? :destroy, membership
-              = link_to "Remove", membership_path(membership), :method => :delete 
-  #prayers
-    =render :partial => "/prayers/list"
-
-  - if can? :modify, @group
-    #invitations
-      =render :partial => "/invitations/pending"
+#prayers
+  =render :partial => "/prayers/list"
+  
+- content_for :sidebar do
+  = render :partial => "/groups/links"
