@@ -6,8 +6,9 @@ class Clearance::UsersController < ApplicationController
 
   def new
     @user = ::User.new(params[:user])
-    @invitation = Invitation.find_by_token(params[:token]) if params[:token]
-    if @invitation
+    cookies[:invitation_token] = { :value => params[:token], :expires => 1.year.from_now } if params[:token]
+    token = cookies[:invitation_token]
+    if @invitation = Invitation.find_by_token(token)
       @user.email = @invitation.recipient_email
       @user.invitation_token = @invitation.token
     end

@@ -2,10 +2,10 @@
   %h2 Your invitation is waiting...
   %p
     You've been invited by
-    %strong<= @invitation.sender.name
-    to join the 
-    %strong<= @invitation.group.name
-    prayer group.
+    %strong= @invitation.sender.name
+    to join the prayer group 
+    %strong= @invitation.group.name
+    %span>.
   %p
     %strong
       If you already have an account, please 
