@@ -147,6 +147,7 @@ class InvitationsControllerTest < ActionController::TestCase
   context "on PUT to :ignore" do
     setup do
       @user = Factory(:user)
+      @other_user = Factory(:user)
       @invitation = Factory(:invitation, :recipient => @user)
       sign_in_as @user
     end
@@ -158,7 +159,10 @@ class InvitationsControllerTest < ActionController::TestCase
       end
     end
     context "if NOT owned by the user" do
-      setup { @invitation = Factory(:invitation, :recipient => Factory(:user) ) }
+      setup do
+        Invitation.any_instance.stubs(:valid?).returns(true)
+        @invitation = Factory(:invitation, :recipient => @other_user )
+      end
       should "not change the invitation" do
         Invitation.any_instance.expects(:update_attributes).never
         put :ignore, :id => @invitation

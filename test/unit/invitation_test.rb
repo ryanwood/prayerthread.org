@@ -1,8 +1,33 @@
 require 'test_helper'
 
 class InvitationTest < ActiveSupport::TestCase
-  should_validate_presence_of :recipient_email
+  should_validate_presence_of :recipient_email, :group
   should_not_allow_mass_assignment_of :sender, :group_id, :sent_at
+  
+  context "create" do
+    setup do
+      @group = Factory(:group)
+      @user = Factory(:user)
+    end
+
+    should "fail if user is already a member" do
+      membership = Factory(:membership, :user => @user, :group => @group )
+      invitation = @group.invitations.build( :recipient_email => @user.email )
+      assert !invitation.valid?, "Invitation should NOT be valid."
+      assert_error_on :recipient_email, invitation
+      assert_equal "is already a member of this group", invitation.errors[:recipient_email]
+    end
+
+    should "fail if another pending invitation exists" do
+      existing = Factory(:invitation, :recipient_email => @user.email, :group => @group )
+      invitation = @group.invitations.build( :recipient_email => @user.email )
+      assert !invitation.valid?, "Invitation should NOT be valid."
+      assert_error_on :recipient_email, invitation
+      assert_equal "already has a pending invitation to this group", invitation.errors[:recipient_email]
+    end
+  end
+  
+  
   
   context "on save" do
     should "generate a token" do
