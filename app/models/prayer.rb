@@ -33,7 +33,7 @@ class Prayer < ActiveRecord::Base
   end
   
   def self.per_page
-    2
+    15
   end
   
   protected
