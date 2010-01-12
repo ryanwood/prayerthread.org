@@ -32,6 +32,10 @@ class Prayer < ActiveRecord::Base
     )
   end
   
+  def self.per_page
+    2
+  end
+  
   protected
   
   def mark_thread_updated

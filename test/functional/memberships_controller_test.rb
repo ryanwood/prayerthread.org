@@ -11,7 +11,7 @@ class MembershipsControllerTest < ActionController::TestCase
   context "on DELETE to :destroy" do
 
     context "when not authenticated" do
-      setup { delete :destroy, :id => @membership }
+      setup { delete :destroy, :group_id => @group, :id => @membership }
       should_redirect_to( "sign in" ) { new_session_url }
     end
     
@@ -19,7 +19,7 @@ class MembershipsControllerTest < ActionController::TestCase
       setup { sign_in_as @not_allowed_user }
       should "only delete my memberships" do
         Membership.any_instance.expects(:destroy).never
-        delete :destroy, :id => @membership
+        delete :destroy, :group_id => @group, :id => @membership
       end
     end
     
@@ -28,15 +28,15 @@ class MembershipsControllerTest < ActionController::TestCase
       should "not delete their membership in the group" do
         membership = Membership.find_by_user_id( @owner_user )
         Membership.any_instance.expects(:destroy).never
-        delete :destroy, :id => membership
+        delete :destroy, :group_id => @group, :id => membership
       end
       should "delete any other membership in the group" do
         Membership.any_instance.expects(:destroy)
-        delete :destroy, :id => @membership
+        delete :destroy, :group_id => @group, :id => @membership
       end
-      should "redirect to the group" do
-        delete :destroy, :id => @membership
-        assert_redirected_to group_url(@group)
+      should "redirect to the group's memberships" do
+        delete :destroy, :group_id => @group, :id => @membership
+        assert_redirected_to group_memberships_url(@group)
       end
     end
 
@@ -44,11 +44,11 @@ class MembershipsControllerTest < ActionController::TestCase
       setup { sign_in_as @member_user }
       should "delete any of my the membership" do
         Membership.any_instance.expects(:destroy)
-        delete :destroy, :id => @membership
+        delete :destroy, :group_id => @group, :id => @membership
       end
-      should "redirect to the group" do
-        delete :destroy, :id => @membership
-        assert_redirected_to group_url(@group)
+      should "redirect to the group's memberships" do
+        delete :destroy, :group_id => @group, :id => @membership
+        assert_redirected_to group_memberships_url(@group)
       end
     end
   end

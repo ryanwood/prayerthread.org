@@ -20,7 +20,7 @@
           %ul.inline
             %li.first= link_to 'Accept', accept_invitation_path(invitation, :token => invitation.token)
             - if invitation.ignored?
-              %li= link_to 'Delete', invitation, :method => :delete |
+              %li= link_to 'Delete', invitation, :method => :delete, |
                 :confirm => 'This will permanently delete this invitation. Are you sure?' |
             - else
               %li= link_to 'Ignore', ignore_invitation_path(invitation), :method => :put

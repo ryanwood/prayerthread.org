@@ -37,6 +37,7 @@ class Ability
       invitation && ( @user == invitation.group.owner || @user == invitation.recipient )
     end
     
+    can [:read, :create], Membership
     can :destroy, Membership do |membership|
       group = membership.group
       # I can destroy if:

@@ -19,7 +19,7 @@ class GroupsControllerTest < ActionController::TestCase
   
   context "on GET to :show" do
     setup { get :show, :id => @group.id }
-    should_assign_to :group, :memberships, :invitations
+    should_assign_to :group
     should_respond_with :success
     should_render_template :show
     should_not_set_the_flash

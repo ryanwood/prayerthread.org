@@ -1,6 +1,20 @@
 - if @prayers.empty?
-  %p There are no prayers.
+  .box There are no prayers.
 - else
+  -#
+    #prayers
+      - for prayer in @prayers
+        - if can? :modify, prayer
+          .actions
+            %ul.inline
+              %li.first= link_to 'Edit', edit_prayer_path(prayer)
+              %li= link_to 'Delete', prayer, :confirm => 'Are you sure?', :method => :delete, :class => "delete"
+        %h3= link_to h(prayer.title), prayer, :class => 'prayer_title'
+        .body
+          :textile
+            #{prayer.body}
+        .meta= "updated #{time_ago_in_words(prayer.thread_updated_at)} ago by #{h prayer.name} in #{group_list(prayer)}"
+
   %table#prayer_list
     %tr
       %th Prayer

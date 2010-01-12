@@ -2,7 +2,15 @@
 
 = render :partial => "/invitations/pending_message"
 
-%p= link_to "Add a Prayer", new_prayer_path
-
 = render :partial => "list"
 
+- content_for :sidebar do
+  Welcome to PrayerThread!
+  
+  %ul
+    = render :partial => "/shared/links"
+  
+  %h3 Filter by Group
+  %ul
+    - current_user.groups.each do |group|
+      %li= link_to h(group.name), group

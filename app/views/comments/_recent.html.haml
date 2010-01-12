@@ -3,8 +3,9 @@
   - unless @recent_comments.empty?
     - @recent_comments.each do |comment|
       %div[comment]{ :class => comment.user == comment.prayer.user ? "update" : "" }
-        :textile
-          #{comment.body}
+        .body
+          :textile
+            #{comment.body}
         %p.meta
           %span.who= "said #{comment.user.name} #{time_ago_in_words(comment.created_at)} ago"
           - if can? :modify, comment

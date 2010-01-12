@@ -17,30 +17,32 @@ class InvitationsControllerTest < ActionController::TestCase
       should_respond_with :success
     end
 
-    context "on POST to :create" do
-      context "when model is invalid" do
-        setup do
-          Invitation.any_instance.stubs(:valid?).returns(false)
-          post :create, :group_id => @group.id
-        end
-        should_render_template :new
-      end
-
-      context "when model is valid" do
-        setup do
-          Invitation.any_instance.stubs(:valid?).returns(true)
-          post :create, :group_id => @group.id
-        end
-        should_change( "the number of invitations", :by => 1 ) { Invitation.count }
-        should_redirect_to( "the group" ) { group_path(@group) }
-        should "set the group" do
-          assert_equal @group, assigns(:invitation).group
-        end        
-        should "set the sender" do
-          assert_equal @user, assigns(:invitation).sender
-        end
-      end
-    end
+    # Need to move this to the membership controller.
+    #
+    # context "on POST to :create" do
+    #   context "when model is invalid" do
+    #     setup do
+    #       Invitation.any_instance.stubs(:valid?).returns(false)
+    #       post :create, :group_id => @group.id
+    #     end
+    #     should_render_template :new
+    #   end
+    # 
+    #   context "when model is valid" do
+    #     setup do
+    #       Invitation.any_instance.stubs(:valid?).returns(true)
+    #       post :create, :group_id => @group.id
+    #     end
+    #     should_change( "the number of invitations", :by => 1 ) { Invitation.count }
+    #     should_redirect_to( "the group" ) { group_path(@group) }
+    #     should "set the group" do
+    #       assert_equal @group, assigns(:invitation).group
+    #     end        
+    #     should "set the sender" do
+    #       assert_equal @user, assigns(:invitation).sender
+    #     end
+    #   end
+    # end
   end
   
   context "on DELETE to :destroy" do

@@ -16,4 +16,4 @@
           Member
       %td.actions
         - if can? :destroy, membership
-          = link_to "Remove", group_membership_path(@group, membership), :method => :delete
+          = link_to "Remove", group_membership_path(@group, membership), :method => :delete, :confirm => "This will permanently delete #{user.name} from this group. Are you sure?"

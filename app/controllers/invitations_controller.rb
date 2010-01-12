@@ -11,16 +11,18 @@ class InvitationsController < ApplicationController
     @invitation = Invitation.new
   end
   
-  def create
-    @invitation = @group.invitations.build(params[:invitation])
-    @invitation.sender = current_user
-    if @invitation.save
-      flash[:notice] = "Successfully sent invitation for #{@invitation.recipient_email}."
-      redirect_to @group
-    else
-      render :action => 'new'
-    end
-  end
+  # Invitations are created in the memberships controller
+  #
+  # def create
+  #   @invitation = @group.invitations.build(params[:invitation])
+  #   @invitation.sender = current_user
+  #   if @invitation.save
+  #     flash[:notice] = "Successfully sent invitation for #{@invitation.recipient_email}."
+  #     redirect_to group_memberships_path(@group)
+  #   else
+  #     render :action => 'new'
+  #   end
+  # end
   
   def destroy
     @invitation = Invitation.find(params[:id])
@@ -34,7 +36,7 @@ class InvitationsController < ApplicationController
   end
   
   def confirm
-    @invitation = Invitation.pending.find_by_token(params[:token])
+    @invitation = Invitation.pending.find_by_id_and_token(params[:id], params[:token])
     if @invitation
       @user = current_user || User.find_by_email(@invitation.recipient_email)
       if @user
@@ -82,7 +84,7 @@ class InvitationsController < ApplicationController
     else
       flash[:error] = "Sorry, you can't resend an invitation."
     end
-    redirect_to @group
+    redirect_to group_memberships_path(@group)
   end
   
   private

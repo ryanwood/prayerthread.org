@@ -1,15 +1,21 @@
-- title "Comments for #{@prayer.title}"
-%p= link_to "Back to Prayer", @prayer
+- title "All Comments for #{@prayer.title}"
 #comment_list
   - unless @comments.empty?
     - @comments.each do |comment|
       %div[comment]{ :class => comment.user == comment.prayer.user ? "update" : "" }
-        :textile
-          #{comment.body}
-        %p.who
-          = "said #{comment.user.name} #{time_ago_in_words(comment.created_at)} ago"
-          - if current_user == comment.user
-            = "[#{link_to "edit", edit_prayer_comment_path(comment.prayer, comment)}]"
+      
+        .body
+          :textile
+            #{comment.body}
+        %p.meta
+          %span.who
+            = "said #{comment.user.name} #{time_ago_in_words(comment.created_at)} ago"
+            - if current_user == comment.user
+              = "[#{link_to "edit", edit_prayer_comment_path(comment.prayer, comment)}]"
             = "[#{link_to "delete", prayer_comment_path(comment.prayer, comment), :confirm => 'Are you sure?', :method => :delete}]"
   - else
-    No comments yet...
+    .box No comments yet...
+    
+- content_for :sidebar do
+  %ul
+    %li= link_to "Back to Prayer", @prayer

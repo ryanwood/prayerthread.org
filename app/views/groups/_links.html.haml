@@ -1,9 +1,14 @@
-%ul.side_links
+%ul
+  %li= link_to "My Prayer List", prayers_path
+  = render :partial => "/shared/links"
+
+%h3= h(@group.name)
+%ul
   %li= link_to "Prayers", @group
   %li= link_to "Members", group_memberships_path(@group)
   
 - if can? :modify, @group
   %h3 Management
-  %ul.side_links
-    %li= link_to "View Invitations", group_invitations_path(@group)
+  %ul
+    -# %li= link_to "View Invitations", group_invitations_path(@group)
     %li= link_to "Edit this Group", edit_group_path(@group)

@@ -1,8 +1,11 @@
 - title "Edit Prayer"
 .box
-  To mark this prayer as answered, 
-  = link_to "create an update", new_prayer_comment_path(@prayer)
-  \.
+  %p
+    To mark this prayer as answered or provide an update on this prayer, 
+    = link_to "create an update", new_prayer_comment_path(@prayer)
+    \.
+  %p 
+    %em This pages should only be used to correct the original prayer request or update its groups.
 
 - semantic_form_for @prayer do |form|
   = form.error_messages

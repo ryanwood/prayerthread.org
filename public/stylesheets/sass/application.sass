@@ -18,7 +18,8 @@ body
   font-size: 80%
   font-family: "Lucida Grande", "Helvetica Neue", Arial, Helvetica, sans-serif
 p
-  padding: 3px 0
+  padding: 6px 0
+  margin: 0
 h1
   margin-top: 10px
   font-size: 2.5em
@@ -38,7 +39,14 @@ h3
   ul#menu
     li
       font-size: 18px
-      
+#sidebar
+  ul
+    list-style-type: none
+    padding: 0
+    margin: 0
+    font-size: 1.2em
+    li
+      padding: 5px 0
 #footer
   border-top= 1px "solid" !gray
   color= !dark_gray
@@ -155,7 +163,7 @@ a.pending_invitation_count
   .comment
     padding: 5px
     margin: 10px 0
-    background-color: #eee
+    background: url(../images/dotted_horizontal_border.png) bottom repeat-x
     p
       padding: 0 0 3px 0
       margin: 0
@@ -164,7 +172,9 @@ a.pending_invitation_count
       .who
         font-style: italic
   .comment.update
-    background: #E5ECF9
+    .body
+      font-weight: bold
+      color = !blue
 
 .answered
   font-weight: bold
@@ -202,11 +212,3 @@ a.pending_invitation_count
       .help
         color = !blue
         font-style: italic
-
-ul.side_links
-  list-style-type: none
-  padding: 0
-  margin: 0
-  font-size: 1.2em
-  li
-    padding: 5px 0
