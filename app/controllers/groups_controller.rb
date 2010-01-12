@@ -19,7 +19,7 @@ class GroupsController < ApplicationController
     @group.owner = current_user
     if @group.save
       flash[:notice] = "Successfully created group."
-      redirect_to @group
+      redirect_to group_memberships(@group)
     else
       render :action => 'new'
     end

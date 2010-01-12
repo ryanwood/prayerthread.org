@@ -4,11 +4,13 @@
 
 %h3= h(@group.name)
 %ul
-  %li= link_to "Prayers", @group
-  %li= link_to "Members", group_memberships_path(@group)
-  
-- if can? :modify, @group
-  %h3 Management
-  %ul
+  %li= link_to "View Prayers", @group
+  %li= link_to "View Members", group_memberships_path(@group)
+  - if can? :modify, @group
     -# %li= link_to "View Invitations", group_invitations_path(@group)
     %li= link_to "Edit this Group", edit_group_path(@group)
+    
+%h3 My Groups
+%ul
+  - (current_user.groups - [@group]).each do |group|
+    %li= link_to h(group.name), group

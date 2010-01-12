@@ -1,5 +1,7 @@
 - if @prayers.empty?
-  .box There are no prayers.
+  .box 
+    There are currently no prayers in this group.
+    = link_to "Why not add one?", new_prayer_path
 - else
   -#
     #prayers

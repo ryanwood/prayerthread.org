@@ -5,7 +5,7 @@ $(document).ready(function(){
   
   // $('#group_tabs').tabs();
 
-  $("#member_string").autocomplete(related_users, {
+  $("#invitation_recipient_email").autocomplete(related_users, {
     matchContains: true,
     minChars: 0,
     formatResult: function(data, i, total) {
