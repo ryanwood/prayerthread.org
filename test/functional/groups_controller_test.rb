@@ -49,7 +49,7 @@ class GroupsControllerTest < ActionController::TestCase
         post :create
       end
       should_assign_to :group
-      should_redirect_to( "the group" ) { group_path(assigns(:group)) }
+      should_redirect_to( "the group members page" ) { group_memberships_path(assigns(:group)) }
     end
   end
   
