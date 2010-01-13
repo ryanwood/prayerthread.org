@@ -1,11 +1,13 @@
 - if @invitation
   = render :partial => "/invitations/notice"
 
-- title "Sign up", false
-%h2 Sign up
+- title "Sign up"
 
 - semantic_form_for @user do |form|
   = form.error_messages
   = render :partial => "/users/inputs", :locals => { :form => form }
   - form.buttons do
     = form.commit_button "Sign up"
+
+- content_for :sidebar do
+  = render :partial => "/shared/about"

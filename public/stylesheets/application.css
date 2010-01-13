@@ -90,6 +90,11 @@ h3 {
   font-size: 80%;
   text-align: left; }
 
+#about em {
+  font-style: normal;
+  color: #00275e;
+  background-color: #e5ecf9; }
+
 ul.inline {
   display: inline;
   list-style-type: none;

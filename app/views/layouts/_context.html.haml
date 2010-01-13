@@ -1,8 +1,13 @@
-- if signed_in?
-  = link_to( current_user.invitations.pending.count, invitations_path, :class => 'pending_invitation_count')
-  = "Welcome #{current_user.name}! Not you?"
-  = link_to "Sign out", sign_out_path
-- else
-  = link_to "Sign up", sign_up_path
-  or
-  = link_to "Sign in", sign_in_path
+#context
+  %ul.inline
+    - if signed_in?
+      %li.first= "Welcome #{current_user.name}!"
+      %li
+        = link_to "Invites", invitations_path
+        = link_to( current_user.invitations.pending.count, invitations_path, :class => 'pending_invitation_count')
+      %li= link_to "My Account", account_path
+      %li= link_to "Sign Out", sign_out_path
+    - else
+      = link_to "Sign Up", sign_up_path
+      or
+      = link_to "Sign In", sign_in_path
