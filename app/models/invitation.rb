@@ -40,13 +40,13 @@ class Invitation < ActiveRecord::Base
   
     def membership_does_not_exist
       existing_user = User.find_by_email(recipient_email)
-      if existing_user && Membership.find_by_group_id_and_user_id( group, existing_user )
+      if existing_user && Membership.exists?( :group_id => group, :user_id => existing_user )
         errors.add("recipient_email", "is already a member of this group")
       end
     end
     
     def pending_invitation_does_not_exists
-      if Invitation.find_by_recipient_email_and_accepted_at( recipient_email, nil )
+      if Invitation.exists?( :group_id => group, :recipient_email => recipient_email, :accepted_at => nil )
         errors.add("recipient_email", "already has a pending invitation to this group")
       end
     end

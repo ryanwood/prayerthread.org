@@ -4,10 +4,8 @@
   - if can? :modify, @group
     = render :partial => "/invitations/new"
       
-    %h3 Pending Invitations
     =render :partial => "/invitations/pending"
 
-  %h3 Members
   = render :partial => "/memberships/list"
   
   
