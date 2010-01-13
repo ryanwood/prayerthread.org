@@ -6,6 +6,14 @@ class UserTest < ActiveSupport::TestCase
   should_have_many :prayers, :memberships, :invitations, :comments, :owned_groups
   should_have_many :groups, :through => :memberships
   
+  should "accept the first invitation when confirming an email" do
+    user = Factory(:user)
+    invite = Factory(:invitation, :recipient_id => user.id)
+    assert !user.invitations.first.accepted?
+    user.confirm_email!
+    assert user.invitations.first.accepted?
+  end
+  
   should "have a name" do
     user = Factory.build(:user, :first_name => 'Ryan', :last_name => 'Wood')
     assert_equal "Ryan Wood", user.name

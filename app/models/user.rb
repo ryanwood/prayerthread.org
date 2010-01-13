@@ -18,10 +18,6 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
   
-  def accept_invitation!
-    invitation.accept!(self) if invitation
-  end
-  
   # Any user that is in a shared group
   def related_users
     User.all( 
@@ -29,6 +25,12 @@ class User < ActiveRecord::Base
       :joins => :groups, 
       :conditions => ["groups.id IN (?)", groups],
       :order => "users.first_name, users.last_name" )
+  end
+  
+  # override clearance to auto accept the first invite
+  def confirm_email!
+    super
+    accept_invitation!
   end
   
   protected
@@ -44,4 +46,7 @@ class User < ActiveRecord::Base
     end
   end
   
+  def accept_invitation!
+    invitations.first.accept!(self) if invitations.size == 1
+  end
 end
