@@ -1,13 +1,44 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :prayers, :has_many => :comments
+  
   map.resources :groups do |group|
     group.resources :memberships
     group.resources :invitations, :only => [:new, :create, :resend], :member => { :resend => :put }
   end  
+  
   # Lists the current users pending invitations
   map.resources :invitations, 
     :only => [:index, :destroy, :accept, :confirm, :ignore], 
     :member => { :accept => :get, :confirm => :get, :ignore => :put }
+  
+  map.resource :account, :controller => "users"
+  
+  # Clearance overrides
+  map.resource  :session,
+    :controller => 'sessions',
+    :only       => [:new, :create, :destroy]
+
+  map.resources :users, :controller => 'users' do |users|
+    users.resource :password,
+      :controller => 'clearance/passwords',
+      :only       => [:create, :edit, :update]
+
+    users.resource :confirmation,
+      :controller => 'clearance/confirmations',
+      :only       => [:new, :create]
+  end
+
+  map.sign_up  'sign_up',
+    :controller => 'users',
+    :action     => 'new'
+  map.sign_in  'sign_in',
+    :controller => 'sessions',
+    :action     => 'new'
+  map.sign_out 'sign_out',
+    :controller => 'sessions',
+    :action     => 'destroy',
+    :method     => :delete
+  
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
