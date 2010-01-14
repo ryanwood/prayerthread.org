@@ -241,3 +241,7 @@ a.pending_invitation_count {
   padding: 0; }
   #add_member_area form fieldset.buttons li {
     margin: 0; }
+
+.checkbox_selectors {
+  text-align: right;
+  font-size: .75em; }
