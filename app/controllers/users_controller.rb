@@ -1,5 +1,27 @@
 class UsersController < Clearance::UsersController
   
+  def show
+    @user = current_user
+    render :action => "edit"
+  end
+  
+  def edit
+    @user = current_user
+  end
+
+  def update
+    # render :inline => "<%= debug params %>" and return
+    @user = current_user
+    if @user.update_attributes(params[:user])
+      flash[:notice] = "Successfully updated account."
+      redirect_to account_path
+    else
+      render :action => 'edit'
+    end
+  end
+
+  # Clearance Overrides
+  
   def new
     @user = User.new(params[:user])
     cookies[:invitation_token] = { :value => params[:token], :expires => 1.year.from_now } if params[:token]

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   include Clearance::User
   attr_accessor :invitation_token
-  attr_accessible :first_name, :last_name, :invitation_token
+  attr_accessible :first_name, :last_name, :invitation_token, :memberships_attributes
   
   after_create :add_recipient_to_invitation
   
@@ -11,6 +11,9 @@ class User < ActiveRecord::Base
   has_many :groups, :through => :memberships
   has_many :owned_groups, :class_name => "Group", :foreign_key => "owner_id"
   has_many :invitations, :foreign_key => "recipient_id"
+  
+  # From the account page
+  accepts_nested_attributes_for :memberships
   
   validates_presence_of :first_name, :last_name
   

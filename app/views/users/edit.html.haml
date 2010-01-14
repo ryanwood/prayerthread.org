@@ -1,0 +1,27 @@
+- title "Your Account"
+
+- semantic_form_for @user, :html => {:id => "account_form"} do |form|
+  = form.error_messages :header_message => "Oops - We couldn't update your account."
+  - form.inputs :name => "Account" do
+    = form.input :first_name
+    = form.input :last_name
+    = form.input :email, :hint => "Note: This will change your login as well."
+    #password_change_selector
+      = check_box_tag :pwd, 1, false, :onchange => "$('#password_change_area').toggle();"
+      %label Change your password
+    #password_change_area{ :style => "display:none;" }
+      = form.input :password
+      = form.input :password_confirmation, :label => "Confirm password"
+
+  %h3 Group Notifications
+  - form.semantic_fields_for :memberships do |membership|
+    - form.inputs :name => membership.object.group.name, :class => "membership" do
+      = membership.input :notify_on_create, :label => "When a new prayer is added"
+      = membership.input :notify_on_update, :label => "When an update is added"
+  
+  - form.buttons do
+    = form.commit_button "Update Account"
+  
+    
+- content_for :sidebar do
+  Edit your profile.

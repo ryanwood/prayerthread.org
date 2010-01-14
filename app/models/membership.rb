@@ -2,6 +2,8 @@ class Membership < ActiveRecord::Base
   belongs_to :user
   belongs_to :group
   
+  attr_accessible :notify_on_create, :notify_on_update
+  
   validates_uniqueness_of :user_id, :scope => :group_id, :on => :create
   
   ROLES = %w[member owner]

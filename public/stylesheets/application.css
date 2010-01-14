@@ -30,17 +30,40 @@
 /* Formtastic Overrides */
 form.formtastic {
   padding: 2em;
-  margin: 2em 0; }
+  margin: 0; }
   form.formtastic label, form.formtastic input, form.formtastic textarea {
     font-size: 1.1em; }
   form.formtastic input {
     padding: 3px 0; }
+
+form.formtastic fieldset ol li {
+  margin-bottom: 1em; }
 
 form.formtastic fieldset ol li.error {
   padding: 5px; }
 
 form.formtastic input[type="checkbox"], form.formtastic input[type="radio"], form.formtastic input.checkbox, form.formtastic input.radio {
   top: 0; }
+
+form.formtastic fieldset.buttons li input {
+  font-size: 1.5em; }
+
+form#account_form fieldset.inputs, form#account_form fieldset.membership {
+  margin: 1em 0;
+  padding: 1.5em;
+  border-top: 1px solid #999; }
+  form#account_form fieldset.inputs legend, form#account_form fieldset.membership legend {
+    color: #00275e;
+    padding: 0 .5em;
+    margin-left: 1em; }
+form#account_form fieldset.membership {
+  padding: 3px; }
+  form#account_form fieldset.membership ol {
+    margin-bottom: 1em; }
+    form#account_form fieldset.membership ol li {
+      margin-bottom: 0; }
+form#account_form #password_change_selector {
+  margin: 0 0 1em 25%; }
 
 /* Main */
 body {
