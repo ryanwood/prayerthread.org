@@ -18,5 +18,5 @@ begin
   #
   Vlad.load :scm => :git, :app => :passenger
 rescue LoadError
-  puts 'Could not load Vlad'
+  # puts 'Could not load Vlad'
 end

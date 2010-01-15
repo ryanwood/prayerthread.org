@@ -21,5 +21,4 @@ namespace :vlad do
  
   desc 'Full deployment cycle: update, migrate, restart, cleanup'
   task :deploy => ['vlad:update', 'vlad:symlink', 'vlad:migrate', 'vlad:start_app', 'vlad:cleanup']
-  
 end
