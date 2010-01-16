@@ -15,10 +15,10 @@ namespace :vlad do
   end
 
   desc 'Symlinks your custom directories'
-  remote_task :symlink, :roles => :app do
+  remote_task :update_symlinks, :roles => :app do
     run "ln -s #{shared_path}/database.yml #{current_release}/config/database.yml"
   end
  
   desc 'Full deployment cycle: update, migrate, restart, cleanup'
-  task :deploy => ['vlad:update', 'vlad:symlink', 'vlad:migrate', 'vlad:start_app', 'vlad:cleanup']
+  task :deploy => ['vlad:update', 'vlad:migrate', 'vlad:start_app', 'vlad:cleanup']
 end

@@ -11,11 +11,6 @@ require 'tasks/rails'
 
 begin
   require 'vlad'
-  # This is a patched gem to fix the following bugs:
-  # http://github.com/inbox/413649#reply
-  #
-  # sudo gem install ktheory-vlad-git
-  #
   Vlad.load :scm => :git, :app => :passenger
 rescue LoadError
   # puts 'Could not load Vlad'
