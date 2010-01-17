@@ -10,8 +10,7 @@ require 'rake/rdoctask'
 require 'tasks/rails'
 
 begin
-  require 'vlad'
-  Vlad.load :scm => :git, :app => :passenger
+  require 'delayed/tasks'
 rescue LoadError
-  # puts 'Could not load Vlad'
+  STDERR.puts "Run `rake gems:install` to install delayed_job"
 end

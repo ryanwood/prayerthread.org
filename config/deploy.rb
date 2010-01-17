@@ -1,24 +1,27 @@
-set :ssh_flags,             '-p 22022'
-set :application,           'prayerthread.org'
-set :domain,                '208.78.97.190'
-set :deploy_to,             '/var/www/prayerthread.org'
-set :revision,              'master'
-set :repository,            'git@sourcescape.unfuddle.com:sourcescape/prayerthread.git'
+set :application,   'prayerthread.org'
+set :repository,    'git@sourcescape.unfuddle.com:sourcescape/prayerthread.git'
+set :deploy_to,     "/var/www/#{application}"
+set :port,          22022
+set :scm,           :git
+set :deploy_via,    :remote_cache
 
+server "208.78.97.190", :app, :web, :db, :primary => true
 
-namespace :vlad do
-  set :web_command, "/etc/init.d/nginx"
-  
-  desc 'Restarts the nginx server'
-  remote_task :restart_web, :roles => :app do
-    run "sudo #{web_command} restart"
+# Callbacks
+after "deploy:update_code", "db:symlink" 
+
+# Passenger
+namespace :deploy do
+  task :start do ; end
+  task :stop do ; end
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
+end
 
-  desc 'Symlinks your custom directories'
-  remote_task :update_symlinks, :roles => :app do
-    run "ln -s #{shared_path}/database.yml #{current_release}/config/database.yml"
+namespace :db do
+  desc "Make symlink for database yaml" 
+  task :symlink do
+    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml" 
   end
- 
-  desc 'Full deployment cycle: update, migrate, restart, cleanup'
-  task :deploy => ['vlad:update', 'vlad:migrate', 'vlad:start_app', 'vlad:cleanup']
 end
