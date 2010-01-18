@@ -15,14 +15,19 @@
 
   %h3 Group Notifications
   %p Checking a box below will enable email notifications to be sent to you when the corresponding event occur in that particular group.
-  %p.checkbox_selectors
-    = link_to_function("Select All", "$('input.group_event').attr('checked', true);")
-    \/
-    = link_to_function("Select None", "$('input.group_event').attr('checked', false);")
+  -#
+    %p.checkbox_selectors
+      = link_to_function("Select All", "$('input.group_event').attr('checked', true);")
+      \/
+      = link_to_function("Select None", "$('input.group_event').attr('checked', false);")
   - form.semantic_fields_for :memberships do |membership|
     - form.inputs :name => membership.object.group.name, :class => "membership" do
-      = membership.input :notify_on_create, :label => "A new prayer is created", :class => "group_event"
-      = membership.input :notify_on_update, :label => "A prayer is commented on, updated, or answered", :class => "group_event"
+      %p In this group, notify me:
+      = membership.input :notification_level, :label => false, :as => :radio, :collection => Membership::NOTIFICATION_LEVELS
+    -#  
+      - form.inputs :name => membership.object.group.name, :class => "membership" do
+        = membership.input :notify_on_create, :label => "A new prayer is created", :class => "group_event"
+        = membership.input :notify_on_update, :label => "A prayer is commented on, updated, or answered", :class => "group_event"
   
   - form.buttons do
     = form.commit_button "Update Account"
