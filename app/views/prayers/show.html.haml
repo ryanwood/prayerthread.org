@@ -5,7 +5,7 @@
     .answer
       :textile
         #{@prayer.answer}
-    = link_to "Edit the answer", edit_prayer_path(@prayer)
+    = link_to "Edit the answer", answer_prayer_path(@prayer)
 .box
   :textile
     #{@prayer.body}
@@ -14,7 +14,7 @@
     - if can?( :edit, @prayer )
       %li.first= link_to "Share an update", new_prayer_comment_path(@prayer)
       - unless @prayer.answered?
-        %li= link_to "Mark as Answered", edit_prayer_path(@prayer)
+        %li= link_to "Mark as Answered", answer_prayer_path(@prayer)
     - else
       %li.first= link_to "Add a comment or encouragement for this prayer", new_prayer_comment_path(@prayer)
 

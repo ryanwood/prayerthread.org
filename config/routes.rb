@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :prayers, :has_many => :comments
+  map.resources :prayers, :member => { :answer => :get }, :has_many => :comments
   
   map.resources :groups do |group|
     group.resources :memberships

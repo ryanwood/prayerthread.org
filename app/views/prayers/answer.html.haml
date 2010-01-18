@@ -1,0 +1,20 @@
+- title "Answer Prayer"
+
+- semantic_form_for @prayer do |form|
+  = form.error_messages
+  - form.inputs do
+    = form.input :answer, :hint => "This describes how the prayer was answered."
+  - form.buttons do
+    = form.commit_button "Save Answer"
+  
+%ul.inline
+  %li.first= link_to "Show", prayer_path(@prayer)
+  %li= link_to "View All", prayers_path
+  
+%h2 Original Prayer
+.box
+  :textile
+    #{@prayer.body}
+
+- content_for :sidebar do
+  = render :partial => "/shared/formatting_help"

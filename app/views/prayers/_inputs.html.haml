@@ -1,12 +1,6 @@
 - form.inputs do
   = form.input :title, :hint => "How everyone will see this prayer listed."
-  - if form.object.new_record?
-    = form.input :body, :label => "Prayer"
-  - else
-    .virtual_input= link_to_function "Change the content of the original prayer", "$('#prayer_body').show();$(this).hide();"
-    #prayer_body{ :style => "display:none;"}
-      = form.input :body, :label => "Prayer"
-    = form.input :answer
+  = form.input :body, :label => "Prayer"
       
   = form.input :groups, :as => :check_boxes, :collection => current_user.groups
 

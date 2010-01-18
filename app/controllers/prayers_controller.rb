@@ -32,9 +32,12 @@ class PrayersController < ApplicationController
   def edit
   end
   
+  def answer
+  end
+  
   def update
     if @prayer.update_attributes(params[:prayer])
-      flash[:notice] = "Successfully updated prayer."
+      flash[:notice] = "Successfully #{params[:prayer][:answer] ? "answered" : "updated"} prayer."
       redirect_to @prayer
     else
       render :action => 'edit'

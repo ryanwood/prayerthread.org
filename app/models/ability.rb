@@ -16,7 +16,7 @@ class Ability
     can :show, Prayer do |prayer|
       prayer && (prayer.user == @user || has_access_to(prayer.groups) )
     end
-    can :modify, Prayer do |prayer|
+    can [:modify, :answer], Prayer do |prayer|
       prayer && prayer.user == @user
     end
 
