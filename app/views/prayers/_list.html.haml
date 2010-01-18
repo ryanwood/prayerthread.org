@@ -34,10 +34,8 @@
       %tr
         %td.title
           = link_to h(prayer.title), prayer, :class => 'prayer_title'
-          .meta
-            %span= truncate(h(prayer.body), :length => 80)
-            %br
-            = "by #{h prayer.name} in #{group_list(prayer)}"
+          .preview= truncate(h(prayer.body), :length => 80)
+          .meta= "by #{h prayer.name} in #{group_list(prayer)}"
         %td.updated= "#{time_ago_in_words(prayer.thread_updated_at)} ago"
         %td.actions
           - if can? :modify, prayer

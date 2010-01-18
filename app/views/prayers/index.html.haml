@@ -9,7 +9,7 @@
     = render :partial => "/shared/links"
   
   - unless current_user.groups.empty?
-    %h3 Filter by Group
+    %h3 My Groups
     %ul
       - current_user.groups.each do |group|
         %li= link_to h(group.name), group
