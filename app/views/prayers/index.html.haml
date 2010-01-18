@@ -5,11 +5,11 @@
 = render :partial => "list"
 
 - content_for :sidebar do
-  %ul
+  %ul.links
     = render :partial => "/shared/links"
   
   - unless current_user.groups.empty?
     %h3 My Groups
-    %ul
+    %ul.links
       - current_user.groups.each do |group|
         %li= link_to h(group.name), group

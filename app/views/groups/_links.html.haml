@@ -1,9 +1,9 @@
-%ul
+%ul.links
   %li= link_to "My Prayer List", prayers_path
   = render :partial => "/shared/links"
 
 %h3= h(@group.name)
-%ul
+%ul.links
   %li= link_to "View Members", group_memberships_path(@group)
   %li= link_to "View Prayers", @group
   - if can? :modify, @group
@@ -13,6 +13,6 @@
 - groups = current_user.groups - [@group]
 - unless groups.empty?
   %h3 My Groups
-  %ul
+  %ul.links
     - groups.each do |group|
       %li= link_to h(group.name), group
