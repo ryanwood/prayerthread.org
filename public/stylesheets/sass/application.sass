@@ -9,6 +9,7 @@
 !black      = #000000
 !red        = #990000
 !box        = #E5ECF9
+!rose       = #FFE4E1
 
 @import autocomplete.sass
 @import formtastic_changes.sass
@@ -181,17 +182,18 @@ a.pending_invitation_count
         font-style: italic
     ul
       font-size: 0.7em
-  .comment.update
-    .body
-      font-weight: bold
-      color = !blue
+  .comment.update .body
+    font-weight: bold
 
 .answered
-  font-weight: bold
-  color:= !white
-  background:= !blue
-  text-align: right
-  padding: 3px
+  background-color = !rose
+  padding: 1.5em
+  strong
+    font-size: 1.2em
+  .answer
+    margin: 1em 0
+    padding: 1em
+    background-color = !white
 
 #add_member_area
   form
@@ -226,3 +228,6 @@ a.pending_invitation_count
 .checkbox_selectors
   text-align: right
   font-size: .75em
+  
+hr
+  margin: 1em 0

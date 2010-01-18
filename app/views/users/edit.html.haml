@@ -6,9 +6,9 @@
     = form.input :first_name
     = form.input :last_name
     = form.input :email, :hint => "Note: This will change your login as well."
-    #password_change_selector
+    .virtual_input
       = check_box_tag :pwd, 1, false, :onchange => "$('#password_change_area').toggle();"
-      %label Change your password
+      %label{ :for => 'pwd' } Change your password
     #password_change_area{ :style => "display:none;" }
       = form.input :password
       = form.input :password_confirmation, :label => "Confirm password"

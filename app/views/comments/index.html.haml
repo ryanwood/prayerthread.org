@@ -1,6 +1,6 @@
 - title "All Comments for #{@prayer.title}"
 
-= render :partial => "list"
+= render :partial => "list", :locals => { :comments => @comments }
     
 - content_for :sidebar do
   %ul.links

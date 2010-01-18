@@ -1,15 +1,22 @@
 - title h(@prayer.title)
 - if @prayer.answered?
-  .answered This prayer has been answered!
+  .answered
+    %strong This prayer has been answered!
+    .answer
+      :textile
+        #{@prayer.answer}
+    = link_to "Edit the answer", edit_prayer_path(@prayer)
 .box
   :textile
     #{@prayer.body}
-    
-%p.strong
-  - if can?( :edit, @prayer )
-    = link_to "Add an update on this prayer", new_prayer_comment_path(@prayer)
-  - else
-    = link_to "Add a comment or encouragement regarding this prayer", new_prayer_comment_path(@prayer)
+  %hr
+  %ul.inline
+    - if can?( :edit, @prayer )
+      %li.first= link_to "Share an update", new_prayer_comment_path(@prayer)
+      - unless @prayer.answered?
+        %li= link_to "Mark as Answered", edit_prayer_path(@prayer)
+    - else
+      %li.first= link_to "Add a comment or encouragement for this prayer", new_prayer_comment_path(@prayer)
 
 %p
   Created
@@ -21,11 +28,11 @@
   = group_list(@prayer)
 
 %ul.inline
-  %li.first= link_to "Back to Prayer List", prayers_path
+  %li.first= link_to "Back to my Prayer List", prayers_path
   - if can?( :edit, @prayer )
-    %li= link_to "Edit", edit_prayer_path(@prayer)
+    %li= link_to "Edit the Original Prayer", edit_prayer_path(@prayer)
   - if can?( :destroy, @prayer )
-    %li= link_to "Delete", @prayer, :method => :delete,                                            |
+    %li= link_to "Permanently Delete", @prayer, :method => :delete,                    |
       :confirm => 'Are you sure? This will permanently delete this prayer and all it\'s comments.' |
   
 - content_for :sidebar do
