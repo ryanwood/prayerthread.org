@@ -1,11 +1,9 @@
 class AddNotificationSettings < ActiveRecord::Migration
   def self.up
-    add_column :memberships, :notify_on_create, :boolean, :default => true
-    add_column :memberships, :notify_on_update, :boolean, :default => true
+    add_column :memberships, :notification_level, :integer
   end
 
   def self.down
-    remove_column :memberships, :notify_on_update
-    remove_column :memberships, :notify_on_create
+    remove_column :memberships, :notification_level
   end
 end
