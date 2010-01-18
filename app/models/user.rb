@@ -21,6 +21,10 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
   
+  def full_email
+    "#{name} <#{email}>"
+  end
+  
   # Any user that is in a shared group
   def related_users
     User.all( 

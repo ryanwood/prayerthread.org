@@ -19,6 +19,11 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "Ryan Wood", user.name
   end
   
+  should "have a full email with name" do
+    user = Factory.build(:user)
+    assert_equal "#{user.first_name} #{user.last_name} <#{user.email}>", user.full_email
+  end
+  
   context "After create" do
     setup do
       @invitation = Factory(:invitation)
