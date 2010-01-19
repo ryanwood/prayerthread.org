@@ -1,0 +1,13 @@
+Hello <%= @recipient.name %>,
+
+<%= @prayer.user.name %> has created a new <%= @activity.downcase %> for '<%= @prayer.title %>':
+
+"<%= @comment.body %>"
+
+<%= prayer_url( @prayer, :host => HOST, :anchor => "comment_#{@comment.id}" ) %>
+
+--------------------------------------------------------------------------------------------------
+This message sent from Prayer Thread.
+Manage your email preferences at http://www.prayerthread.org/account
+
+Prayer Thread: www.prayerthread.org

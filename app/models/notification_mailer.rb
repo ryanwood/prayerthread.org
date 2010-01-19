@@ -1,22 +1,24 @@
 class NotificationMailer < ActionMailer::Base
 
-  def prayer_notification(recipient, prayer)
+  def prayer_created(recipient, prayer)
     subject     "New Prayer from #{prayer.user.name}"
     recipients  recipient.full_email
     from        DO_NOT_REPLY
     sent_on     Time.now
-    logger.debug "*** In NotificationMailer: #{prayer.to_param}"
     body        :recipient => recipient,
                 :prayer => prayer
   end
 
-  def comment_notification(sent_at = Time.now)
-    subject    'NotificationMailer#comment'
-    recipients ''
-    from       DO_NOT_REPLY
-    sent_on    Time.now
-    
-    body       :greeting => 'Hi,'
+  def comment_created(recipient, comment)
+    activity = (comment.user == comment.prayer.user) ? "Update" : "Comment"
+    subject     "New #{activity} for #{comment.prayer.name}"
+    recipients  recipient.full_email
+    from        DO_NOT_REPLY
+    sent_on     Time.now
+    body        :recipient => recipient,
+                :prayer => comment.prayer,
+                :comment => comment,
+                :activity => activity
   end
 
 end
