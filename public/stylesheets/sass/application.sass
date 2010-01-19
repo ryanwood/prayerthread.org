@@ -3,6 +3,7 @@
 !light_blue = #6D98AB
 !blue       = #00275E
 !yellow     = #FEB729
+!light_gray = #EEE
 !gray       = #A8B1B8
 !dark_gray  = #666
 !white      = #FFFFFF
@@ -176,14 +177,30 @@ a.pending_invitation_count
     p
       padding: 0 0 3px 0
       margin: 0
-    .meta
-      font-size: 0.7em
-      .who
-        font-style: italic
-    ul
-      font-size: 0.7em
-  .comment.update .body
-    font-weight: bold
+      font-size: 0.9em
+    .body
+      margin-left: 15px
+      color = !dark_gray
+      p
+        padding: 5px 0
+    .author
+      font-size: 1.1em
+      span
+        font-weight: bold
+    .time
+      margin-top: 1em
+      font-size: 0.9em
+      font-style: italic
+    ul.actions
+      float: right
+      font-size: 0.9em
+      
+#sidebar #comment_list
+  font-size: 0.85em
+  .body
+    margin-left: 5px
+  .time
+    margin-top: 0.5em
 
 .answered
   background-color = !rose

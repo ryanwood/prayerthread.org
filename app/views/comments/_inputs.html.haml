@@ -1,5 +1,2 @@
 - form.inputs do
-  = form.input :body, :label => can?( :edit, @prayer ) ? "Your Update" : "Comment or Encouragement"
-- if can?( :edit, @prayer ) && !@prayer.answered?
-  - form.inputs :for => @prayer do |prayer|
-    = prayer.input :answered, :label => "Mark this prayer as answered", :as => :boolean
+  = form.input :body, :label => can?( :edit, @prayer ) ? "Your Update to Share" : "Your Comment or Encouragement"

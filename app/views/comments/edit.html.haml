@@ -1,13 +1,14 @@
-- title "Edit your #{can?( :manage, @prayer ) ? 'Update' : 'Comment'}"
+- activity = can?( :manage, @prayer ) ? 'Update' : 'Comment'
+- title "Edit your #{activity}"
 
 - semantic_form_for [@prayer, @comment] do |form|
   = form.error_messages
   = render :partial => "inputs", :locals => { :form => form }
   - form.buttons do
-    = form.commit_button can?( :manage, @prayer ) ? "Edit Update" : "Edit Comment"
+    = form.commit_button "Edit #{activity}"
 
 %p
   = link_to "View All", prayer_comments_path(@prayer)
 
 - content_for :sidebar do
-  = render :partial => "/shared/formatting_help"
+  -# = render :partial => "/shared/formatting_help"
