@@ -33,8 +33,6 @@ end
 Factory.define :group do |f|
   f.name "My group"
   f.association :owner, :factory => :email_confirmed_user
-  # Add a membership for the owner
-  f.after_create {|g| Factory(:membership, :group => g, :user => g.owner) }
 end
 
 Factory.define :invitation do |f|
@@ -47,5 +45,6 @@ end
 Factory.define :membership do |f|
   f.association :group
   f.association :user, :factory => :email_confirmed_user
+  f.notification_level 1
 end
 

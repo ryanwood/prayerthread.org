@@ -10,11 +10,11 @@ class Group < ActiveRecord::Base
   
   after_create :ensure_owner_is_a_member
   
-  validates_presence_of :name, :owner_id
+  validates_presence_of :name, :owner
   
   protected
   
   def ensure_owner_is_a_member
-    memberships.create( :user => self.owner )
+    memberships.create( :user => self.owner ) if self.owner
   end
 end

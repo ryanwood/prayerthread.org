@@ -2,8 +2,11 @@ class Membership < ActiveRecord::Base
   belongs_to :user
   belongs_to :group
   
-  attr_accessible :notification_level
+  before_create :set_defaults
   
+  attr_accessible :notification_level, :group, :user
+  
+  validates_presence_of :group, :user
   validates_uniqueness_of :user_id, :scope => :group_id, :on => :create
   
   NOTIFICATION_LEVELS = [
@@ -22,4 +25,10 @@ class Membership < ActiveRecord::Base
   def self.default_role
     ROLES[0]
   end
+  
+  protected
+  
+    def set_defaults
+      self.notification_level = 1 unless self.notification_level
+    end
 end

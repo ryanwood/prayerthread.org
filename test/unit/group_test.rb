@@ -8,7 +8,7 @@ class GroupTest < ActiveSupport::TestCase
   should_have_many :invitations
   should_have_and_belong_to_many :prayers
   
-  should_validate_presence_of :name, :owner_id
+  should_validate_presence_of :name, :owner
   
   context "After create" do
     should "ensure that the owner is a member" do
