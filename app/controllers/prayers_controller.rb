@@ -1,6 +1,7 @@
 class PrayersController < ApplicationController
   before_filter :authenticate
   load_and_authorize_resource
+  after_filter :send_notifications, :only => :create
   
   def index
     @prayers = Prayer.paginate :all,
@@ -49,4 +50,10 @@ class PrayersController < ApplicationController
     flash[:notice] = "Successfully destroyed prayer."
     redirect_to prayers_url
   end
+  
+  protected
+  
+    def send_notifications
+      Notification.process(:created, @prayer)
+    end
 end

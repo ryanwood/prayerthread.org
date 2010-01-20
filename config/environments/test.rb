@@ -29,3 +29,5 @@ config.action_mailer.delivery_method = :test
 config.gem 'shoulda', :source => 'http://gemcutter.org'
 config.gem 'factory_girl', :source => 'http://gemcutter.org'
 config.gem 'mocha'
+
+config.log_level = :warn

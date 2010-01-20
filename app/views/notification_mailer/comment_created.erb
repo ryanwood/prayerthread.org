@@ -1,8 +1,8 @@
 Hello <%= @recipient.name %>,
 
-<%= @prayer.user.name %> has created a new <%= @activity.downcase %> for '<%= @prayer.title %>':
+<%= @prayer.user.name %> has commented on '<%= @prayer.title %>'.
 
-"<%= @comment.body %>"
+"<%= truncate(@comment.body, :length => 50) %>"
 
 <%= prayer_url( @prayer, :host => HOST, :anchor => "comment_#{@comment.id}" ) %>
 

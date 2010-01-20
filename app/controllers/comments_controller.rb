@@ -2,6 +2,7 @@ class CommentsController < ApplicationController
   before_filter :authenticate
   load_and_authorize_resource :nested => :prayer
   before_filter :check_group_access, :only => :create
+  after_filter :send_notifications, :only => :create
   
   def index
     @comments = @prayer.comments
@@ -44,12 +45,16 @@ class CommentsController < ApplicationController
     redirect_to prayer_comments_url(@prayer)
   end
   
-  private
+  protected
     
     def check_group_access
       allowed_groups = @prayer.groups
       current_user.groups.each { |g| return true if allowed_groups.include?(g) }
       unauthorized!
+    end
+    
+    def send_notifications
+      Notification.process( :created, @comment )
     end
   
 end

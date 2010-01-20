@@ -68,6 +68,7 @@ class CommentsControllerTest < ActionController::TestCase
   context "on POST to :create" do
     context "for a prayer I have access to" do
       setup do
+        Notification.stubs(:process)
         Prayer.any_instance.stubs(:groups).returns([@group])
         User.any_instance.stubs(:groups).returns([@group])
       end

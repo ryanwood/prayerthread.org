@@ -90,20 +90,6 @@ class PrayersControllerTest < ActionController::TestCase
       should_render_template :edit
       should_not_set_the_flash
     end
-    should "allow you to mark a prayer unanswered" do
-      @prayer.update_attribute :answered, true
-      get :edit, :id => @prayer
-      assert_select "form" do
-        assert_select "label", "This prayer has been answered"
-      end
-    end
-    should "not allow you to mark a prayer answered" do
-      @prayer.update_attribute :answered, false
-      get :edit, :id => @prayer
-      assert_select "form" do
-        assert_select "label", :text => "This prayer has been answered", :count => 0
-      end
-    end
   end
   
   context "on PUT to :update" do
