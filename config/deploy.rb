@@ -9,6 +9,7 @@ server "208.78.97.190", :app, :web, :db, :primary => true
 
 # Callbacks
 after "deploy:update_code", "db:symlink" 
+after "deploy:restart", "delayed_job:restart"
 
 # Passenger
 namespace :deploy do
