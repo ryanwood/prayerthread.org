@@ -11,7 +11,7 @@ class NotificationMailer < ActionMailer::Base
 
   def comment_created(recipient, comment)
     activity = (comment.user == comment.prayer.user) ? "Update" : "Comment"
-    subject     "New #{activity} for #{comment.prayer.name}"
+    subject     "New #{activity} from #{comment.name} on #{truncate(comment.prayer.title, :length => 40)}"
     recipients  recipient.full_email
     from        DO_NOT_REPLY
     sent_on     Time.now
