@@ -29,6 +29,6 @@ class Membership < ActiveRecord::Base
   protected
   
     def set_defaults
-      self.notification_level = 1 unless self.notification_level
+      self.notification_level = 2 unless self.notification_level
     end
 end
