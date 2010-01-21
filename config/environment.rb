@@ -8,12 +8,12 @@ require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
   config.gem 'haml'
-  config.gem 'clearance', :version => '0.8.4', :source => 'http://gemcutter.org'
-  config.gem 'formtastic', :version => '0.9.7', :source => 'http://gemcutter.org'
+  config.gem 'clearance', :version => '0.8.4'
+  config.gem 'formtastic', :version => '0.9.7'
   config.gem 'cancan', :version => '1.0.2'
   config.gem 'friendly_id', :version => '2.2.7'
-  config.gem 'will_paginate', :version => '~> 2.3.11', :source => 'http://gemcutter.org'
-  config.gem 'delayed_job', :version => '1.8.4', :source => 'http://gemcutter.org'
+  config.gem 'will_paginate', :version => '~> 2.3.11'
+  config.gem 'delayed_job', :version => '1.8.4'
   
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers

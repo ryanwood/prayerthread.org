@@ -5,6 +5,8 @@ set :port,          22022
 set :scm,           :git
 set :deploy_via,    :remote_cache
 
+set :rails_env,     'production' # needed for delayed_job
+
 server "208.78.97.190", :app, :web, :db, :primary => true
 
 # Callbacks
