@@ -1,4 +1,6 @@
+require 'action_pack'
 class NotificationMailer < ActionMailer::Base
+  include ActionView::Helpers::TextHelper
 
   def prayer_created(recipient, prayer)
     subject     "New Prayer from #{prayer.user.name}"
@@ -20,5 +22,4 @@ class NotificationMailer < ActionMailer::Base
                 :comment => comment,
                 :activity => activity
   end
-
 end
