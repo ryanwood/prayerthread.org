@@ -29,17 +29,17 @@
       - if show_title?
         %h1=h yield(:title)
 
-      #content{ :class => @content_for_sidebar ? "span-17 colborder" : "span-24 last" }
+      #content.span-17.colborder
         = yield
 
-      - if @content_for_sidebar
-        #sidebar.span-6.last
-          = yield(:sidebar)
+      #sidebar.span-6.last
+        = yield(:sidebar)
+        = render :partial => "/layouts/feedback"
         
       #footer.span-24.last
         Copyright &copy;2010 
         = link_to "sourcscape.com", "http://sourcescape.com", :target => "_blank"
         &bull;
         We're interested in your feedback! 
-        = mail_to "support@prayerthread.org", "Drop us a note"
+        = mail_to "prayerthread@googlegroups.com", "Drop us a note"
         and let us know what you think.
