@@ -11,6 +11,10 @@ server "208.78.97.190", :app, :web, :db, :primary => true
 
 # Callbacks
 after "deploy:update_code", "db:symlink" 
+
+# Delayed Job
+after "deploy:start", "delayed_job:start" 
+after "deploy:stop", "delayed_job:stop" 
 after "deploy:restart", "delayed_job:restart"
 
 # Passenger
