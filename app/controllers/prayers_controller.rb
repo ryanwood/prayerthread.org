@@ -4,12 +4,7 @@ class PrayersController < ApplicationController
   after_filter :send_notifications, :only => :create
   
   def index
-    @prayers = Prayer.paginate :all,
-      :page => params[:page],
-      :select => "DISTINCT prayers.*",
-      :include => :groups, 
-      :conditions => ['groups.id IN (?) OR prayers.user_id = ?', current_user.groups.map {|g| g.id }, current_user.id],
-      :order => 'prayers.thread_updated_at DESC'
+    @prayers = Prayer.open.for(current_user).paginate( :page => params[:page] )
   end
   
   def show
