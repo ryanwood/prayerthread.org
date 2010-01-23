@@ -17,21 +17,20 @@ class User < ActiveRecord::Base
   
   validates_presence_of :first_name, :last_name
   
+  # Any user that shares a group
+  named_scope :related, lambda { |user, *excluded| {
+    :joins => :groups, 
+    :conditions => ["groups.id IN (?) and users.id NOT IN (?)", user.groups, excluded << user],
+    :order => "users.first_name, users.last_name",
+    :group => "users.id"
+  }}
+  
   def name
     "#{first_name} #{last_name}"
   end
   
   def full_email
     "#{name} <#{email}>"
-  end
-  
-  # Any user that is in a shared group
-  def related_users
-    User.all( 
-      :select => 'DISTINCT users.*',
-      :joins => :groups, 
-      :conditions => ["groups.id IN (?)", groups],
-      :order => "users.first_name, users.last_name" )
   end
   
   # override clearance to auto accept the first invite

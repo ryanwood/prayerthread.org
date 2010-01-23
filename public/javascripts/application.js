@@ -7,10 +7,10 @@ $(document).ready(function(){
 
   $("#invitation_recipient_email").autocomplete(related_users, {
     matchContains: true,
-    minChars: 0,
+    minChars: 1,
     formatResult: function(data, i, total) {
       // return data[0].replace('&lt;', '<').replace('&gt;','>');
-      var re = /&lt;(.+)&gt;/;
+      var re = /\(([^ ]+)\)$/;
       var email = re.exec(data[0]);
       return email[1];
     }
