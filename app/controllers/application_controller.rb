@@ -13,14 +13,13 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password
   
   rescue_from CanCan::AccessDenied do
-    flash[:error] = "Sorry, you can't exactly do that."
-    redirect_to( root_url )
+    render :template => "/shared/no_access"
   end
   
-  rescue_from ActiveRecord::RecordNotFound do
-    flash[:error] = "Sorry, we couldn't find what you were looking for."
-    redirect_to( :action => :index )
-  end
+  # rescue_from ActiveRecord::RecordNotFound do
+  #   flash[:error] = "Sorry, we couldn't find what you were looking for."
+  #   redirect_to( :action => :index )
+  # end
 
   def ensure_domain
     if RAILS_ENV == 'production' && request.env['HTTP_HOST'] != HOST
