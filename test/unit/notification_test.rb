@@ -15,14 +15,20 @@ class NotificationTest < ActiveSupport::TestCase
   
   context "Notifications" do
     setup do
-      @bob = Factory(:user, :first_name => 'Bob')
-      @larry = Factory(:user, :first_name => 'Larry')
-      @jenny = Factory(:user, :first_name => 'Jenny')
-      @sally = Factory(:user, :first_name => 'Sally')
+      @bob = Factory(:user, :first_name => 'Bob')       # => level 1
+      @larry = Factory(:user, :first_name => 'Larry')   # => level 0
+      @jenny = Factory(:user, :first_name => 'Jenny')   # => level 2
+      @sally = Factory(:user, :first_name => 'Sally')   # => level 2
+      
       @group = Factory(:group, :owner => @bob)
+      
+      # need to update Bob's membership since it's auto-created
+      @bob.memberships.first.update_attribute :notification_level, 1
+      
       Factory(:membership, :group => @group, :user => @larry, :notification_level => 0)
       Factory(:membership, :group => @group, :user => @jenny, :notification_level => 2)
       Factory(:membership, :group => @group, :user => @sally, :notification_level => 2)
+      
       @prayer = Factory(:prayer, :user => @jenny, :group_ids => [@group.id])
     end
     
