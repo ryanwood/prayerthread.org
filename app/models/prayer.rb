@@ -1,3 +1,5 @@
+require 'redcloth'
+
 class Prayer < ActiveRecord::Base
   attr_accessible :title, :body, :answer, :group_ids
 
