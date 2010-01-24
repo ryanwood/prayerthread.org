@@ -4,7 +4,8 @@ class PrayersController < ApplicationController
   after_filter :send_notifications, :only => :create
   
   def index
-    @prayers = Prayer.open.for(current_user).paginate( :page => params[:page] )
+    @view = (params[:view] || 'open').to_sym
+    @prayers = Prayer.find_view(@view, current_user).paginate( :page => params[:page] )
   end
   
   def show

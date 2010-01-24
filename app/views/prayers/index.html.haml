@@ -1,10 +1,14 @@
-- title "Prayers"
+- title "#{@view.to_s.humanize} Prayers"
 
 = render :partial => "/invitations/pending_message"
 
 = render :partial => "list"
 
 - content_for :sidebar do
+  %ul.views.links
+    %li{ :class => (@view == :open ? 'selected' : '') }= link_to "Open", prayers_path
+    %li{ :class => (@view == :answered ? 'selected' : '') }= link_to "Answered", prayers_path( :view => 'answered')
+  
   %ul.links
     = render :partial => "/shared/links"
   

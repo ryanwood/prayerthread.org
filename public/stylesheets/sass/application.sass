@@ -15,6 +15,10 @@
 @import autocomplete.sass
 @import formtastic_changes.sass
 
+=rounded-corners
+  -moz-border-radius: .5em
+  -webkit-border-radius: .5em
+
 /* Main */
 body
   font-size: 80%
@@ -49,6 +53,30 @@ h3
     font-size: 1.1em
     li
       padding: 2px 0
+  ul.views
+    background-color = !gray
+    padding: 1em 0
+    margin-bottom: 1em
+    +rounded-corners
+    li
+      font-family: "Helvetica Neue"
+      font-weight: bold
+      padding: 10px
+      a
+        color = !dark_gray
+        text-decoration: none
+    li.selected
+      background-color = !blue
+      font-size: 1.1em
+      a
+        color = !white
+  #comment_list
+    font-size: 0.85em
+    .body
+      margin-left: 5px
+    .time
+      margin-top: 0.5em
+
 #footer
   border-top= 1px "solid" !gray
   color= !dark_gray
@@ -141,11 +169,39 @@ table
     .preview
       color: #666
     .meta
-        
   td.actions
     text-align: right
   td.actions, td.updated
     white-space: nowrap
+    
+#prayers
+  .prayer
+    padding: 10px 0
+    background: url(../images/dotted_horizontal_border.png) bottom repeat-x
+    h3
+      margin: 5px 0
+      font-weight: bold
+      span.answered
+        font-family: "Helvetica Neue"
+        padding: 3px
+        margin-left: 5px
+        font-weight: normal
+        font-size: 0.6em
+        background-color = !red
+        color = !white
+    .actions
+      margin: 5px
+      font-size: 0.8em
+      float: right
+    .preview, .meta
+      font-size: 0.8em
+      font-weight: normal
+    .preview
+      color: #666
+      padding: 3px 0 3px 5px
+      p
+        padding: 1px 0
+
 
 table
   td.group
@@ -194,13 +250,6 @@ a.pending_invitation_count
     ul.actions
       float: right
       font-size: 0.9em
-      
-#sidebar #comment_list
-  font-size: 0.85em
-  .body
-    margin-left: 5px
-  .time
-    margin-top: 0.5em
 
 .answered
   background-color = !rose

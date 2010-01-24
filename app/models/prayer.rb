@@ -25,9 +25,22 @@ class Prayer < ActiveRecord::Base
     15
   end
   
+  def self.find_view(view, user)
+    send(view).for(user)
+  end
+  
   def answered?
     !answered_at.nil?
   end
+  
+  def to_html
+    RedCloth.new(self.body).to_html
+  end
+  
+  def to_preview
+    to_html.gsub(/<(.|\n)*?>/, '')
+  end
+  
   
   protected
   
