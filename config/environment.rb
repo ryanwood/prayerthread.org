@@ -14,6 +14,7 @@ Rails::Initializer.run do |config|
   config.gem 'friendly_id', :version => '2.2.7'
   config.gem 'will_paginate', :version => '~> 2.3.11'
   config.gem 'delayed_job', :version => '1.8.4'
+  config.gem 'hoptoad_notifier', :version => '2.1.2'
   
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
