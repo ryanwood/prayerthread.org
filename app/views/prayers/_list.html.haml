@@ -25,12 +25,11 @@
           = link_to h(prayer.title), prayer, :class => 'prayer_title'
           - if prayer.answered?
             %span.answered= "answered!"
-        .preview= truncate(prayer.to_preview, :length => 250)
-        .meta
-          = "created #{time_ago_in_words(prayer.created_at)} ago by #{h prayer.name}"
-          &bull;
-          = "last updated #{time_ago_in_words(prayer.thread_updated_at)} ago"
-          &bull;
-          = "published in #{group_list(prayer)}"
+        - if prayer.answered?
+          .answer
+            :textile
+              #{prayer.answer}
+        .preview= truncate(prayer.to_preview, :length => 200)
+        = render :partial => "/prayers/meta", :locals => { :prayer => prayer }
             
   = will_paginate @prayers

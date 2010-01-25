@@ -12,12 +12,18 @@
 !box        = #E5ECF9
 !rose       = #FFE4E1
 
+@import rails.sass
 @import autocomplete.sass
 @import formtastic_changes.sass
 
 =rounded-corners
   -moz-border-radius: .5em
   -webkit-border-radius: .5em
+  
+=bulleted
+  margin-left: 1px
+  padding-left: 10px
+  background: url(../images/bullet.png) center left no-repeat
 
 /* Main */
 body
@@ -70,7 +76,7 @@ h3
       font-size: 1.1em
       a
         color = !white
-  #comment_list
+  .comments
     font-size: 0.85em
     .body
       margin-left: 5px
@@ -90,7 +96,10 @@ h3
     font-style: normal
     color = !blue
     background-color= !box
-    
+
+.actions
+  float: right
+  font-size: 0.9em
   
 ul.inline
   display: inline
@@ -99,57 +108,13 @@ ul.inline
   margin: 0
   li
     display: inline
-    margin: 0
-    padding: 0 5px 0 7px
+    margin: 0 0 0 0.25em
+    padding: 0 0 0 0.6em
     border-left= 1px "solid" !gray
   li.first
     margin-left: 0
     padding-left: 0
     border-left-width: 0
-
-// Flash Overrides
-.success, .notice, .error, .failure
-  color: #000
-  padding: 5px 8px
-  margin: 10px 0
-.success, .notice
-  background-color: #CFC
-  border: solid 1px #6C6
-.error, .failure
-  background-color: #FCC
-  border: solid 1px #C66
-
-// Form Errors
-
-.fieldWithErrors
-  display: inline
-
-#errorExplanation
-  width: 400px
-  border: 2px solid #CF0000
-  padding: 0
-  padding-bottom: 12px
-  margin-bottom: 20px
-  background-color: #fff
-  / #f0f0f0
-  h2
-    text-align: left
-    padding: 5px 5px 5px 15px
-    margin: 0
-    font:
-      weight: bold
-      size: 12px
-    background-color: #c00
-    color: #fff
-  p
-    color: #333
-    margin-bottom: 0
-    padding: 8px
-  ul
-    margin: 2px 24px
-    li
-      font-size: 12px
-      list-style: disc
 
 table
   width: 100%
@@ -173,59 +138,48 @@ table
     text-align: right
   td.actions, td.updated
     white-space: nowrap
-    
-#prayers
-  .prayer
-    padding: 10px 0
-    background: url(../images/dotted_horizontal_border.png) bottom repeat-x
-    h3
-      margin: 5px 0
-      font-weight: bold
-      span.answered
-        font-family: "Helvetica Neue"
-        padding: 3px
-        margin-left: 5px
-        font-weight: normal
-        font-size: 0.6em
-        background-color = !red
-        color = !white
-    .actions
-      margin: 5px
-      font-size: 0.8em
-      float: right
-    .preview, .meta
-      font-size: 0.8em
-      font-weight: normal
-    .preview
-      color: #666
-      padding: 3px 0 3px 5px
-      p
-        padding: 1px 0
-
-
-table
   td.group
     font-size: 1.25em
     
-a.delete
-  color:= !red
+.prayer
+  padding: 10px 0
+  background: url(../images/dotted_horizontal_border.png) bottom repeat-x
+  h3
+    margin: 5px 0
+    font-weight: bold
+    span.answered
+      font-family: "Helvetica Neue"
+      padding: 3px
+      margin-left: 5px
+      font-weight: normal
+      font-size: 0.6em
+      background-color = !red
+      color = !white
+  .actions
+    font-size: 0.8em
+  .preview
+    color: #666
+    padding: 0.5em
+    p
+      padding: 1px 0
+  .meta
+    font-size: 0.8em
+    margin-bottom: 10px
+    ul
+      margin: 0
+      padding: 5px 0
+      li
+        display: inline
+        +bulleted
+    p
+      padding: 1px 0
+      border: 1px solid #999
+    
+.comment_count
+  padding-left: 12px
+  background: url(../images/comment.png) center left no-repeat
 
-a.pending_invitation_count
-  -moz-background-clip: border
-  -moz-background-inline-policy: continuous
-  -moz-background-origin: padding
-  -moz-border-radius: 5px
-  background-color: #DDDDDD
-  color: #999999
-  display: inline-block
-  font-size: 10px
-  font-weight: bold
-  margin-left: 2px
-  padding: 1px 5px
-  text-decoration: none
-  text-shadow: none
-
-#comment_list
+.comments
   .comment
     padding: 5px
     margin: 10px 0
@@ -244,22 +198,40 @@ a.pending_invitation_count
       span
         font-weight: bold
     .time
-      margin-top: 1em
-      font-size: 0.9em
-      font-style: italic
-    ul.actions
-      float: right
-      font-size: 0.9em
+      +bulleted
+      padding-top: 4px
+      font-size: 0.8em
+    .actions
+      font-size: 0.8em
 
 .answered
   background-color = !rose
-  padding: 1.5em
-  strong
+  border= 1px "solid" !red
+  .title
+    padding: 0.5em 1em
     font-size: 1.2em
+    border-bottom= 1px "solid" !red
   .answer
-    margin: 1em 0
     padding: 1em
     background-color = !white
+
+a.delete
+  color:= !red
+
+a.pending_invitation_count
+  -moz-background-clip: border
+  -moz-background-inline-policy: continuous
+  -moz-background-origin: padding
+  -moz-border-radius: 5px
+  background-color: #DDDDDD
+  color: #999999
+  display: inline-block
+  font-size: 10px
+  font-weight: bold
+  margin-left: 2px
+  padding: 1px 5px
+  text-decoration: none
+  text-shadow: none
 
 #add_member_area
   form

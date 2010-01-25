@@ -1,7 +1,7 @@
 #context
   %ul.inline
     - if signed_in?
-      %li.first= "Welcome #{current_user.name}!"
+      %li.first= "Welcome #{current_user.first_name}!"
       %li
         = link_to "Invites", invitations_path
         = link_to( current_user.invitations.pending.count, invitations_path, :class => 'pending_invitation_count')

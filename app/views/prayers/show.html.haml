@@ -1,39 +1,34 @@
 - title h(@prayer.title)
-- if @prayer.answered?
-  .answered
-    %strong This prayer has been answered!
-    .answer
-      :textile
-        #{@prayer.answer}
-    = link_to "Edit the answer", answer_prayer_path(@prayer)
-.box
-  :textile
-    #{@prayer.body}
-  %hr
+.prayer
+  - if @prayer.answered?
+    .answered
+      .actions
+        = link_to "Edit Answer", answer_prayer_path(@prayer)
+      .title This prayer has been answered!
+      .answer
+        :textile
+          #{@prayer.answer}
+  .box
+    :textile
+      #{@prayer.body}
+    %hr
+    %ul.inline
+      - if can?( :edit, @prayer )
+        %li.first= link_to "Share an Update", new_prayer_comment_path(@prayer)
+        - unless @prayer.answered?
+          %li= link_to "Mark as Answered", answer_prayer_path(@prayer)
+      - else
+        %li.first= link_to "Add a comment or encouragement for this prayer", new_prayer_comment_path(@prayer)
+
+  = render :partial => "meta", :locals => { :prayer => @prayer }
+
   %ul.inline
+    %li.first= link_to "Back to my Prayer List", prayers_path
     - if can?( :edit, @prayer )
-      %li.first= link_to "Share an update", new_prayer_comment_path(@prayer)
-      - unless @prayer.answered?
-        %li= link_to "Mark as Answered", answer_prayer_path(@prayer)
-    - else
-      %li.first= link_to "Add a comment or encouragement for this prayer", new_prayer_comment_path(@prayer)
-
-%p
-  Created
-  = time_ago_in_words(@prayer.created_at)
-  ago by
-  %strong= h @prayer.name
-  %br  
-  Shown in
-  = group_list(@prayer)
-
-%ul.inline
-  %li.first= link_to "Back to my Prayer List", prayers_path
-  - if can?( :edit, @prayer )
-    %li= link_to "Edit the Original Prayer", edit_prayer_path(@prayer)
-  - if can?( :destroy, @prayer )
-    %li= link_to "Permanently Delete", @prayer, :method => :delete,                    |
-      :confirm => 'Are you sure? This will permanently delete this prayer and all it\'s comments.' |
+      %li= link_to "Edit the Original Prayer", edit_prayer_path(@prayer)
+    - if can?( :destroy, @prayer )
+      %li= link_to "Permanently Delete", @prayer, :method => :delete,                    |
+        :confirm => 'Are you sure? This will permanently delete this prayer and all it\'s comments.' |
   
 - content_for :sidebar do
   = render :partial => "/comments/recent"

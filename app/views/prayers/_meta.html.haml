@@ -1,0 +1,9 @@
+.meta
+  .comment_count= link_to pluralize(prayer.comments_count, "Comment"), prayer_comments_path(prayer)
+  %ul
+    %li.first.created
+      = "Created #{time_ago_in_words(prayer.created_at)} ago by "
+      %strong= prayer.name
+    - if prayer.created_at != prayer.thread_updated_at
+      %li.updated= "Last commented #{time_ago_in_words(prayer.thread_updated_at)} ago"
+    %li.published= "Published in #{group_list(prayer)}"
