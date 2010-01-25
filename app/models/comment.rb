@@ -1,6 +1,6 @@
 class Comment < ActiveRecord::Base
   attr_accessible :body
-  belongs_to :prayer
+  belongs_to :prayer, :counter_cache => true
   belongs_to :user
   validates_presence_of :body, :on => :create, :message => "can't be blank"
   
