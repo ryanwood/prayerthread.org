@@ -7,6 +7,7 @@
       .title This prayer has been answered!
       .answer= p(@prayer.answer)
   .box
+    = image_tag @prayer.user.gravatar_url, :class => 'gravatar'
     = p(@prayer.body)
     %hr
     %ul.inline

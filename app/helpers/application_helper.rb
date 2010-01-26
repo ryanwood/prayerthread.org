@@ -6,4 +6,8 @@ module ApplicationHelper
     "<p>#{text.gsub(/(\r?\n){2}/, '</p><p>')}</p>"
   end
   
+  def author(user)
+    current_user == user ? "You": user.name
+  end
+  
 end
