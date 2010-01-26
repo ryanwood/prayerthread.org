@@ -33,6 +33,15 @@ namespace :db do
   end
 end
 
+desc "Returns last lines of log file. Usage: cap log [-s lines=100] [-s rails_env=production]"
+task :log do
+  lines     = variables[:lines] || 100
+  rails_env = variables[:rails_env] || 'production'
+  run "tail -n #{lines} #{shared_path}/log/#{rails_env}.log" do |ch, stream, out|
+    puts out
+  end
+end
+
 Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'hoptoad_notifier-*')].each do |vendored_notifier|
   $: << File.join(vendored_notifier, 'lib')
 end
