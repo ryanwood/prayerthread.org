@@ -1,13 +1,14 @@
 #context
-  %ul.inline
-    - if signed_in?
-      %li.first= "Welcome #{current_user.first_name}!"
+  - if signed_in?
+    = image_tag current_user.gravatar_url( :size => 20 )
+    %ul.inline
+      %li.first="Welcome #{current_user.first_name}!"
       %li
         = link_to "Invites", invitations_path
-        = link_to( current_user.invitations.pending.count, invitations_path, :class => 'pending_invitation_count')
+        = link_to(current_user.invitations.pending.count, invitations_path, :class => 'pending_invitation_count')
       %li= link_to "My Account", account_path
       %li= link_to "Sign Out", sign_out_path
-    - else
-      = link_to "Sign Up", sign_up_path
-      or
-      = link_to "Sign In", sign_in_path
+  - else
+    = link_to "Sign Up", sign_up_path
+    or
+    = link_to "Sign In", sign_in_path

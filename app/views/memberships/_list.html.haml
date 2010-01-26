@@ -1,6 +1,7 @@
 %h3 Members
-%table
+%table#members_table
   %tr
+    %th.gravatar 
     %th Name
     %th Email
     %th Status
@@ -8,6 +9,7 @@
   - @memberships.each do |membership|
     - user = membership.user
     %tr
+      %td.gravatar= image_tag user.gravatar_url( :size => 35 ), :class => 'gravatar'
       %td.name= h user.name
       %td.email= user.email
       %td.status

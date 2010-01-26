@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include Clearance::User
+  is_gravtastic!
   attr_accessor :invitation_token
   attr_accessible :first_name, :last_name, :invitation_token, :memberships_attributes
   

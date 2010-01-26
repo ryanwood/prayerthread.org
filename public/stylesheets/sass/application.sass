@@ -32,6 +32,10 @@ body
 p
   padding: 6px 0
   margin: 0
+a
+  color = !blue
+  &:hover
+    color = !light_blue
 h1
   margin-top: 10px
   font-size: 2.5em
@@ -48,6 +52,9 @@ h3
   padding: 20px 0
   #context
     float: right
+    img
+      float: left
+      padding: 0 5px
   ul#menu
     li
       font-size: 18px
@@ -56,26 +63,24 @@ h3
     list-style-type: none
     padding: 0
     margin: 0
-    font-size: 1.1em
     li
       padding: 2px 0
   ul.views
-    background-color = !gray
-    padding: 1em 0
+    padding: 0
     margin-bottom: 1em
-    +rounded-corners
+    border-top: 1px solid #EEE
     li
-      font-family: "Helvetica Neue"
-      font-weight: bold
-      padding: 10px
-      a
-        color = !dark_gray
-        text-decoration: none
-    li.selected
-      background-color = !blue
       font-size: 1.1em
+      padding: 5px 10px
+      border-bottom: 1px solid #EEE
       a
-        color = !white
+        text-decoration: none
+        color = !dark_gray
+    li.selected
+      font-weight: bold
+      background-color = !light_gray
+      a
+        color = !blue
   .comments
     font-size: 0.85em
     .body
@@ -84,7 +89,7 @@ h3
       margin-top: 0.5em
 
 #footer
-  border-top= 1px "solid" !gray
+  border-top= 1px "solid" !light_gray
   color= !dark_gray
   margin: 30px 0
   padding: 1em 0
@@ -137,34 +142,68 @@ table
   td.actions
     text-align: right
   td.actions, td.updated
+    float: none
     white-space: nowrap
   td.group
     font-size: 1.25em
     
-.prayer
-  padding: 10px 0
-  background: url(../images/dotted_horizontal_border.png) bottom repeat-x
-  h3
-    margin: 5px 0
-    font-weight: bold
-    span.answered
+table#members_table
+  td
+    padding: 2px 10px
+  th.gravatar, td.gravatar
+    width: 50px
+    background-image: none
+  
+.prayers
+  .prayer
+    padding: 10px 0
+    background: url(../images/dotted_horizontal_border.png) bottom repeat-x
+    h3
+      margin: 5px 0
+      font-weight: bold
+    .answered_token
+      float: left
       font-family: "Helvetica Neue"
-      padding: 3px
-      margin-left: 5px
+      margin: 3px
+      padding: 0 3px
       font-weight: normal
-      font-size: 0.6em
+      font-size: 0.9em
       background-color = !red
       color = !white
-  .actions
-    font-size: 0.8em
-  .preview
-    color: #666
-    padding: 0.5em
-    p
-      padding: 1px 0
+    .actions
+      margin-top: 5px
+      font-size: 0.8em
+    img.gravatar
+      float: left
+      margin: 10px
+    .preview
+      color: #666
+      padding: 0.5em
+      p
+        padding: 1px 0
+    .answered
+      margin: 1em 0
+      padding: 0.5em
+
+.prayer
+  .answered
+    background-color = !rose
+    // border= 1px "solid" !red
+    .title
+      color = !blue
+      padding: 10px
+      font-size: 1.4em
+      font-weight: bold
+      //border-bottom= 1px "solid" !gray
+    .answer
+      margin: 0.5em 2em
+      font-style: italic
+      // background-color = !white
+    .actions
+      padding: 1em
   .meta
+    clear: left
     font-size: 0.8em
-    margin-bottom: 10px
     ul
       margin: 0
       padding: 5px 0
@@ -174,8 +213,11 @@ table
     p
       padding: 1px 0
       border: 1px solid #999
-    
-.comment_count
+img.gravatar
+  padding: 1px
+  border: 1px solid #999
+  
+li#comment_count
   padding-left: 12px
   background: url(../images/comment.png) center left no-repeat
 
@@ -188,6 +230,10 @@ table
       padding: 0 0 3px 0
       margin: 0
       font-size: 0.9em
+    img.gravatar
+      float: left
+      margin-right: 0.75em
+      margin-top: 0.25em
     .body
       margin-left: 15px
       color = !dark_gray
@@ -198,22 +244,12 @@ table
       span
         font-weight: bold
     .time
+      clear: left
       +bulleted
       padding-top: 4px
       font-size: 0.8em
     .actions
       font-size: 0.8em
-
-.answered
-  background-color = !rose
-  border= 1px "solid" !red
-  .title
-    padding: 0.5em 1em
-    font-size: 1.2em
-    border-bottom= 1px "solid" !red
-  .answer
-    padding: 1em
-    background-color = !white
 
 a.delete
   color:= !red

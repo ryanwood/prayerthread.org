@@ -1,9 +1,9 @@
-- title "Answer Prayer"
+- title "Answering '#{@prayer.title}'"
 
 - semantic_form_for @prayer do |form|
   = form.error_messages
   - form.inputs do
-    = form.input :answer, :hint => "This describes how the prayer was answered."
+    = form.input :answer, :label => "The Answer", :hint => "This is how other's will see this prayer has been answered."
   - form.buttons do
     = form.commit_button "Save Answer"
   

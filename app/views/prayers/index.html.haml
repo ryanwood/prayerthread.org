@@ -6,8 +6,8 @@
 
 - content_for :sidebar do
   %ul.views.links
-    %li{ :class => (@view == :open ? 'selected' : '') }= link_to "Open", prayers_path
-    %li{ :class => (@view == :answered ? 'selected' : '') }= link_to "Answered", prayers_path( :view => 'answered')
+    %li{ :class => (@view == :open ? 'selected' : '') }= link_to "Open Prayers", prayers_path
+    %li{ :class => (@view == :answered ? 'selected' : '') }= link_to "Answered Prayers", prayers_path( :view => 'answered')
   
   %ul.links
     = render :partial => "/shared/links"

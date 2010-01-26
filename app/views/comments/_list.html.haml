@@ -8,6 +8,7 @@
             %ul.inline
               %li.first= link_to "edit", edit_prayer_comment_path(comment.prayer, comment)
               %li= link_to "delete", prayer_comment_path(comment.prayer, comment), :method => :delete, :confirm => "Are you sure you want to delete this comment?"
+        = image_tag comment.user.gravatar_url( :size => preview ? 30 : 40 ), :class => 'gravatar'
         %p.author
           %span= comment.user.name
           said:
@@ -18,3 +19,4 @@
 - else
   .box
     No comments yet...
+    = link_to "Care to add one?", new_prayer_comment_path(@prayer)

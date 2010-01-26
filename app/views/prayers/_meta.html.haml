@@ -1,5 +1,4 @@
 .meta
-  .comment_count= link_to pluralize(prayer.comments_count, "Comment"), prayer_comments_path(prayer)
   %ul
     %li.first.created
       = "Created #{time_ago_in_words(prayer.created_at)} ago by "

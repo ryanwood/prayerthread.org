@@ -10,25 +10,25 @@
       No prayers here...
       = link_to "Why not add one?", new_prayer_path
 - else
-  #prayers
+  .prayers
     - for prayer in @prayers
       %div[prayer]
         .actions
           %ul.inline
+            %li.first#comment_count= link_to pluralize(prayer.comments_count, "Comment"), prayer_comments_path(prayer)
             - if can? :modify, prayer
-              %li.first= link_to 'Share Update', new_prayer_comment_path(prayer)
+              %li= link_to 'Share Update', new_prayer_comment_path(prayer)
               - unless prayer.answered?
                 %li= link_to 'Answered?', answer_prayer_path(prayer)
             - else
-              %li.first= link_to 'Share Comment', new_prayer_comment_path(prayer)
+              %li= link_to 'Share Comment', new_prayer_comment_path(prayer)
         %h3
           = link_to h(prayer.title), prayer, :class => 'prayer_title'
-          - if prayer.answered?
-            %span.answered= "answered!"
         - if prayer.answered?
           .answered
             %strong Answer:
             = truncate(prayer.answer, :length => 190)
+        = image_tag current_user.gravatar_url( :size => 30 ), :class => 'gravatar'
         .preview= truncate(prayer.body, :length => 190)
         = render :partial => "/prayers/meta", :locals => { :prayer => prayer }
             
