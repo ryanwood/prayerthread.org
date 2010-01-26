@@ -28,7 +28,7 @@
           .answered
             %strong Answer:
             = truncate(prayer.answer, :length => 190)
-        = image_tag current_user.gravatar_url( :size => 30 ), :class => 'gravatar'
+        = image_tag @prayer.user.gravatar_url( :size => 30 ), :class => 'gravatar'
         .preview= truncate(prayer.body, :length => 190)
         = render :partial => "/prayers/meta", :locals => { :prayer => prayer }
             

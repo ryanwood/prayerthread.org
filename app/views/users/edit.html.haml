@@ -13,8 +13,7 @@
       = form.input :password
       = form.input :password_confirmation, :label => "Confirm password"
 
-  %h3 Group Notifications
-  %p Checking a box below will enable email notifications to be sent to you when the corresponding event occur in that particular group.
+  %h3 Email Notifications
   -#
     %p.checkbox_selectors
       = link_to_function("Select All", "$('input.group_event').attr('checked', true);")
