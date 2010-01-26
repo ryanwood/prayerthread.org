@@ -5,12 +5,9 @@
       .actions
         = link_to "Edit Answer", answer_prayer_path(@prayer)
       .title This prayer has been answered!
-      .answer
-        :textile
-          #{@prayer.answer}
+      .answer= p(@prayer.answer)
   .box
-    :textile
-      #{@prayer.body}
+    = p(@prayer.body)
     %hr
     %ul.inline
       - if can?( :edit, @prayer )

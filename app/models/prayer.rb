@@ -1,5 +1,3 @@
-require 'redcloth'
-
 class Prayer < ActiveRecord::Base
   attr_accessible :title, :body, :answer, :group_ids
 
@@ -34,15 +32,6 @@ class Prayer < ActiveRecord::Base
   def answered?
     !answered_at.nil?
   end
-  
-  def to_html
-    RedCloth.new(self.body).to_html
-  end
-  
-  def to_preview
-    to_html.gsub(/<(.|\n)*?>/, '')
-  end
-  
   
   protected
   

@@ -12,9 +12,7 @@
   %li= link_to "View All", prayers_path
   
 %h2 Original Prayer
-.box
-  :textile
-    #{@prayer.body}
+.box= p(@prayer.body)
 
 - content_for :sidebar do
   = render :partial => "/shared/formatting_help"

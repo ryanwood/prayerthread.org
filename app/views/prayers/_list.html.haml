@@ -26,10 +26,10 @@
           - if prayer.answered?
             %span.answered= "answered!"
         - if prayer.answered?
-          .answer
-            :textile
-              #{prayer.answer}
-        .preview= truncate(prayer.to_preview, :length => 200)
+          .answered
+            %strong Answer:
+            = truncate(prayer.answer, :length => 190)
+        .preview= truncate(prayer.body, :length => 190)
         = render :partial => "/prayers/meta", :locals => { :prayer => prayer }
             
   = will_paginate @prayers

@@ -11,7 +11,7 @@
         %p.author
           %span= comment.user.name
           said:
-        .body= preview ? preview_comment(comment, 100) : comment.to_html
+        .body= show_comment(comment, preview ? 80 : nil)
         %p.time= "posted #{time_ago_in_words(comment.created_at)} ago"
   - if preview
     %p= link_to "View all Comments", prayer_comments_path(@prayer)
