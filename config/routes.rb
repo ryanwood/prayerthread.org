@@ -4,7 +4,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :groups do |group|
     group.resources :memberships
     group.resources :invitations, :only => [:new, :create, :resend], :member => { :resend => :put }
-  end  
+  end
+  
+  map.help 'help', :controller => "help", :action => "index"
   
   # Lists the current users pending invitations
   map.resources :invitations, 

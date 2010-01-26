@@ -1,0 +1,16 @@
+- title "Prayer Thread Help"
+
+%h2 FAQ
+#help
+  %dl
+    %dt How do I upload an avatar (my picture of myself) so others will see it next to my prayers and comments?
+    %dd
+      = image_tag( "http://www.gravatar.com/avatar/", :class => "gravatar_default" )
+      %p
+        If you see this image next to your posts, you don't have a gravatar set up.
+        To get a photo of yourself to show up by your posts, just 
+        = link_to "create a gravatar", "http://en.gravatar.com/site/signup", :target => "_blank"
+        with your registered email address. That's all there is to it.
+      %p  
+        = link_to "Want more details on how Gravatar works?", "http://en.gravatar.com/", :target => "_blank"
+

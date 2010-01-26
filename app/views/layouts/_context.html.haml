@@ -7,6 +7,7 @@
         = link_to "Invites", invitations_path
         = link_to(current_user.invitations.pending.count, invitations_path, :class => 'pending_invitation_count')
       %li= link_to "My Account", account_path
+      %li= link_to "Help", help_path
       %li= link_to "Sign Out", sign_out_path
   - else
     = link_to "Sign Up", sign_up_path
