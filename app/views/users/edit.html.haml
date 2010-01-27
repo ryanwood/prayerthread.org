@@ -12,8 +12,9 @@
     #password_change_area{ :style => "display:none;" }
       = form.input :password, :input_html => { :value => '', :autocomplete => "off" }
       = form.input :password_confirmation, :label => "Confirm password", :input_html => { :value => '', :autocomplete => "off" }
-
+  
   %h3 Email Notifications
+  %p Notify me:
   -#
     %p.checkbox_selectors
       = link_to_function("Select All", "$('input.group_event').attr('checked', true);")
@@ -21,7 +22,6 @@
       = link_to_function("Select None", "$('input.group_event').attr('checked', false);")
   - form.semantic_fields_for :memberships do |membership|
     - form.inputs :name => membership.object.group.name, :class => "membership" do
-      %p In this group, notify me:
       = membership.input :notification_level, :label => false, :as => :radio, :collection => Membership::NOTIFICATION_LEVELS
     -#  
       - form.inputs :name => membership.object.group.name, :class => "membership" do
@@ -33,4 +33,14 @@
   
     
 - content_for :sidebar do
-  Edit your profile.
+  %h3 Your Photo
+  .account_gravatar= image_tag( @user.gravatar_url, :class => "gravatar" )
+  %p
+    A
+    = link_to "Gravatar", "http://en.gravatar.com/", :target => "_blank"
+    is a "globally recognized avatar". Basically, it's a photo of yourself that you can set up once and use for multiple sites.
+  %ul.links
+    %li= link_to "That's not my picture.", "http://en.gravatar.com/site/signup", :target => "_blank"
+    %li= link_to "That is my picture, but I'd like to change it.", "http://en.gravatar.com/emails", :target => "_blank"
+    %li= link_to "I'm confused. What's all this gravatar business.", "http://en.gravatar.com/", :target => "_blank"
+
