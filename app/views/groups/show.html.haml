@@ -1,16 +1,8 @@
-- title "#{@group.name} : Prayers"
+- title "#{h(@group.name)} : Prayers", false
 
--#
-  This is the layout for using jQuery tabs. Leaving in case I switch back.
-  #group_tabs
-    %ul
-      %li
-        %a{ :href => "#prayers" }Prayers
-      %li
-        %a{ :href => "#members" }Members
-      - if can? :modify, @group
-        %li
-          %a{ :href => "#invitations" }Invitations
+%h1 
+  = @content_for_title
+  .description= h @group.description
 
 #prayers
   =render :partial => "/prayers/list"
