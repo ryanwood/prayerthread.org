@@ -40,7 +40,7 @@
     = link_to "Gravatar", "http://en.gravatar.com/", :target => "_blank"
     is a "globally recognized avatar". Basically, it's a photo of yourself that you can set up once and use for multiple sites.
   %ul.links
-    %li= link_to "That's not my picture.", "http://en.gravatar.com/site/signup", :target => "_blank"
+    %li= link_to "That's not my picture.", "http://en.gravatar.com/site/signup/#{@user.email}", :target => "_blank"
     %li= link_to "That is my picture, but I'd like to change it.", "http://en.gravatar.com/emails", :target => "_blank"
     %li= link_to "I'm confused. What's all this gravatar business.", "http://en.gravatar.com/", :target => "_blank"
 
