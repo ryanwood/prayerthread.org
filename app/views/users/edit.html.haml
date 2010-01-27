@@ -10,8 +10,8 @@
       = check_box_tag :pwd, 1, false, :onchange => "$('#password_change_area').toggle();"
       %label{ :for => 'pwd' } Change your password
     #password_change_area{ :style => "display:none;" }
-      = form.input :password
-      = form.input :password_confirmation, :label => "Confirm password"
+      = form.input :password, :input_html => { :value => '', :autocomplete => "off" }
+      = form.input :password_confirmation, :label => "Confirm password", :input_html => { :value => '', :autocomplete => "off" }
 
   %h3 Email Notifications
   -#
