@@ -1,29 +1,9 @@
 - title "Invitations"
-- unless @invitations.empty?
-  %p Here are your current pending invitations.
 
-  %table
-    %tr
-      %th Sent By
-      %th Group
-      %th Sent
-      %th
-    - for invitation in @invitations
-      %tr
-        %td= h invitation.sender.name
-        %td= h invitation.group.name
-        %td
-          = "#{time_ago_in_words(invitation.sent_at)} ago"
-          - if invitation.ignored?
-            (ignored)
-        %td.actions
-          %ul.inline
-            %li.first= link_to 'Accept', accept_invitation_path(invitation, :token => invitation.token)
-            - if invitation.ignored?
-              %li= link_to 'Delete', invitation, :method => :delete, |
-                :confirm => 'This will permanently delete this invitation. Are you sure?' |
-            - else
-              %li= link_to 'Ignore', ignore_invitation_path(invitation), :method => :put
+  
+%h3 Invitations Waiting for Your Acceptance
+- unless @invitations.empty?
+  = render :partial => "list", :locals => { :invitations => @invitations }
 -else
   .box
     %strong You currently have no pending invitations.
@@ -31,4 +11,9 @@
       You may want to 
       = link_to "create your own group", new_group_path
       and invite other's to join.
-  %p= link_to "&laquo; Back to your prayer list", prayers_path
+
+- unless @sent_invitations.empty?
+  %h3 Pending Invitations You Sent
+  = render :partial => "pending", :locals => { :invitations => @sent_invitations, :show_group => true }
+    
+%p= link_to "&laquo; Back to your prayer list", prayers_path

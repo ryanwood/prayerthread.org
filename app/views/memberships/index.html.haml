@@ -7,8 +7,8 @@
 #members
   - if can? :modify, @group
     = render :partial => "/invitations/new"
-      
-    =render :partial => "/invitations/pending"
+    %h3 Pending Invitations
+    =render :partial => "/invitations/pending", :locals => { :invitations => @invitations }
 
   = render :partial => "/memberships/list"
   

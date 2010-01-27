@@ -18,6 +18,7 @@ class Invitation < ActiveRecord::Base
   
   named_scope :pending, :conditions => { :accepted_at => nil, :ignored => false }, :order => "sent_at DESC"
   named_scope :pending_and_ignored, :conditions => { :accepted_at => nil }
+  
   after_create :send_invitation_email, :unless => :accepted?
   
   def accepted?

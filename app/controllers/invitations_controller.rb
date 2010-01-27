@@ -5,6 +5,7 @@ class InvitationsController < ApplicationController
   
   def index
     @invitations = current_user.invitations.pending_and_ignored
+    @sent_invitations = current_user.sent_invitations.pending
   end
   
   def new

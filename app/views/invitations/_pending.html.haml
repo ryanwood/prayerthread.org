@@ -1,20 +1,24 @@
-- unless @invitations.empty?
+- show_group ||= false
+- unless invitations.empty?
   #pendinginvitations
-    %h3 Pending Invitations
     %table
       %tr
         %th Email
+        - if show_group
+          %th Group
         %th Sent
         %th 
-      - @invitations.each do |invitation|
+      - invitations.each do |invitation|
         %tr
           %td.email= h invitation.recipient_email
+          - if show_group
+            %th= link_to h(invitation.group.name), group_memberships_path(invitation.group)
           %td.sent
             = time_ago_in_words(invitation.sent_at || invitation.created_at)
             ago
           %td.actions
             %ul.inline
-              %li.first= link_to "Resend", resend_group_invitation_path(@group, invitation), :method => :put
+              %li.first= link_to "Resend", resend_group_invitation_path(invitation.group, invitation), :method => :put
               %li= link_to "Delete", invitation_path(invitation), |
                 :method => :delete, |
                 :confirm => "Are you want to cancel the invitation sent to #{h invitation.recipient_email}?", |

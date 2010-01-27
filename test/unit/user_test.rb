@@ -3,7 +3,7 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   should_validate_presence_of :first_name, :last_name
   should_allow_mass_assignment_of :first_name, :last_name, :invitation_token
-  should_have_many :prayers, :memberships, :invitations, :comments, :owned_groups
+  should_have_many :prayers, :memberships, :invitations, :sent_invitations, :comments, :owned_groups
   should_have_many :groups, :through => :memberships
   
   should "accept the first invitation when confirming an email" do

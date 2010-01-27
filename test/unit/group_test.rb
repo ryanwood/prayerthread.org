@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class GroupTest < ActiveSupport::TestCase
-  should_allow_mass_assignment_of :name, :owner_id
+  should_allow_mass_assignment_of :name, :owner_id, :description
   should_belong_to :owner
   should_have_many :memberships, :dependent => :destroy
   should_have_many :users, :through => :memberships
