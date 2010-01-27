@@ -1,5 +1,5 @@
 class Prayer < ActiveRecord::Base
-  attr_accessible :title, :body, :answer, :group_ids
+  attr_accessible :title, :body, :answer, :praise, :group_ids
 
   belongs_to :user
   has_many :comments, :order => 'created_at DESC', :dependent => :destroy
@@ -12,8 +12,9 @@ class Prayer < ActiveRecord::Base
   
   has_friendly_id :title, :use_slug => true
   
-  named_scope :open, :conditions => "answered_at IS NULL" 
-  named_scope :answered, :conditions => "answered_at IS NOT NULL" 
+  named_scope :open, :conditions => "answered_at IS NULL and praise = false" 
+  named_scope :answered, :conditions => "answered_at IS NOT NULL and praise = false" 
+  named_scope :praise, :conditions => "praise = true"
   named_scope :for, lambda { |user| {
     :include => :groups, 
     :conditions => ['groups.id IN (?) OR prayers.user_id = ?', user.groups.map {|g| g.id }, user.id],

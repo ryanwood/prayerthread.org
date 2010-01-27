@@ -18,7 +18,7 @@
             %li.first#comment_count= link_to pluralize(prayer.comments_count, "Comment"), prayer_comments_path(prayer)
             - if can? :modify, prayer
               %li= link_to 'Share Update', new_prayer_comment_path(prayer)
-              - unless prayer.answered?
+              - unless prayer.answered? || prayer.praise?
                 %li= link_to 'Answered?', answer_prayer_path(prayer)
             - else
               %li= link_to 'Share Comment', new_prayer_comment_path(prayer)

@@ -8,4 +8,11 @@ module PrayersHelper
     groups.empty? ? "no groups" : groups.join(', ')
   end
   
+  def prayer_title(view)
+    case view
+    when :praise : "Praises"
+    else "#{view.to_s.humanize} Prayers"
+    end
+  end
+  
 end

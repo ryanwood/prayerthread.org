@@ -1,4 +1,4 @@
-- title "#{@view.to_s.humanize} Prayers"
+- title prayer_title(@view)
 
 = render :partial => "/invitations/pending_message"
 
@@ -8,6 +8,7 @@
   %ul.views.links
     %li{ :class => (@view == :open ? 'selected' : '') }= link_to "Open Prayers", prayers_path
     %li{ :class => (@view == :answered ? 'selected' : '') }= link_to "Answered Prayers", prayers_path( :view => 'answered')
+    %li{ :class => (@view == :praise ? 'selected' : '') }= link_to "Praises", prayers_path( :view => 'praise')
   
   %ul.links
     = render :partial => "/shared/links"

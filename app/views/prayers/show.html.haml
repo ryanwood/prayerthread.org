@@ -13,7 +13,7 @@
     %ul.inline
       - if can?( :edit, @prayer )
         %li.first= link_to "Share an Update", new_prayer_comment_path(@prayer)
-        - unless @prayer.answered?
+        - unless @prayer.answered? || @prayer.praise?
           %li= link_to "Mark as Answered", answer_prayer_path(@prayer)
       - else
         %li.first= link_to "Add a comment or encouragement for this prayer", new_prayer_comment_path(@prayer)
