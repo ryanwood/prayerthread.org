@@ -97,10 +97,21 @@ class PrayersControllerTest < ActionController::TestCase
   end
   
   context "on PUT to :update" do
-    setup { put :update, :id => @prayer, :prayer => { :title => "Updated Title" } }
-    should_redirect_to( "the prayer" ) { prayer_path(assigns(:prayer)) }
+    should "redirect_to the prayer" do
+      put :update, :id => @prayer
+      assert_redirected_to prayer_path(assigns(:prayer))
+    end
     should "update the prayer's title" do
+      put :update, :id => @prayer, :prayer => { :title => "Updated Title" }
       assert assigns(:prayer).title == "Updated Title"
+    end
+    should "fire the answered notification if the prayer was answered" do
+      Notification.expects(:fire).with(:answered, @prayer)
+      put :update, :id => @prayer, :prayer => { :answer => "My answer" }
+    end
+    should "not fire the answered notification unless the prayer was answered" do
+      Notification.expects(:fire).never
+      put :update, :id => @prayer
     end
   end
   

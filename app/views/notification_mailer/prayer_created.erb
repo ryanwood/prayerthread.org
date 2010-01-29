@@ -1,4 +1,4 @@
-- DO NOT REPLY TO THIS EMAIL -
+<%= render :partial => "header" %>
 
 Hi <%= @recipient.first_name %>,
 
@@ -6,8 +6,4 @@ Hi <%= @recipient.first_name %>,
 
 <%= prayer_url( @prayer, :host => HOST ) %>
 
---------------------------------------------------------------------------------------------------
-This message sent from Prayer Thread.
-Manage your email preferences at http://www.prayerthread.org/account
-
-Prayer Thread: www.prayerthread.org
+<%= render :partial => "footer" %>

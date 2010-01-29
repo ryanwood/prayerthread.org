@@ -10,6 +10,15 @@ class NotificationMailer < ActionMailer::Base
     body        :recipient => recipient,
                 :prayer => prayer
   end
+  
+  def prayer_answered(recipient, prayer)
+    subject     "Answered Prayer from #{prayer.user.name}"
+    recipients  recipient.full_email
+    from        DO_NOT_REPLY
+    sent_on     Time.now
+    body        :recipient => recipient,
+                :prayer => prayer
+  end  
 
   def comment_created(recipient, comment)
     activity = (comment.user == comment.prayer.user) ? "Update" : "Comment"

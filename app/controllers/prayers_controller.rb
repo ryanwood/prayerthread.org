@@ -33,8 +33,10 @@ class PrayersController < ApplicationController
   end
   
   def update
+    previously_answered = @prayer.answered?
     if @prayer.update_attributes(params[:prayer])
-      flash[:notice] = "Successfully #{params[:prayer][:answer] ? "answered" : "updated"} prayer."
+      Notification.fire(:answered, @prayer) if !previously_answered && @prayer.answered?
+      flash[:notice] = "Successfully updated prayer."
       redirect_to @prayer
     else
       render :action => 'edit'

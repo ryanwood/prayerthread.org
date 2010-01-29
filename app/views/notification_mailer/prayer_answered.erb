@@ -1,0 +1,9 @@
+<%= render :partial => "header" %>
+
+<%= @prayer.user.name %> marked the prayer, '<%= @prayer.title %>', as answered!
+
+"<%= truncate(@prayer.answer, :length => 200) %>"
+
+<%= prayer_url( @prayer, :host => HOST ) %>
+
+<%= render :partial => "footer" %>
