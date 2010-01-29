@@ -50,6 +50,6 @@ class PrayersController < ApplicationController
   protected
   
     def send_notifications
-      Notification.process(:created, @prayer)
+      Notification.fire(:created, @prayer)
     end
 end

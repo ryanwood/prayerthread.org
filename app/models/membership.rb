@@ -2,7 +2,7 @@ class Membership < ActiveRecord::Base
   belongs_to :user
   belongs_to :group
   
-  before_create :set_defaults
+  before_save :set_notifications
   
   attr_accessible :notification_level, :group, :user
   
@@ -28,7 +28,20 @@ class Membership < ActiveRecord::Base
   
   protected
   
-    def set_defaults
-      self.notification_level = 2 unless self.notification_level
+    def set_notifications
+      # Default to level 2 if nil
+      self.notification_level ||= 2
+      # Clear them out
+      notifications.each { |n| self[n] = false }
+      # Set the notifications for each level
+      notifications[0..2].each { |n| self[n] = true } if self.notification_level > 0
+      self[notifications[3]] = true if self.notification_level > 1
+    end
+    
+    def notifications 
+      [ :notify_on_prayer_created, 
+        :notify_on_prayer_answered, 
+        :notify_on_comment_from_originator, 
+        :notify_on_comment_to_originator ]
     end
 end

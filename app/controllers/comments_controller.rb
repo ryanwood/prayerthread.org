@@ -54,7 +54,7 @@ class CommentsController < ApplicationController
     end
     
     def send_notifications
-      Notification.process( :created, @comment )
+      Notification.fire( :created, @comment )
     end
   
 end

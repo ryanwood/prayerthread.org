@@ -2,7 +2,7 @@
 
 Hi <%= @recipient.first_name %>,
 
-<%= @prayer.user.name %> has created a new prayer, '<%= @prayer.title %>'.
+<%= @prayer.user.name %> has created a new <%= @prayer.praise? ? 'praise': 'prayer' %>, '<%= @prayer.title %>'.
 
 <%= prayer_url( @prayer, :host => HOST ) %>
 

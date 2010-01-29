@@ -80,6 +80,10 @@ class PrayersControllerTest < ActionController::TestCase
       should_change( "the number of prayers", :by => 1 ) { Prayer.count }
       should_redirect_to( "the prayer" ) { prayer_path(assigns(:prayer)) }
     end
+    should "fired a prayer created notification" do
+      Notification.expects(:fire).with(:created, instance_of(Prayer))
+      post :create
+    end
   end
   
   context "on GET to :edit" do

@@ -91,6 +91,11 @@ class CommentsControllerTest < ActionController::TestCase
           assert_equal @user, assigns(:comment).user
         end
       end
+      
+      should "fired a comment created notification" do
+        Notification.expects(:fire).with(:created, instance_of(Comment))
+        post :create, :prayer_id => @prayer.id
+      end
     end
     
     context "for a prayer I don't have access to" do

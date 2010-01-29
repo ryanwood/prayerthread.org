@@ -1,60 +1,81 @@
+class NotificationLogger < Logger
+  def format_message(severity, timestamp, progname, msg)
+    "#{timestamp.to_formatted_s(:db)} #{severity} #{msg}\n" 
+  end 
+end
+
+class Event < Struct.new(:prayer, :condition, :mailer, :filtered_users)
+end
+
 class Notification
-  include ActiveSupport::Inflector
   
-  EVENTS = [:created, :updated]
-  
-  def self.process(event, model)
-    new(event, model).process
+  EVENTS = [:created, :answered]
+
+  def self.fire(event, model)
+    Delayed::Job.enqueue new(event, model)
   end
   
   def initialize(event, model)
     raise(ArgumentError, "Invalid event for notification: #{event}.") unless EVENTS.include?(event)
-    @event = event
+    @event_name = event
     @model = model
   end
   
-  def process
-    send( "#{underscore(@model.class)}_#{@event}".to_sym )
+  def perform
+    event = Event.new
+    if @model.kind_of? Prayer
+      prayer = @model
+      event.prayer = prayer
+      event.filtered_users = [prayer.user]
+      event.condition = "prayer_#{@event_name}"
+      event.mailer = "deliver_#{event.condition}".to_sym
+    elsif @model.kind_of?(Comment) && @event_name == :created
+      comment = @model
+      event.prayer = @model.prayer
+      event.filtered_users = [@model.user]
+      if comment.user == comment.prayer.user
+        event.condition = "comment_from_originator"
+      else
+        event.condition = "comment_to_originator"
+      end
+      event.mailer = :deliver_comment_created
+    else
+      raise ArgumentError, "There is no '#{@event_name}' notification configured for the #{@model.class} class."
+    end
+    
+    audience = build_audience(event)
+    notify(audience, event.mailer)
   end
     
-  protected
-  
-    def prayer_created
-      if @model.kind_of? Prayer
-        prayer = @model
-        recipients_for(prayer, [1,2], prayer.user).each do |recipient|
-          NotificationMailer.send_later(:deliver_prayer_created, recipient, prayer)
-        end
-      end
-    end
-
-    def comment_created
-      if @model.kind_of? Comment
-        comment = @model
-        if comment.user == comment.prayer.user
-          recipients_for(comment.prayer, [1,2], comment.user).each do |recipient|
-            NotificationMailer.send_later(:deliver_comment_created, recipient, comment)
-          end
-        else
-          # Only notify the prayer user
-          recipients_for(comment.prayer, 2, comment.user).each do |recipient|
-            if recipient == comment.prayer.user
-              NotificationMailer.send_later(:deliver_comment_created, recipient, comment)
-              break
-            end
-          end
-        end
+  private
+    
+    def notify(audience, mailer)
+      audience.each do |recipient|
+        logger.debug { "should be queuing for #{recipient.first_name}" }
+        logger.debug { mailer.to_s }
+        logger.debug { @model.class }
+        NotificationMailer.send(mailer, recipient, @model)
       end
     end
     
-    def logger
-      @logger ||= RAILS_DEFAULT_LOGGER
+    def build_audience(event)
+      field = "notify_on_#{event.condition}"
+      memberships = case event.condition
+        when "comment_to_originator"
+          Membership.find :all, :conditions => ["group_id IN (?) AND #{field} = ? AND user_id = ?", event.prayer.groups, true, event.prayer.user]
+        else
+          Membership.find :all, :conditions => ["group_id IN (?) AND #{field} = ?", event.prayer.groups, true]
+      end
+      memberships.map { |m| m.user }.uniq - event.filtered_users
     end
   
-    def recipients_for(prayer, levels, *filtered_users)
-      levels = [levels] unless levels.is_a?(Array)
-      memberships = prayer.groups.map { |g| g.memberships.select {|m| levels.include?(m.notification_level)} }.flatten
-      memberships.map { |m| m.user }.uniq - filtered_users
+    def logger
+      @logger ||= create_logger
     end
-
+  
+    def create_logger
+      logger = NotificationLogger.new(File.open("#{RAILS_ROOT}/log/notification.log", 'a'))
+      logger.level = RAILS_DEFAULT_LOGGER.level
+      logger
+    end 
 end
