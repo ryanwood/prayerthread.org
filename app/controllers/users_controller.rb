@@ -1,4 +1,5 @@
 class UsersController < Clearance::UsersController
+  before_filter :authenticate, :except => [:new, :create]
   
   def show
     @user = current_user
