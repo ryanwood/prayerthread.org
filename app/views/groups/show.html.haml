@@ -1,8 +1,4 @@
-- title "#{h(@group.name)} : Prayers", false
-
-%h1 
-  = @content_for_title
-  .description= h @group.description
+- title "#{@group.name} : Prayers", :subtitle => @group.description
 
 #prayers
   =render :partial => "/prayers/list"

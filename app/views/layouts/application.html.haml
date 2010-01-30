@@ -23,11 +23,14 @@
         - if signed_in?
           = render :partial => "/layouts/menu"
             
+        - if show_title?
+          %h1
+            =h yield(:title)
+            - if show_subtitle?
+              .subtitle=h yield(:subtitle)
+              
       - flash.each do |name, msg|
         = content_tag :div, msg, :id => "flash_#{name}", :class => name
-
-      - if show_title?
-        %h1=h yield(:title)
 
       #content
         = yield

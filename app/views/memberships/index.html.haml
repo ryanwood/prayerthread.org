@@ -1,9 +1,5 @@
-- title "#{h(@group.name)} : Members", false
+- title "#{@group.name} : Members", :subtitle => @group.description
 
-%h1 
-  = @content_for_title
-  .description= h @group.description
-  
 #members
   - if can? :modify, @group
     = render :partial => "/invitations/new"
