@@ -20,8 +20,10 @@
       #header
         #context
           = render :partial => "/layouts/context"
+        #title= "prayer<span class=\"alt\">thread</span>"
         - if signed_in?
-          = render :partial => "/layouts/menu"
+          #menu
+            = render :partial => "/layouts/menu"
             
         - if show_title?
           %h1

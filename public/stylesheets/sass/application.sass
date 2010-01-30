@@ -1,16 +1,20 @@
 !primary_color = #FFF
 
-!light_blue = #6D98AB
-!blue       = #00275E
-!yellow     = #FEB729
-!light_gray = #EEE
-!gray       = #A8B1B8
-!dark_gray  = #666
-!white      = #FFFFFF
-!black      = #000000
-!red        = #990000
-!box        = #E5ECF9
-!rose       = #FFE4E1
+!light_blue     = #6D98AB
+!blue           = #00275E
+!yellow         = #FEB729
+!light_gray     = #EEE
+!gray           = #A8B1B8
+!dark_gray      = #666
+!white          = #FFFFFF
+!black          = #000000
+!red            = #990000
+!box            = #E5ECF9
+!rose           = #FFE4E1
+                
+!yellow         = #FFD324
+!light_yellow   = #FFF6BF
+!brown          = #514721
 
 @import rails.sass
 @import autocomplete.sass
@@ -59,14 +63,30 @@ h3
 .box
   margin: 1em 0
 #header
-  padding: 20px 0
+  padding: 0.5em 0 1.5em
+  #title
+    border-bottom= 1px "solid" !gray
+    font-size: 1.5em
+    letter-spacing: 0.8em
+    color = !light_blue
+    margin: 0.5em 0 1.5em
+    span.alt
+      color = !blue
+      font-weight: bold
+    span.sub
+      font-family: Georgia, serif
+      letter-spacing: 0
+      font-size: 0.6em
+      font-style: italic
   #context
+    margin-top: 0.5em
     float: right
     img
       float: left
       padding: 0 5px
-  ul#menu
-    li
+  #menu
+    float: right
+    ul li
       font-size: 18px
 #sidebar
   ul.links
@@ -305,8 +325,8 @@ hr
   border-bottom: 1px solid #999
 .callout, .answer
   padding: 10px
-  border: 2px solid #FFD324
+  border= 2px "solid" !yellow
   margin: 1em 0
   padding:0.8em
-  background-color: #FFF6BF
-  color: #514721
+  background-color= !light_yellow
+  color= !brown

@@ -11,10 +11,12 @@
             = link_to h(group.name), group
             .description= h(group.description)
           %td.actions
-            - if can? :edit, group
-              = link_to "Invite", group_memberships_path(group)
-              |
-              = link_to 'Edit', edit_group_path(group)
+            %ul.inline
+              %li.first= link_to "Prayers", group_path(group)
+              %li= link_to "Members", group_memberships_path(group)
+              - if can? :edit, group
+                %li= link_to "Invite", group_memberships_path(group)
+                %li= link_to 'Edit', edit_group_path(group)
 - else
   %p 
     You are not a member of any prayers groups.
