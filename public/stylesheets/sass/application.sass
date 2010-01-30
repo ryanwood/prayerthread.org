@@ -201,23 +201,14 @@ table#members_table
 
 .prayer
   img.gravatar
-    float: left
     margin: 10px 10px 10px 0
   .answered
-    background-color = !rose
-    // border= 1px "solid" !red
-    .title
+    h3
       color = !blue
-      padding: 10px
       font-size: 1.4em
       font-weight: bold
-      //border-bottom= 1px "solid" !gray
-    .answer
-      margin: 0.5em 2em
-      font-style: italic
-      // background-color = !white
     .actions
-      padding: 1em
+      padding: 0
   .meta
     clear: left
     font-size: 0.8em
@@ -241,17 +232,15 @@ li#comment_count
 .comments
   .comment
     padding: 5px
-    margin: 10px 0
+    margin: 0 0 10px 0
     background: url(../images/dotted_horizontal_border.png) bottom repeat-x
     p
       padding: 0 0 3px 0
       margin: 0
       font-size: 0.9em
     img.gravatar
-      float: left
       margin: 0.25em 0.75em 0.75em 0
     .body
-      margin-left: 15px
       color = !dark_gray
       p
         padding: 5px 0
@@ -307,3 +296,17 @@ hr
 .account_gravatar
   text-align: center
   padding: 1em
+.action_area
+  clear: both
+  padding: 1em 0
+  margin: 1em 0
+  border= 1px "solid" !gray
+  border-width: 1px 0 1px 0
+  border-bottom: 1px solid #999
+.callout, .answer
+  padding: 10px
+  border: 2px solid #FFD324
+  margin: 1em 0
+  padding:0.8em
+  background-color: #FFF6BF
+  color: #514721

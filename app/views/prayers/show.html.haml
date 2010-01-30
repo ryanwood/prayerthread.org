@@ -4,12 +4,15 @@
     .answered
       .actions
         = link_to "Edit Answer", answer_prayer_path(@prayer)
-      .title This prayer has been answered!
+      %h3 This prayer has been answered!
       .answer= p(@prayer.answer)
-  .box
-    = image_tag @prayer.user.gravatar_url, :class => 'gravatar'
-    = p(@prayer.body)
-    %hr
+  .body{ :style => "padding: 1em 0" }
+    .left= image_tag @prayer.user.gravatar_url, :class => 'gravatar'
+    .right
+      = p(@prayer.body)
+      
+  = render :partial => "meta", :locals => { :prayer => @prayer }
+  .action_area
     %ul.inline
       - if can?( :edit, @prayer )
         %li.first= link_to "Share an Update", new_prayer_comment_path(@prayer)
@@ -17,16 +20,15 @@
           %li= link_to "Mark as Answered", answer_prayer_path(@prayer)
       - else
         %li.first= link_to "Add a comment or encouragement for this prayer", new_prayer_comment_path(@prayer)
-
-  = render :partial => "meta", :locals => { :prayer => @prayer }
+      - if can?( :edit, @prayer )
+        %li= link_to "Edit the Original Prayer", edit_prayer_path(@prayer)
+      - if can?( :destroy, @prayer )
+        %li= link_to "Permanently Delete", @prayer, :method => :delete,                    |
+          :confirm => 'Are you sure? This will permanently delete this prayer and all it\'s comments.' |
 
   %ul.inline
-    %li.first= link_to "Back to my Prayer List", prayers_path
-    - if can?( :edit, @prayer )
-      %li= link_to "Edit the Original Prayer", edit_prayer_path(@prayer)
-    - if can?( :destroy, @prayer )
-      %li= link_to "Permanently Delete", @prayer, :method => :delete,                    |
-        :confirm => 'Are you sure? This will permanently delete this prayer and all it\'s comments.' |
+    %li.first= link_to "&larr; Back to my Prayer List", prayers_path
+
   
 - content_for :sidebar do
   = render :partial => "/comments/recent"
