@@ -4,6 +4,7 @@
 
 "<%= truncate(@comment.body, :length => 200) %>"
 
+To read more or comment, visit:
 <%= prayer_url( @prayer, :host => HOST, :anchor => "comment_#{@comment.id}" ) %>
 
 <%= render :partial => "footer" %>

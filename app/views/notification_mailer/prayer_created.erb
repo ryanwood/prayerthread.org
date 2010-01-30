@@ -1,9 +1,10 @@
 <%= render :partial => "header" %>
 
-Hi <%= @recipient.first_name %>,
-
 <%= @prayer.user.name %> has created a new <%= @prayer.praise? ? 'praise': 'prayer' %>, '<%= @prayer.title %>'.
 
+"<%= truncate(@prayer.answer, :length => 200) %>"
+
+To read more or comment, visit:
 <%= prayer_url( @prayer, :host => HOST ) %>
 
 <%= render :partial => "footer" %>
