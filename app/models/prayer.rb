@@ -15,7 +15,7 @@ class Prayer < ActiveRecord::Base
   named_scope :open, :conditions => "answered_at IS NULL and praise = false" 
   named_scope :answered, :conditions => "answered_at IS NOT NULL and praise = false" 
   named_scope :praise, :conditions => "praise = true"
-  named_scope :for, lambda { |user| {
+  named_scope :for_user, lambda { |user| {
     :include => :groups, 
     :conditions => ['groups.id IN (?) OR prayers.user_id = ?', user.groups.map {|g| g.id }, user.id],
     :order => 'prayers.thread_updated_at DESC'
@@ -27,7 +27,7 @@ class Prayer < ActiveRecord::Base
   end
   
   def self.find_view(view, user)
-    send(view).for(user)
+    view == :all ? for_user(user) : send(view).for_user(user)
   end
   
   def answered?
