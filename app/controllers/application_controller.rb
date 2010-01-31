@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   layout 'application'
   # before_filter :ensure_domain
   include Clearance::Authentication
+  has_mobile_fu(true)
   
   # include ExceptionNotifiable
   helper :all # include all helpers, all the time

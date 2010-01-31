@@ -1,0 +1,50 @@
+- title prayer_title(@view)
+
+%ul.inline
+  %li.first{ :class => (@view == :all ? 'selected' : '') }= link_to "All", prayers_path
+  %li{ :class => (@view == :open ? 'selected' : '') }= link_to "Open", prayers_path( :view => 'open')
+  %li{ :class => (@view == :answered ? 'selected' : '') }= link_to "Answered", prayers_path( :view => 'answered')
+  %li{ :class => (@view == :praise ? 'selected' : '') }= link_to "Praises", prayers_path( :view => 'praise')
+-#
+  - unless current_user.groups.empty?
+    %h3 My Groups
+    %ul.links
+      - current_user.groups.each do |group|
+        %li= link_to h(group.name), group
+
+- if @prayers.empty?
+  .box
+    - if current_user.groups.empty?
+      %strong Welcome to prayerthread.org! We're glad you're here.
+      %p
+        To start out, you'll need to
+        = link_to "create a group", new_group_path
+        where you can share your prayers.
+    -else
+      No prayers here...
+      = link_to "Why not add one?", new_prayer_path
+- else
+  .prayers
+    - for prayer in @prayers
+      %div[prayer]
+        -# .actions
+          %ul.inline
+            %li.first#comment_count= link_to pluralize(prayer.comments_count, "Comment"), prayer_comments_path(prayer)
+            - if can? :modify, prayer
+              %li= link_to 'Share Update', new_prayer_comment_path(prayer)
+              - unless prayer.answered? || prayer.praise?
+                %li= link_to 'Answered?', answer_prayer_path(prayer)
+            - else
+              %li= link_to 'Share Comment', new_prayer_comment_path(prayer)
+        %h3
+          = link_to h(prayer.title), prayer, :class => 'prayer_title'
+          %span.author= "(#{prayer.name})"
+        .preview
+          = "#{time_ago_in_words(prayer.created_at)} ago :"
+          = truncate(prayer.body, :length => 180)
+        - if prayer.answered?
+          .answer
+            %strong Answer:
+            = truncate(prayer.answer, :length => 170)
+
+  = will_paginate @prayers

@@ -1,0 +1,131 @@
+.callout, .answer {
+  padding: 10px;
+  border: 2px solid #ffd324;
+  margin: 1em 0;
+  background-color: #fff6bf;
+  color: #514721; }
+
+ul.inline {
+  display: inline;
+  list-style-type: none;
+  padding: 0;
+  margin: 0; }
+  ul.inline li {
+    display: inline;
+    margin: 0 0 0 0.25em;
+    padding: 0 0 0 0.6em;
+    border-left: 1px solid #a8b1b8; }
+  ul.inline li.first {
+    margin-left: 0;
+    padding-left: 0;
+    border-left-width: 0; }
+
+.success, .notice, .error, .failure {
+  color: #000;
+  padding: 5px 8px;
+  margin: 10px 0;
+  clear: both; }
+
+.success, .notice {
+  background-color: #CFC;
+  border: solid 1px #6C6; }
+
+.error, .failure {
+  background-color: #FCC;
+  border: solid 1px #C66; }
+
+.fieldWithErrors {
+  display: inline; }
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid #CF0000;
+  padding: 0;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #fff; }
+  #errorExplanation h2 {
+    text-align: left;
+    padding: 5px 5px 5px 15px;
+    margin: 0;
+    font-weight: bold;
+    font-size: 12px;
+    background-color: #c00;
+    color: #fff; }
+  #errorExplanation p {
+    color: #333;
+    margin-bottom: 0;
+    padding: 8px; }
+  #errorExplanation ul {
+    margin: 2px 24px; }
+    #errorExplanation ul li {
+      font-size: 12px;
+      list-style: disc; }
+
+body {
+  font-size: 12px;
+  font-family: "Lucida Grande", "Trebuchet MS", "Helvetica Neue", Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0; }
+
+#header {
+  font-size: 1.4em;
+  margin: 0;
+  padding: 5px;
+  background-color: #00275e;
+  color: white;
+  letter-spacing: .5em; }
+  #header span {
+    color: #6d98ab; }
+
+#menu {
+  padding-right: 10px;
+  float: right; }
+  #menu ul li a {
+    color: white;
+    font-weight: normal;
+    letter-spacing: 0;
+    font-weight: normal;
+    font-size: 1em; }
+
+.container {
+  padding: 0 1em; }
+
+h1 {
+  font-size: 1.5em;
+  color: #666666;
+  border-bottom: 1px solid #999;
+  padding: 5px 0; }
+
+h3 {
+  margin: 0;
+  padding: 10px 0 5px; }
+
+p {
+  padding: 3px 0;
+  margin: 0; }
+
+a, a:visited {
+  color: #00275e; }
+
+a:hover {
+  color: #6d98ab; }
+
+.prayer h3 .author {
+  font-size: 0.8em;
+  font-weight: normal; }
+.prayer .answer {
+  border-width: 1px;
+  padding: 5px;
+  margin: 5px 0; }
+
+form.formtastic fieldset ol li label {
+  display: block;
+  width: auto;
+  float: none;
+  padding-top: .2em;
+  font-weight: bold; }
+form.formtastic fieldset ol li.string input, form.formtastic fieldset ol li.password input, form.formtastic fieldset ol li.numeric input {
+  width: auto; }
+form.formtastic fieldset.buttons {
+  padding-left: 0; }
