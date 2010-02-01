@@ -51,9 +51,6 @@ class Notification
     
     def notify(audience, mailer)
       audience.each do |recipient|
-        logger.debug { "should be queuing for #{recipient.first_name}" }
-        logger.debug { mailer.to_s }
-        logger.debug { @model.class }
         NotificationMailer.send(mailer, recipient, @model)
       end
     end
