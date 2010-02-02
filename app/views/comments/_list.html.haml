@@ -3,9 +3,9 @@
   .comments
     - comments.each do |comment|
       %div[comment]{ :class => comment_class(comment) }
-        .left
+        .avatar
           = image_tag comment.user.gravatar_url( :size => preview ? 30 : 60 ), :class => 'gravatar'
-        .right
+        .content
           - if can? :modify, comment
             .actions
               %ul.inline

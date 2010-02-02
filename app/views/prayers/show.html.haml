@@ -1,17 +1,16 @@
 - title @prayer.title
 .prayer
-  - if @prayer.answered?
-    .answered
-      .actions
-        = link_to "Edit Answer", answer_prayer_path(@prayer)
-      %h3 This prayer has been answered!
-      .answer= p(@prayer.answer)
   .body{ :style => "padding: 1em 0" }
-    .left= image_tag @prayer.user.gravatar_url, :class => 'gravatar'
-    .right
-      = p(@prayer.body)
-      
-  = render :partial => "meta", :locals => { :prayer => @prayer }
+    .avatar= image_tag @prayer.user.gravatar_url, :class => 'gravatar'
+    .content
+      - if @prayer.answered?
+        .answer
+          .actions= link_to "Edit Answer", answer_prayer_path(@prayer)
+          %p
+            %strong This prayer has been answered!
+          = p(h(@prayer.answer))
+      = p(h(@prayer.body))
+      = render :partial => "meta", :locals => { :prayer => @prayer }
   .action_area
     %ul.inline
       - if can?( :edit, @prayer )

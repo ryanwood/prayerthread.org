@@ -3,7 +3,9 @@ module ApplicationHelper
   
   # Creates paragraphs from new lines
   def p(text)
-    "<p>#{text.gsub(/(\r?\n){2}/, '</p><p>')}</p>"
+    s = text.gsub(/(\r?\n){2}/, '</p><p>')
+    s = s.gsub(/(\r?\n){1}/, '<br />')
+    "<p>#{s}</p>"
   end
   
   def author(user)

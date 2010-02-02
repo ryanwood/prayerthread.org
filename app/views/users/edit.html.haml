@@ -2,7 +2,7 @@
 
 - semantic_form_for @user, :html => {:id => "account_form"} do |form|
   = form.error_messages :header_message => "Oops - We couldn't update your account."
-  - form.inputs :name => "Account" do
+  - form.inputs do
     = form.input :first_name
     = form.input :last_name
     = form.input :email, :hint => "Note: This will change your login as well."
@@ -14,7 +14,6 @@
       = form.input :password_confirmation, :label => "Confirm password", :input_html => { :value => '', :autocomplete => "off" }
   
   %h3 Email Notifications
-  %p Notify me:
   -#
     %p.checkbox_selectors
       = link_to_function("Select All", "$('input.group_event').attr('checked', true);")
