@@ -2,7 +2,7 @@
 
 <%= @prayer.user.name %> has created a new <%= @prayer.praise? ? 'praise': 'prayer' %>, '<%= @prayer.title %>'.
 
-"<%= truncate(@prayer.answer, :length => 200) %>"
+<%= truncate(@prayer.body, :length => 200) %>
 
 To read more or comment, visit:
 <%= prayer_url( @prayer, :host => HOST ) %>
