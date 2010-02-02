@@ -13,24 +13,24 @@
   .prayers
     - for prayer in @prayers
       %div[prayer]
-        .actions
-          %ul.inline
-            %li.first#comment_count= link_to pluralize(prayer.comments_count, "Comment"), prayer_comments_path(prayer)
-            - if can? :modify, prayer
-              %li= link_to 'Share Update', new_prayer_comment_path(prayer)
-              - unless prayer.answered? || prayer.praise?
-                %li= link_to 'Answered?', answer_prayer_path(prayer)
-            - else
-              %li= link_to 'Share Comment', new_prayer_comment_path(prayer)
-        %h3
-          = link_to h(prayer.title), prayer, :class => 'prayer_title'
-        - if prayer.answered?
-          .answer
-            %strong Answer:
-            = truncate(prayer.answer, :length => 170)
-        .left= image_tag prayer.user.gravatar_url( :size => 30 ), :class => 'gravatar'
-        .right
+        .avatar
+          = image_tag prayer.user.gravatar_url( :size => 50 ), :class => 'gravatar'
+        .content
+          %h3= link_to h(prayer.title), prayer
           .preview= truncate(prayer.body, :length => 180)
-        = render :partial => "/prayers/meta", :locals => { :prayer => prayer }
+          = render :partial => "/prayers/meta", :locals => { :prayer => prayer }
+          .actions
+            %ul.inline
+              %li.first#comment_count= link_to pluralize(prayer.comments_count, "Comment"), prayer_comments_path(prayer)
+              - if can? :modify, prayer
+                %li= link_to 'Share an Update', new_prayer_comment_path(prayer)
+                - unless prayer.answered? || prayer.praise?
+                  %li= link_to 'Answered?', answer_prayer_path(prayer)
+              - else
+                %li= link_to 'Share a Comment', new_prayer_comment_path(prayer)
+          - if prayer.answered?
+            .answer
+              %strong Answer:
+              = truncate(prayer.answer, :length => 170)
             
   = will_paginate @prayers

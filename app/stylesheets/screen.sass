@@ -28,33 +28,15 @@ body
     +container
   #header, #footer
     +column(24)
+  #content
+    !content_columns = ceil(3 * !blueprint_grid_columns / 4) - 1
+    +column(!content_columns)
+    +colborder
   #sidebar
     // One third of the grid columns, rounding down. With 24 cols, this is 8.
-    !sidebar_columns = floor(!blueprint_grid_columns / 3)
-    +column(6, true)
-  #content
-    // Two thirds of the grid columns, rounding up.
-    // With 24 cols, this is 16.
-    !content_columns = ceil(2 * !blueprint_grid_columns / 3)
-    // true means it's the last column in the row
-    +column(17)
-    +colborder
-     
-  /* semantic class names */
-    #content {float:left;margin-right:10px;width:670px;padding-right:24px;margin-right:25px;border-right:1px solid #eee;}
-    .comments .comment .right {margin-right:0;padding-right:0;float:left;margin-right:10px;margin-right:0;width:550px;}
-    .prayer, .prayers {float:left;margin-right:10px;width:670px;}
-    #footer, #header {margin-right:0;padding-right:0;float:left;margin-right:10px;margin-right:0;width:950px;margin-right:0;}
-    .prayer .left {float:left;margin-right:10px;width:110px;}
-    #sidebar .comments .comment .left {float:left;margin-right:10px;width:30px;}
-    #sidebar .comments .comment .right {margin-right:0;padding-right:0;float:left;margin-right:10px;margin-right:0;width:190px;}
-    #sidebar .comments .comment {float:left;margin-right:10px;width:230px;}
-    #sidebar {margin-right:0;padding-right:0;float:left;margin-right:10px;margin-right:0;width:230px;}
-    .prayer .right {margin-right:0;padding-right:0;float:left;margin-right:10px;margin-right:0;width:510px;}
-    .comments .comment {float:left;margin-right:10px;width:630px;}
-    .comments .comment .left {float:left;margin-right:10px;width:70px;}
-    .prayers .prayer .right {margin-right:0;padding-right:0;float:left;margin-right:10px;margin-right:0;width:590px;}
-    .prayers .prayer .left {float:left;margin-right:10px;width:30px;}
+    !sidebar_columns = floor(!blueprint_grid_columns / 4)
+    +column(!sidebar_columns, true)
+
 
 /* Main */
 body
@@ -81,6 +63,7 @@ h1
     font-size: 0.4em
     color = !dark_gray
 h2
+  font-size: 1.6em
   margin-top: 15px
   border-bottom= 1px "dotted" !light_blue
 h3
@@ -95,11 +78,14 @@ h3
     border-bottom= 1px "solid" !gray
     font-size: 1.5em
     letter-spacing: 0.8em
-    color = !light_blue
     margin: 0.5em 0 1.5em
-    span.alt
-      color = !blue
-      font-weight: bold
+    padding-bottom: 0.5em
+    a
+      text-decoration: none
+      color = !light_blue
+      span.alt
+        color = !blue
+        font-weight: bold
     span.sub
       font-family: Georgia, serif
       letter-spacing: 0
@@ -138,12 +124,6 @@ h3
       background-color = !light_gray
       a
         color = !blue
-  .comments
-    font-size: 0.85em
-    .body
-      margin-left: 5px
-    .time
-      margin-top: 0.5em
 
 #footer
   border-top= 1px "solid" !light_gray
@@ -171,7 +151,7 @@ table
   th, td
     text-align: left
     padding: 10px 5px
-    background: url(../images/dotted_horizontal_border.png) bottom repeat-x
+    background: url(../../images/dotted_horizontal_border.png) bottom repeat-x
   td.name, td.title
     font-weight: bold
     font-size: 1.25em
@@ -206,10 +186,17 @@ table#members_table
 .prayers
   .prayer
     padding: 10px 0
-    background: url(../images/dotted_horizontal_border.png) bottom repeat-x
+    background: url(../../images/dotted_horizontal_border.png) bottom repeat-x
+    font-size: 0.9em
+    clear: left
+    .content
+      padding-left: 7.5em
     h3
-      margin: 5px 0
+      margin: 0
+      padding: 0
       font-weight: bold
+    .preview, .meta, .actions, .answer
+      margin-top: 0.25em
     .answered_token
       float: left
       font-family: "Helvetica Neue"
@@ -220,21 +207,34 @@ table#members_table
       background-color = !red
       color = !white
     .actions
-      margin-top: 5px
-      font-size: 0.8em
+      float: none
     .preview
       color: #666
+      padding: 0
+      height: 1.2em
+      line-height: 1.2em
+      overflow: hidden
+    .answer
+      border-width: 0
+      margin: 1em 0 0 0
       padding: 0.5em
-      p
-        padding: 1px 0
-    .answered
-      margin: 1em 0
-      padding: 0.5em
+    .meta
+      clear: none
+      font-size: 1em
+      ul
+        margin: 0
+        padding: 0
 
 .prayer
-  img.gravatar
-    margin: 10px 10px 10px 0
-  .answered
+  .avatar
+    float: left
+  .content
+    padding-left: 9em
+    p
+      padding: 0 0 1em 0
+      line-height: 1.5em
+  .answer
+    margin-top: 0
     h3
       color = !blue
       font-size: 1.4em
@@ -259,34 +259,45 @@ img.gravatar
 
 li#comment_count
   padding-left: 12px
-  background: url(../images/comment.png) center left no-repeat
+  background: url(../../images/comment.png) center left no-repeat
 
-.comments
-  .comment
-    padding: 5px
-    margin: 0 0 10px 0
-    background: url(../images/dotted_horizontal_border.png) bottom repeat-x
+.comments .comment
+  padding: 5px
+  margin: 0 0 10px 0
+  background: url(../../images/dotted_horizontal_border.png) bottom repeat-x
+  .avatar
+    float: left
+  .content
+    margin-left: 7em
+    margin-bottom: 1em
+  p
+    padding: 0 0 3px 0
+    margin: 0
+    font-size: 0.9em
+  img.gravatar
+    margin: 0.25em 0.75em 0.75em 0
+  .body
+    color = !dark_gray
     p
-      padding: 0 0 3px 0
-      margin: 0
-      font-size: 0.9em
-    img.gravatar
-      margin: 0.25em 0.75em 0.75em 0
+      padding: 5px 0
+  .author
+    font-size: 1.1em
+    span
+      font-weight: bold
+  .time
+    +bulleted
+    padding-top: 4px
+    font-size: 0.8em
+  .actions
+    font-size: 0.8em
+
+#sidebar .comments .comment
+  font-size: 0.85em
+  .content
+    margin-left: 4em
     .body
-      color = !dark_gray
-      p
-        padding: 5px 0
-    .author
-      font-size: 1.1em
-      span
-        font-weight: bold
-    .time
-      clear: left
-      +bulleted
-      padding-top: 4px
-      font-size: 0.8em
-    .actions
-      font-size: 0.8em
+      padding: 0
+      margin: 0
 
 a.delete
   color:= !red
