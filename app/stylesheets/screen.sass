@@ -1,8 +1,60 @@
-@import colors
-@import common
-@import rails
-@import autocomplete
-@import formtastic_changes
+// This import applies a global reset to any page that imports this stylesheet.
+@import blueprint/reset.sass
+// To configure blueprint, edit the partials/base.sass file.
+@import partials/base.sass
+// Import all the default blueprint modules so that we can access their mixins.
+@import blueprint
+// Import the non-default scaffolding module.
+@import blueprint/modules/scaffolding.sass
+
+// To generate css equivalent to the blueprint css but with your configuration applied, uncomment:
+// +blueprint
+
+//Recommended Blueprint configuration with scoping and semantic layout:
++blueprint-typography("body.bp")
++blueprint-scaffolding("body.bp")
+body.bp
+  +blueprint-utilities
+  +blueprint-debug
+  +blueprint-interaction
+  // Remove the scaffolding when you're ready to start doing visual design.
+  // Or leave it in if you're happy with how blueprint looks out-of-the-box
+form.bp
+  +blueprint-form
+
+// Page layout can be done using mixins applied to your semantic classes and IDs:
+body
+  #container
+    +container
+  #header, #footer
+    +column(24)
+  #sidebar
+    // One third of the grid columns, rounding down. With 24 cols, this is 8.
+    !sidebar_columns = floor(!blueprint_grid_columns / 3)
+    +column(6, true)
+  #content
+    // Two thirds of the grid columns, rounding up.
+    // With 24 cols, this is 16.
+    !content_columns = ceil(2 * !blueprint_grid_columns / 3)
+    // true means it's the last column in the row
+    +column(17)
+    +colborder
+     
+  /* semantic class names */
+    #content {float:left;margin-right:10px;width:670px;padding-right:24px;margin-right:25px;border-right:1px solid #eee;}
+    .comments .comment .right {margin-right:0;padding-right:0;float:left;margin-right:10px;margin-right:0;width:550px;}
+    .prayer, .prayers {float:left;margin-right:10px;width:670px;}
+    #footer, #header {margin-right:0;padding-right:0;float:left;margin-right:10px;margin-right:0;width:950px;margin-right:0;}
+    .prayer .left {float:left;margin-right:10px;width:110px;}
+    #sidebar .comments .comment .left {float:left;margin-right:10px;width:30px;}
+    #sidebar .comments .comment .right {margin-right:0;padding-right:0;float:left;margin-right:10px;margin-right:0;width:190px;}
+    #sidebar .comments .comment {float:left;margin-right:10px;width:230px;}
+    #sidebar {margin-right:0;padding-right:0;float:left;margin-right:10px;margin-right:0;width:230px;}
+    .prayer .right {margin-right:0;padding-right:0;float:left;margin-right:10px;margin-right:0;width:510px;}
+    .comments .comment {float:left;margin-right:10px;width:630px;}
+    .comments .comment .left {float:left;margin-right:10px;width:70px;}
+    .prayers .prayer .right {margin-right:0;padding-right:0;float:left;margin-right:10px;margin-right:0;width:590px;}
+    .prayers .prayer .left {float:left;margin-right:10px;width:30px;}
 
 /* Main */
 body
@@ -100,7 +152,7 @@ h3
   padding: 1em 0
   font-size: 80%
   text-align: left
-  
+
 #about
   em
     font-style: normal
@@ -110,7 +162,7 @@ h3
 .actions
   float: right
   font-size: 0.9em
-  
+
 table
   width: 100%
   border-collapse: collapse
@@ -136,21 +188,21 @@ table
     white-space: nowrap
   td.group
     font-size: 1.25em
-    
+
 table#members_table
   td
     padding: 2px 10px
   th.gravatar, td.gravatar
     width: 50px
     background-image: none
-    
+
 .groups table td.name .description
   font-style: italic
   font-size: 0.7em
   font-weight: normal
   color = !dark_gray
-    
-  
+
+
 .prayers
   .prayer
     padding: 10px 0
@@ -204,7 +256,7 @@ table#members_table
 img.gravatar
   padding: 1px
   border: 1px solid #999
-  
+
 li#comment_count
   padding-left: 12px
   background: url(../images/comment.png) center left no-repeat
@@ -261,14 +313,14 @@ a.pending_invitation_count
     fieldset.buttons
       li
         margin: 0
-        
+
 .checkbox_selectors
   text-align: right
   font-size: .75em
-  
+
 hr
   margin: 1em 0
-  
+
 #help
   img.gravatar_default
     float: left

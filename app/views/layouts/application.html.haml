@@ -5,12 +5,12 @@
     %title
       = "PrayerThread :: #{h(yield(:title))}"
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
-    = stylesheet_link_tag 'blueprint/screen', :media => "screen, projection"
-    = stylesheet_link_tag 'blueprint/print', 'print', :media => "print"
+    = stylesheet_link_tag 'compiled/screen', :media => "screen, projection"
+    = stylesheet_link_tag 'compiled/print', :media => "print"
     /[if lt IE 8]
-      = stylesheet_link_tag 'blueprint/ie', :media => "screen, projection"
+      = stylesheet_link_tag 'compiled/ie', :media => "screen, projection"
     -# = stylesheet_link_tag 'formtastic', 'smoothness/jquery-ui', 'application'
-    = stylesheet_link_tag 'formtastic', 'application'
+    -# = stylesheet_link_tag 'formtastic', 'application'
     -# = javascript_include_tag 'jquery', 'jquery-ui.min', 'jquery.form', 'jquery.autocomplete', 'application', :cache => true
     = javascript_include_tag 'jquery', 'jquery.autocomplete', 'application', :cache => true
     = yield(:head)
