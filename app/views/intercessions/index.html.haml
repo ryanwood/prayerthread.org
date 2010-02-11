@@ -1,15 +1,16 @@
-- title prayer_title(@view)
+- title "Activity", :subtitle => "Who's Praying for You..."
 
 = render :partial => "/invitations/pending_message"
 
 = render :partial => "list"
 
-- content_for :sidebar do
-
-  = view_links(@view)
-  
+- content_for :sidebar do  
   %ul.links
+    %li= link_to "View My Prayer List", prayers_path
     = render :partial => "/shared/links"
+  
+  / .intercessions
+  /   = render :partial => "/intercessions/recent"
   
   - unless current_user.groups.empty?
     %h3 My Groups

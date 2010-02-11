@@ -16,8 +16,19 @@ $(document).ready(function(){
     }
   });
   
+  $('.intercession a.intercede').click( function() {
+    var li = $(this).parent();
+    li.empty().html('<img src="/images/loading.gif" />');
+    $.get(this.href, function(data){ li.html(data); });
+    return false;
+  });
+  
   // $('form.member').ajaxForm( 
   //   target: '#add_member_area'
   // );
 
 });
+
+jQuery.ajaxSetup({
+  'beforeSend': function(xhr) { xhr.setRequestHeader("Accept", "text/javascript") }
+})

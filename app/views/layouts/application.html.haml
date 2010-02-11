@@ -15,7 +15,7 @@
       #header
         #context
           = render :partial => "/layouts/context"
-        #title= link_to "prayer<span class=\"alt\">thread</span>", prayers_path
+        #title= link_to "prayer<span class=\"alt\">thread</span>", root_path
         - if signed_in?
           #menu
             = render :partial => "/layouts/menu"

@@ -6,10 +6,12 @@ class PrayersController < ApplicationController
   def index
     @view = (params[:view] || 'all').to_sym
     @prayers = Prayer.find_view(@view, current_user).paginate( :page => params[:page] )
+    @intercessions = current_user.intercessions.today.map { |i| i.prayer.id }
   end
   
   def show
     @recent_comments = @prayer.comments.recent
+    @has_intercession = current_user.intercessions.today.regarding(@prayer).exists?
   end
   
   def new

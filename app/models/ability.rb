@@ -19,6 +19,8 @@ class Ability
     can [:modify, :answer], Prayer do |prayer|
       prayer && prayer.user == @user
     end
+    
+    can [:read, :create], Intercession
 
     can [:read, :create], Comment
     # can :create, Comment do |comment|

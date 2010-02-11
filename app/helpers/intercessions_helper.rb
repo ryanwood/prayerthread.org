@@ -1,0 +1,2 @@
+module IntercessionsHelper
+end

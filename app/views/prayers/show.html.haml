@@ -9,6 +9,8 @@
           %p
             %strong This prayer has been answered!
           = p(h(@prayer.answer))
+      - unless @has_intercession
+        .intercession= link_to "I prayed for this today", new_prayer_intercession_path(@prayer), :class => "intercede"
       = p(h(@prayer.body))
       = render :partial => "meta", :locals => { :prayer => @prayer }
   .action_area

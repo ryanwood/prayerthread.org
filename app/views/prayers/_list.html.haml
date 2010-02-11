@@ -14,7 +14,7 @@
     - for prayer in @prayers
       %div[prayer]
         .avatar
-          = image_tag prayer.user.gravatar_url( :size => 50 ), :class => 'gravatar'
+          = image_tag prayer.user.gravatar_url( :size => 50 ), :class => 'gravatar', :alt => prayer.user.first_name
         .content
           %h3= link_to h(prayer.title), prayer
           .preview= truncate(prayer.body, :length => 180)
@@ -28,6 +28,10 @@
                   %li= link_to 'Answered?', answer_prayer_path(prayer)
               - else
                 %li= link_to 'Share a Comment', new_prayer_comment_path(prayer)
+              - unless @intercessions.include?( prayer.id )
+                %li.intercession
+                  = link_to "I prayed for this today", new_prayer_intercession_path(prayer), :class => "intercede"
+
           - if prayer.answered?
             .answer
               %strong Answer:

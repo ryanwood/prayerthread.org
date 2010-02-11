@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_many :owned_groups, :class_name => "Group", :foreign_key => "owner_id"
   has_many :invitations, :foreign_key => "recipient_id"
   has_many :sent_invitations, :class_name => 'Invitation', :foreign_key => "sender_id"
+  has_many :intercessions
   
   # From the account page
   accepts_nested_attributes_for :memberships

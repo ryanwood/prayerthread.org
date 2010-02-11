@@ -1,0 +1,29 @@
+.intercessions
+  - unless @intercessions_exist
+    .box
+      %p 
+        We are still waiting for other to let us know when they are praying 
+        for you. Have no fear. Just check back on this page periodically and 
+        we'll let you know what's new.
+      %p 
+        In the meantime, you can encourage others by praying for them and 
+        then letting them know by clicking the <strong>"I prayed for this 
+        today"</strong> link on their prayer.
+      %p
+        = succeed '.' do
+          = link_to "View your prayer list now", prayers_path
+
+  - else
+
+    - Intercession::BUCKETS.each do |bucket|
+      - unless @intercessions[bucket].empty?
+        %h3= bucket.to_s.humanize
+        %ul
+          - @intercessions[bucket].each do |intercession|
+            %li[intercession]
+              .date= intercession.created_at.strftime('%a, %b %d')
+              .intercession
+                = succeed '.' do
+                  %span.user= intercession.user.name
+                  prayed for
+                  = link_to(intercession.prayer.title, intercession.prayer, :class => "prayer_title")
