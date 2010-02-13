@@ -21,6 +21,7 @@ module PrayersHelper
       haml_tag :ul, :class => "views links" do
         views.each do |view|
           haml_tag(:li, :class => ('selected' if view == current_view)) do
+            haml_tag(:a, image_tag("printer.png"), :href => prayers_path( :view => view.to_s, :print => true ), :class => 'print', :target => "print")
             haml_tag(:a, prayer_title(view), :href => prayers_path( :view => view.to_s ))
           end
         end
