@@ -8,6 +8,7 @@ class GroupsController < ApplicationController
   def show
     @group = current_user.groups.find(params[:id])
     @prayers = @group.prayers.paginate :page => params[:page]
+    @intercessions = current_user.intercessions.today.map { |i| i.prayer.id }
   end
   
   def new
