@@ -4,7 +4,8 @@ class PrayersController < ApplicationController
   after_filter :send_notifications, :only => :create
   
   def index
-    @view = (params[:view] || 'all').to_sym
+    @view = (params[:view] || session[:view] || 'all').to_sym
+    session[:view] = @view
     @prayers = Prayer.find_view(@view, current_user).paginate( :page => params[:page] )
     @intercessions = current_user.intercessions.today.map { |i| i.prayer.id }
   end
