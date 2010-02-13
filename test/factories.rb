@@ -48,3 +48,8 @@ Factory.define :membership do |f|
   f.notification_level 1
 end
 
+Factory.define :intercession do |f|
+  f.association :prayer
+  f.association :user, :factory => :email_confirmed_user
+end
+

@@ -11,7 +11,7 @@
           = p(h(@prayer.answer))
       = p(h(@prayer.body))
       = render :partial => "meta", :locals => { :prayer => @prayer }
-      - unless @has_intercession
+      - unless current_user.interceded_today?(@prayer)
         .intercession= link_to "I prayed for this today.", new_prayer_intercession_path(@prayer), :class => "intercede"
 
   .action_area

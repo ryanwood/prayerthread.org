@@ -12,7 +12,6 @@ class CommentsController < ApplicationController
   end
   
   def create
-    @comment.prayer = @prayer
     @comment.user = current_user
     msg = ''
     if params[:comment] && params[:comment].has_key?(:prayer)

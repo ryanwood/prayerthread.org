@@ -42,6 +42,10 @@ class User < ActiveRecord::Base
     accept_invitation!
   end
   
+  def interceded_today?(prayer)
+    intercessions.today.regarding(prayer).exists?
+  end
+  
   protected
   
   def add_recipient_to_invitation

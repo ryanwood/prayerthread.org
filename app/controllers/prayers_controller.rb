@@ -12,7 +12,6 @@ class PrayersController < ApplicationController
   
   def show
     @recent_comments = @prayer.comments.recent
-    @has_intercession = current_user.intercessions.today.regarding(@prayer).exists?
   end
   
   def new

@@ -10,4 +10,10 @@ class CommentTest < ActiveSupport::TestCase
     prayer.expects(:update_attribute).with(:thread_updated_at, kind_of(Time))
     comment = Factory(:comment, :prayer => prayer)
   end
+  
+  should "create an intercession on create if asked" do
+    Intercession.expects(:create)
+    comment = Factory(:comment, :intercede => '0')
+    comment = Factory(:comment, :intercede => '1')
+  end
 end

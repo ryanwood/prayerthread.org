@@ -12,9 +12,7 @@ class IntercessionsController < ApplicationController
   end
   
   def create
-    unless current_user.intercessions.today.regarding(@prayer).exists?
-      @prayer.intercessions.create( :user => current_user )
-    end
+    @prayer.intercessions.create( :user => current_user )
     respond_to do |format|
       format.html { 
         flash[:notice] = "Thanks for praying."

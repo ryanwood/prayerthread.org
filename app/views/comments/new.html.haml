@@ -5,6 +5,9 @@
 - semantic_form_for [@prayer, @comment] do |form|
   = form.error_messages
   = render :partial => "inputs", :locals => { :form => form }
+  - unless current_user.interceded_today?(@prayer)
+    - form.inputs do
+      = form.input :intercede, :label => "I prayed for this today", :as => :boolean
   - form.buttons do
     = form.commit_button can?( :edit, @prayer ) ? "Add Update" : "Add Comment"
 

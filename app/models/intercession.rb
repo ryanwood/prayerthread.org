@@ -2,6 +2,8 @@ class Intercession < ActiveRecord::Base
   belongs_to :user
   belongs_to :prayer
   
+  validates_presence_of :user, :prayer
+  
   BUCKETS = [:today, :yesterday, :this_week, :last_week]
   
   named_scope :on_behalf_of, lambda { |user| { :joins => :prayer, :conditions => { :prayers => { :user_id => user } } } }
@@ -14,11 +16,19 @@ class Intercession < ActiveRecord::Base
   named_scope :this_month, lambda { { :conditions => [ "intercessions.created_at >= ? AND intercessions.created_at < ?", Time.zone.now.beginning_of_month.utc, Time.zone.now.beginning_of_week.utc - 7.days ] } }
   named_scope :last_month, lambda { { :conditions => [ "intercessions.created_at >= ? AND intercessions.created_at < ?", (Time.zone.now.beginning_of_month.utc - 1.day).beginning_of_month.utc, Time.zone.now.beginning_of_month.utc ] } }
   
+  before_create :prevent_multiple_daily
+  
   def self.find_all_grouped(user)
     BUCKETS.inject({}) do |hash, key|
       hash[key] = on_behalf_of(user).send(key)
       hash
     end
+  end
+  
+  private
+  
+  def prevent_multiple_daily
+    return false if user.interceded_today?(@prayer)
   end
   
 end

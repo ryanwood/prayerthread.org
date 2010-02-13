@@ -24,6 +24,14 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "#{user.first_name} #{user.last_name} <#{user.email}>", user.full_email
   end
   
+  should "know if the user has interceded on a prayer today" do
+    user = Factory(:email_confirmed_user)
+    prayer = Factory(:prayer)
+    assert !user.interceded_today?(prayer)
+    Factory(:intercession, :prayer => prayer, :user => user)
+    assert user.interceded_today?(prayer)
+  end
+  
   context "After create" do
     setup do
       @invitation = Factory(:invitation)
