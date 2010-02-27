@@ -2,6 +2,8 @@
   %ul
     %li.first.created
       %strong= prayer.name
-      = "created #{time_ago_in_words(prayer.created_at)} ago"
-      - unless prayer.groups.empty?
-        = "in #{group_list(prayer)}"
+      = "created #{time_ago_in_words(prayer.created_at)} ago."
+      - if prayer.created_at != prayer.thread_updated_at
+        The
+        = link_to "last comment or update", prayer_comments_path(prayer)
+        = "was #{time_ago_in_words(prayer.thread_updated_at)} ago."

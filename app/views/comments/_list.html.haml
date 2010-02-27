@@ -4,7 +4,7 @@
     - comments.each do |comment|
       %div[comment]{ :class => comment_class(comment) }
         .avatar
-          = image_tag comment.user.gravatar_url( :size => preview ? 30 : 60 ), :class => 'gravatar'
+          = image_tag comment.user.gravatar_url( :size => preview ? 30 : 50 ), :class => 'gravatar'
         .content
           - if can? :modify, comment
             .actions

@@ -109,7 +109,7 @@ h3
     margin: 0
     li
       padding: 2px 0
-  ul.views
+  ul#views
     padding: 0
     margin-bottom: 1em
     border-top: 1px solid #EEE
@@ -127,7 +127,13 @@ h3
       background-color = !light_gray
       a
         color = !blue
-
+    li ul
+      font-weight: normal
+      border-width: 0
+      li
+        height: 0.8em
+        font-size: 0.8em
+        border-width: 0
 #footer
   border-top= 1px "solid" !light_gray
   color= !dark_gray
@@ -186,18 +192,19 @@ table#members_table
   color = !dark_gray
 
 .prayers
+  margin-bottom: 1em
   .prayer
     padding: 10px 0
     background: url(../../images/dotted_horizontal_border.png) bottom repeat-x
     font-size: 0.9em
     clear: left
     .content
-      padding-left: 7.5em
+      padding-left: 7em
     h3
       margin: 0
       padding: 0
       font-weight: bold
-    .preview, .meta, .actions, .answer
+    .preview, .meta, .actions, .answer, .full
       margin-top: 0.25em
     .answered_token
       float: left
@@ -216,6 +223,8 @@ table#members_table
       height: 1.2em
       line-height: 1.2em
       overflow: hidden
+    .full
+      margin-top: 1em
     li.intercession
       font-weight: bold
       color = !blue
@@ -227,7 +236,8 @@ table#members_table
       padding: 0.5em
     .meta
       clear: none
-      font-size: 1em
+      font-size: 0.9em
+      color: #333
       ul
         margin: 0
         padding: 0
@@ -281,7 +291,7 @@ li#comment_count
   .avatar
     float: left
   .content
-    margin-left: 7em
+    margin-left: 6em
     margin-bottom: 1em
   p
     padding: 0 0 3px 0
@@ -374,3 +384,60 @@ hr
       padding-top: 3px
     .intercession
       padding-left: 60px
+      
+#prayer_selector_form
+  font-weight: bold
+  background-color = !box
+  padding: 10px
+  height: 20px
+  fieldset
+    float: left
+    margin-right: 50px
+
+a.print
+  padding-left: 20px
+  background: url(../../images/printer.png) no-repeat left center
+    
+.command_bar
+  +rounded-corners
+  background-color = !blue
+  font-size: 0.8em
+  height: 3em
+  padding: 0 10px
+  .print_icon
+    float: right
+    padding: 8px 0
+  ul
+    margin-right: 40px
+    float: left
+    padding: 8px 0
+    li
+      display: inline
+      a
+        +rounded-corners
+        margin: 5px 3px
+        padding: 3px 5px
+        color= !gray
+        text-decoration: none
+        &:hover
+          background-color = !dark_gray
+          color = !white
+    li.active
+      a
+        background-color = !light_blue
+        color = !white
+  a.print
+    float: right
+    color= !white
+    padding: 8px 0 8px 20px
+    background: url(../../images/printer.png) no-repeat left center
+    text-decoration: none
+    &:hover
+      text-decoration: underline
+.pagination
+  +rounded-corners
+  font-size: 0.9em
+  background-color = !box
+  padding: 5px 20px
+  margin-bottom: 10px
+  

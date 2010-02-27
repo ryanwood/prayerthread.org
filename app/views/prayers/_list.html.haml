@@ -10,6 +10,7 @@
       No prayers here...
       = link_to "Why not add one?", new_prayer_path
 - else
+  = will_paginate @prayers
   .prayers
     - for prayer in @prayers
       %div[prayer]
@@ -17,8 +18,11 @@
           = image_tag prayer.user.gravatar_url( :size => 50 ), :class => 'gravatar', :alt => prayer.user.first_name
         .content
           %h3= link_to h(prayer.title), prayer
-          .preview= truncate(prayer.body, :length => 180)
           = render :partial => "/prayers/meta", :locals => { :prayer => prayer }
+          - if show_detail?
+            .full= p(prayer.body)
+          - else
+            .preview= truncate(prayer.body, :length => 180)
           .actions
             %ul.inline
               %li.first#comment_count= link_to pluralize(prayer.comments_count, "Comment"), prayer_comments_path(prayer)
@@ -36,5 +40,5 @@
             .answer
               %strong Answer:
               = truncate(prayer.answer, :length => 170)
-            
+
   = will_paginate @prayers

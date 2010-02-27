@@ -4,10 +4,15 @@ class PrayersController < ApplicationController
   after_filter :send_notifications, :only => :create
   
   def index
-    @view = (params[:view] || session[:view] || 'all').to_sym
-    session[:view] = @view
-    @prayers = Prayer.find_view(@view, current_user).paginate( :page => params[:page] )
+    set_view
+    if params[:print]
+      @prayers = Prayer.find_view(@view, current_user).paginate( :page => 1, :per_page => 50 )
+    else
+      @prayers = Prayer.find_view(@view, current_user).paginate( :page => params[:page] )
+    end
+    
     @intercessions = current_user.intercessions.today.map { |i| i.prayer.id }
+    render :layout => (params[:print] ? 'print' : 'application')
   end
   
   def show
@@ -55,5 +60,16 @@ class PrayersController < ApplicationController
   
     def send_notifications
       Notification.fire(:created, @prayer)
+    end
+    
+    def set_view
+      view = (params[:view] || cookies[:view] || 'all').to_sym
+      detail = (params[:details] || cookies[:detail] || 0).to_i
+      length = { :expires => 6.months.from_now }
+      cookies[:view] = length.merge( :value => view )
+      cookies[:detail] = length.merge( :value => detail )
+      
+      @view = view
+      @detail = detail
     end
 end

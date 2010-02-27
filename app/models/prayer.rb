@@ -22,6 +22,7 @@ class Prayer < ActiveRecord::Base
     :order => 'prayers.thread_updated_at DESC'
   }}
   
+  VIEWS = [ :all, :open, :answered, :praise ]
   
   def self.per_page
     15

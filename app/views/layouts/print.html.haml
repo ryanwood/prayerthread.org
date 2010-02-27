@@ -1,0 +1,29 @@
+!!! Strict
+%html{html_attrs}
+  %head
+    %title
+      = "PrayerThread :: #{h(yield(:title))}"
+    %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
+    = stylesheet_link_tag 'compiled/print', :media => "screen, projection, print"
+    /[if lt IE 8]
+      = stylesheet_link_tag 'compiled/ie', :media => "screen, projection"
+    = javascript_include_tag 'jquery', 'jquery.autocomplete', 'application', :cache => true
+    = yield(:head)
+  %body
+    #container
+      #header
+        #title= link_to "prayer<span class=\"alt\">thread</span>", root_path
+        - if show_title?
+          %h1
+            =h yield(:title)
+            - if show_subtitle?
+              .subtitle=h yield(:subtitle)
+      #content
+        = yield
+      #footer 
+        Copyright &copy;2010 
+        = link_to "sourcescape.com", "http://sourcescape.com", :target => "_blank"
+        &bull;
+        We're interested in your feedback! 
+        = mail_to "prayerthread@googlegroups.com", "Drop us a note"
+        and let us know what you think.

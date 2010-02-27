@@ -1,0 +1,8 @@
+%ul#views.links
+  - Prayer::VIEWS.each do |view|
+    %li{ :class => ('selected' if view == @view) }
+      = link_to image_tag("printer.png"), prayers_path( :view => view.to_s, :print => true ), :class => 'print', :id => "print_#{view}", :target => "_blank"
+      = link_to prayer_title(view), prayers_path( :view => view.to_s )
+      %ul.links.print_options{ :id => "print_#{view}_options", :style => "display:none;" }
+        %li= link_to "Print Summary", prayers_path( :view => view.to_s, :print => true ), :target => "_blank"
+        %li= link_to "Print Detail", prayers_path( :view => view.to_s, :print => true, :style => 'detail' ), :target => "_blank"

@@ -23,9 +23,18 @@ $(document).ready(function(){
     return false;
   });
   
+  $('ul#views a.print').click( function() {
+    var options_list = 'ul#' + this.id + "_options";
+    $('ul.print_options').hide('blind');
+    $(options_list).show('blind');
+    return false;
+  });
+  
   // $('form.member').ajaxForm( 
   //   target: '#add_member_area'
   // );
+  
+  
 
 });
 

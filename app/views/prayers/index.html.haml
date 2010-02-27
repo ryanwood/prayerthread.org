@@ -2,11 +2,11 @@
 
 = render :partial => "/invitations/pending_message"
 
+= render :partial => "command_bar", :locals => { :sub => "Hey There!" }
+
 = render :partial => "list"
 
 - content_for :sidebar do
-
-  = view_links(@view)
   
   %ul.links
     = render :partial => "/shared/links"
