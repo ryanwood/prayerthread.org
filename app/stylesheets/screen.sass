@@ -42,6 +42,7 @@ body
 body
   font-size: 80%
   font-family: "Lucida Grande", "Trebuchet MS", "Helvetica Neue", Arial, Helvetica, sans-serif
+  line-height: 1.3em
 p
   padding: 6px 0
   margin: 0
@@ -250,6 +251,14 @@ table#members_table
     p
       padding: 0 0 1em 0
       line-height: 1.5em
+    hr
+      border: 0
+      background: url(../../images/dotted_horizontal_border.png) bottom repeat-x
+      margin-top: 0
+      height: 2px
+    .actions
+      padding: 0 0 10px 10px
+      font-size: 0.8em
     div.intercession
       color = !blue
       padding: 1em 0
@@ -370,6 +379,12 @@ hr
   border-width: 1px 0 1px 0
   border-bottom: 1px solid #999
 
+.date
+  font-size: 70%
+  text-transform: uppercase
+  color = !dark_gray
+
+
 .intercessions
   h3
     margin: 0.5em 0
@@ -377,14 +392,11 @@ hr
     padding-left: 5px
     padding-bottom: 3px
     list-style: none
-    .date
-      font-size: 70%
-      text-transform: uppercase
-      color = !dark_gray
-      float: left
-      padding-top: 3px
     .intercession
       padding-left: 80px
+    .date
+      float: left
+      padding-top: 3px
       
 #prayer_selector_form
   font-weight: bold

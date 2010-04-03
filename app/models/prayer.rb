@@ -3,6 +3,9 @@ class Prayer < ActiveRecord::Base
 
   belongs_to :user
   has_many :comments, :order => 'created_at DESC', :dependent => :destroy
+  has_many :updates, :class_name => "Comment", :conditions => 'user_id = #{user_id}', :order => 'created_at DESC'
+  has_many :audience_comments, :class_name => "Comment", :conditions => 'user_id != #{user_id}', :order => 'created_at DESC'
+  # has_many :comments, :order => 'created_at DESC', :dependent => :destroy
   has_many :intercessions, :order => 'created_at DESC', :dependent => :destroy
   has_and_belongs_to_many :groups
   
