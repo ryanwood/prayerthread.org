@@ -3,7 +3,7 @@ class NotificationMailer < ActionMailer::Base
   include ActionView::Helpers::TextHelper
 
   def prayer_created(recipient, prayer)
-    subject     "New Prayer from #{prayer.user.name}"
+    subject     "New Prayer from #{prayer.user.name}: #{truncate(prayer.title, :length => 40)}"
     recipients  recipient.full_email
     from        DO_NOT_REPLY
     sent_on     Time.now
@@ -12,7 +12,7 @@ class NotificationMailer < ActionMailer::Base
   end
   
   def prayer_answered(recipient, prayer)
-    subject     "Answered Prayer from #{prayer.user.name}"
+    subject     "Answered Prayer from #{prayer.user.name}: #{truncate(prayer.title, :length => 40)}"
     recipients  recipient.full_email
     from        DO_NOT_REPLY
     sent_on     Time.now
