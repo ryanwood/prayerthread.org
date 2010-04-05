@@ -1,17 +1,17 @@
-class IntercessionsController < ApplicationController
+class NudgesController < ApplicationController
   before_filter :authenticate
   load_and_authorize_resource :nested => :prayer
 
   def new
     create
   end
-  
+
   def create
-    intercession = @prayer.intercessions.build( :user => current_user )
-    if intercession.save
-      msg = "Thanks for praying."
+    nudge = @prayer.nudges.build( :user => current_user )
+    if nudge.save
+      msg = "We've nudging #{nudge.prayer.user.first_name}."
     else
-      msg = "Sorry, there was a problem."
+      msg = "Sorry, we had a problem nudging."
     end
     respond_to do |format|
       format.html { 

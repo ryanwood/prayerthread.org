@@ -24,18 +24,35 @@
           - else
             .preview= truncate(prayer.body, :length => 180)
           .actions
-            %ul.inline
+            %ul.activities.inline
               %li.first#comment_count= link_to pluralize(prayer.comments_count, "Comment"), prayer_comments_path(prayer)
               - if can? :modify, prayer
                 %li= link_to 'Share an Update', new_prayer_comment_path(prayer)
-                - unless prayer.answered? || prayer.praise?
-                  %li= link_to 'Answered?', answer_prayer_path(prayer)
               - else
                 %li= link_to 'Share a Comment', new_prayer_comment_path(prayer)
-              - unless @intercessions.include?( prayer.id )
-                %li.intercession
-                  = link_to "I prayed for this today", new_prayer_intercession_path(prayer), :class => "intercede"
 
+              - unless prayer.answered? || prayer.praise?
+                - if can? :modify, prayer
+                  %li= link_to 'Answered?', answer_prayer_path(prayer)
+             
+              - if Intercession.allowed?( current_user, prayer )
+                %li
+                  = link_to "I prayed for this today", new_prayer_intercession_path(prayer), :class => "intercede"
+                  = image_tag "question-small.png", :title => "Let #{prayer.user.first_name} know that you are praying for #{prayer.title}."
+              - else
+                %li Thanks for praying today.
+
+              - if cannot?( :modify, prayer ) && Nudge.allowed?( current_user, prayer )
+                %li
+                  = link_to "Nudge", new_prayer_nudge_path(prayer), :class => "nudge"
+                  = image_tag "question-small.png", :title => "Send #{prayer.user.first_name} a gentle reminder to come back and provide an update or answer for this prayer."
+                  
+          .nudge_box.hidden{ :id => "nudge_#{prayer.id}_box"}
+            .nudge_close{ :style => "float:right" }= link_to "close", '#', :class => "nudge_close_link"
+            .nudge_message
+              Think this prayer needs an update or has been answered?
+              %br
+              = link_to "Nudge #{prayer.user.first_name} and we'll send a gentle reminder."
           - if prayer.answered?
             .answer
               %strong Answer:

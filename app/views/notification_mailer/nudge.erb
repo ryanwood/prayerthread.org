@@ -1,0 +1,8 @@
+<%= render :partial => "header" %>
+
+<%= @nudge.user.name %> nudged you for an update on '<%= @nudge.prayer.title %>'.
+
+To provide an update or mark the prayer as answered, visit:
+<%= prayer_url( @nudge.prayer, :host => HOST ) %>
+
+<%= render :partial => "footer" %>

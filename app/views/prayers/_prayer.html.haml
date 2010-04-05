@@ -21,18 +21,35 @@
       %p
         %span.date= @prayer.created_at.strftime('%a, %b %d')
         = p(h(@prayer.body), false)
+      
       = render :partial => "/prayers/meta", :locals => { :prayer => @prayer }
-      - unless current_user.interceded_today?(@prayer)
-        .intercession= link_to "I prayed for this today.", new_prayer_intercession_path(@prayer), :class => "intercede"
-
+      
+      %ul#activities.inline
+        - if Intercession.allowed?( current_user, @prayer )
+          %li.first
+            = link_to "I prayed for this today", new_prayer_intercession_path(@prayer), :class => "intercede"
+            = image_tag "question-small.png", :title => "Let others know that you are praying for them."
+        - else
+          %li.first Thanks for praying today.
+          
+        - if cannot?( :modify, prayer ) && Nudge.allowed?( current_user, @prayer )
+          %li
+            = link_to "Nudge", new_prayer_nudge_path(@prayer), :class => "nudge"
+            = image_tag "question-small.png", :title => "Nudging sends a gentle reminder to come back and provide an update or answer for this prayer."
+              
   .action_area
     %ul.inline
       - if can?( :edit, @prayer )
         %li.first= link_to "Share an Update", new_prayer_comment_path(@prayer)
-        - unless @prayer.answered? || @prayer.praise?
-          %li= link_to "Mark as Answered", answer_prayer_path(@prayer)
       - else
         %li.first= link_to "Add a comment or encouragement for this prayer", new_prayer_comment_path(@prayer)
+        
+      - unless @prayer.answered? || @prayer.praise?
+        - if can?( :edit, @prayer )
+          %li= link_to "Mark as Answered", answer_prayer_path(@prayer)
+        - else
+          %li= link_to "Think this prayer has been answered?", answer_prayer_path(@prayer)
+      
       - if can?( :edit, @prayer )
         %li= link_to "Edit the Original Prayer", edit_prayer_path(@prayer)
       - if can?( :destroy, @prayer )

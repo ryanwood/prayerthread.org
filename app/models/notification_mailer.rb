@@ -31,4 +31,13 @@ class NotificationMailer < ActionMailer::Base
                 :comment => comment,
                 :activity => activity
   end
+  
+  def nudge(nudge)
+    subject     "Nudge from #{nudge.user.name} on #{truncate(nudge.prayer.title, :length => 40)}"
+    recipients  nudge.prayer.user.full_email
+    from        DO_NOT_REPLY
+    sent_on     Time.now
+    body        :recipient => nudge.prayer.user,
+                :nudge => nudge
+  end
 end

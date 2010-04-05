@@ -7,6 +7,8 @@
 // Import the non-default scaffolding module.
 @import blueprint/modules/scaffolding.sass
 
+@import compass/utilities
+
 // To generate css equivalent to the blueprint css but with your configuration applied, uncomment:
 // +blueprint
 
@@ -69,11 +71,14 @@ h2
   border-bottom= 1px "dotted" !light_blue
 h3
   font-size: 1.4em
-  margin: 25px 0 10px 0
+  margin: 10px 0
   color= !dark_gray
 .box
   +box
   margin: 1em 0
+.hidden
+  display: none
+  
 #header
   padding: 0.5em 0 1.5em
   #title
@@ -258,13 +263,17 @@ table#members_table
     .actions
       padding: 0 0 10px 10px
       font-size: 0.8em
-    div.intercession
+      
+    ul#activities
       color = !blue
-      padding: 1em 0
-      a.intercede
-        background-color = !antique_white
+      padding: 0.5em 0
+      margin: 0.5em 0
+      background-color = !antique_white
+      li.first
+        margin-left: 5px
+      li a
         color = !orange
-        padding: 5px
+
   .answer
     margin-top: 0
     h3
@@ -384,14 +393,14 @@ hr
   color = !dark_gray
 
 
-.intercessions
+.activities
   h3
     margin: 0.5em 0
   li
     padding-left: 5px
     padding-bottom: 3px
     list-style: none
-    .intercession
+    .activity
       padding-left: 80px
     .date
       float: left
@@ -452,4 +461,26 @@ a.print
   background-color = !box
   padding: 5px 20px
   margin-bottom: 10px
+
+.nudge_box
+  +rounded-corners
+  border= 1px "solid" !orange
+  background-color= !antique_white
+  color= !orange
+  padding: 0.5em
+a.nudge_close_link
+  font-size: 0.8em
   
+.tooltip
+  +rounded-corners
+  display: none
+  color: #111
+  background-color: #fff
+  border= 5px "solid" !blue
+  width: 150px
+  padding: 1em
+  margin-left: 1em
+  a
+    color: #ad4
+    font-size: 11px
+    font-weight: bold

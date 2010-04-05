@@ -2,8 +2,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :prayers, :member => { :answer => :get } do |prayers| 
     prayers.resources :comments
     prayers.resources :intercessions, :only => [:new, :create]
+    prayers.resources :nudges, :only => [:new, :create]
   end
-  map.resources :intercessions, :only => :index
+  map.resources :activities, :only => :index
   map.resources :groups do |group|
     group.resources :memberships
     group.resources :invitations, :only => [:new, :create, :resend], :member => { :resend => :put }
@@ -75,7 +76,7 @@ ActionController::Routing::Routes.draw do |map|
   #   end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  map.root :controller => "intercessions"
+  map.root :controller => "activities"
 
   # See how all your routes lay out with "rake routes"
 

@@ -1,5 +1,5 @@
-.intercessions
-  - unless @intercessions_exist
+.activities
+  - unless @activities_exist
     .box
       %p 
         We are still waiting for other to let us know when they are praying 
@@ -15,15 +15,15 @@
 
   - else
 
-    - Intercession::BUCKETS.each do |bucket|
-      - unless @intercessions[bucket].empty?
+    - Activity::BUCKETS.each do |bucket|
+      - unless @activities[bucket].empty?
         %h3= bucket.to_s.humanize
         %ul
-          - @intercessions[bucket].each do |intercession|
-            %li[intercession]
-              .date= intercession.created_at.strftime('%a, %b %d')
-              .intercession
+          - @activities[bucket].each do |activity|
+            %li[activity]
+              .date= activity.created_at.strftime('%a, %b %d')
+              .activity
                 = succeed '.' do
-                  %span.user= intercession.user.name
-                  prayed for
-                  = link_to(intercession.prayer.title, intercession.prayer, :class => "prayer_title")
+                  %span.user= activity.user.name
+                  = activity.action_text
+                  = link_to(activity.prayer.title, activity.prayer, :class => "prayer_title")

@@ -20,6 +20,8 @@ class Ability
       prayer && prayer.user == @user
     end
     
+    can [:read, :create], Activity
+    
     can [:read, :create], Intercession
 
     can [:read, :create], Comment
