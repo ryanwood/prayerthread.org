@@ -14,7 +14,7 @@ Rails::Initializer.run do |config|
   config.gem 'friendly_id', :version => '2.2.7'
   config.gem 'will_paginate', :version => '~> 2.3.11'
   config.gem 'delayed_job', :version => '1.8.4'
-  config.gem 'hoptoad_notifier', :version => '2.1.2'
+  config.gem 'hoptoad_notifier', :version => '2.3.1'
   config.gem 'gravtastic', :version => '~> 2.2'
   config.gem 'compass', :version => '>= 0.8.17'
   
