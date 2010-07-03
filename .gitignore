@@ -3,11 +3,11 @@ db/*.db
 db/*.sqlite3
 db/schema.rb
 db/backup/*
+tmp/*
 tmp/**/*
 .DS_Store
 doc/api
 doc/app
 config/database.yml
 *.tmproj
-vendor/gems
 public/stylesheets/compiled/*.css
