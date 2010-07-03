@@ -9,7 +9,7 @@ class NudgesController < ApplicationController
   def create
     nudge = @prayer.nudges.build( :user => current_user )
     if nudge.save
-      msg = "We've nudging #{nudge.prayer.user.first_name}."
+      msg = "We've nudged #{nudge.prayer.user.first_name} for you."
     else
       msg = "Sorry, we had a problem nudging."
     end
