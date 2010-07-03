@@ -35,7 +35,6 @@
 
       #sidebar
         = yield(:sidebar)
-        = render :partial => "/layouts/feedback"
         
       #footer 
         Copyright &copy;2010 
@@ -44,3 +43,6 @@
         We're interested in your feedback! 
         = mail_to "prayerthread@googlegroups.com", "Drop us a note"
         and let us know what you think.
+    
+    - if Rails.env.production?
+      = render :partial => "shared/uservoice"
