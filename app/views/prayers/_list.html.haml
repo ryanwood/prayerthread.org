@@ -34,19 +34,19 @@
               - unless prayer.answered? || prayer.praise?
                 - if can? :modify, prayer
                   %li= link_to 'Answered?', answer_prayer_path(prayer)
-             
-              - if Intercession.allowed?( current_user, prayer )
-                %li
-                  = link_to "I prayed for this today", new_prayer_intercession_path(prayer), :class => "intercede"
-                  = image_tag "question-small.png", :title => "Let #{prayer.user.first_name} know that you are praying for #{prayer.title}."
-              - else
-                %li Thanks for praying today.
 
-              - if cannot?( :modify, prayer ) && Nudge.allowed?( current_user, prayer )
-                %li
-                  = link_to "Nudge", new_prayer_nudge_path(prayer), :class => "nudge"
-                  = image_tag "question-small.png", :title => "Send #{prayer.user.first_name} a gentle reminder to come back and provide an update or answer for this prayer."
-                  
+                - if Intercession.allowed?( current_user, prayer )
+                  %li
+                    = link_to "I prayed for this today", new_prayer_intercession_path(prayer), :class => "intercede"
+                    = image_tag "question-small.png", :title => "Let #{prayer.user.first_name} know that you are praying for #{prayer.title}."
+                - else
+                  %li Thanks for praying today.
+
+                - if cannot?( :modify, prayer ) && Nudge.allowed?( current_user, prayer )
+                  %li
+                    = link_to "Nudge", new_prayer_nudge_path(prayer), :class => "nudge"
+                    = image_tag "question-small.png", :title => "Send #{prayer.user.first_name} a gentle reminder to come back and provide an update or answer for this prayer."
+
           - if prayer.answered?
             .answer
               %strong Answer:

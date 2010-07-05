@@ -1,6 +1,6 @@
 .prayer
   .body{ :style => "padding: 1em 0" }
-    .avatar= image_tag @prayer.user.gravatar_url, :class => 'gravatar'
+    .avatar= image_tag @prayer.user.gravatar_url, :class => 'gravatar', :alt => @prayer.user.first_name
     .content
       - if @prayer.answered?
         .answer
@@ -24,18 +24,19 @@
       
       = render :partial => "/prayers/meta", :locals => { :prayer => @prayer }
       
-      %ul#activities.inline
-        - if Intercession.allowed?( current_user, @prayer )
-          %li.first
-            = link_to "I prayed for this today", new_prayer_intercession_path(@prayer), :class => "intercede"
-            = image_tag "question-small.png", :title => "Let others know that you are praying for them."
-        - else
-          %li.first Thanks for praying today.
+      - unless @prayer.answered?
+        %ul#activities.inline
+          - if Intercession.allowed?( current_user, @prayer )
+            %li.first
+              = link_to "I prayed for this today", new_prayer_intercession_path(@prayer), :class => "intercede"
+              = image_tag "question-small.png", :title => "Let others know that you are praying for them."
+          - else
+            %li.first Thanks for praying today.
           
-        - if cannot?( :modify, prayer ) && Nudge.allowed?( current_user, @prayer )
-          %li
-            = link_to "Nudge", new_prayer_nudge_path(@prayer), :class => "nudge"
-            = image_tag "question-small.png", :title => "Nudging sends a gentle reminder to come back and provide an update or answer for this prayer."
+          - if cannot?( :modify, prayer ) && Nudge.allowed?( current_user, @prayer )
+            %li
+              = link_to "Nudge", new_prayer_nudge_path(@prayer), :class => "nudge"
+              = image_tag "question-small.png", :title => "Nudging sends a gentle reminder to come back and provide an update or answer for this prayer."
               
   .action_area
     %ul.inline
