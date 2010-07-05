@@ -47,12 +47,6 @@
                   = link_to "Nudge", new_prayer_nudge_path(prayer), :class => "nudge"
                   = image_tag "question-small.png", :title => "Send #{prayer.user.first_name} a gentle reminder to come back and provide an update or answer for this prayer."
                   
-          .nudge_box.hidden{ :id => "nudge_#{prayer.id}_box"}
-            .nudge_close{ :style => "float:right" }= link_to "close", '#', :class => "nudge_close_link"
-            .nudge_message
-              Think this prayer needs an update or has been answered?
-              %br
-              = link_to "Nudge #{prayer.user.first_name} and we'll send a gentle reminder."
           - if prayer.answered?
             .answer
               %strong Answer:
