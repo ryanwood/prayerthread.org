@@ -15,7 +15,9 @@
           .body= show_comment(comment, preview ? 80 : nil)
           %p.time= "#{comment.user.name} said #{time_ago_in_words(comment.created_at)} ago"
   - if preview
-    %p= link_to "View all Comments", prayer_comments_path(@prayer)
+    %ul.links
+      %li= link_to "View all Comments", prayer_comments_path(@prayer)
+      %li= link_to "Add a Comment", new_prayer_comment_path(@prayer)
 - else
   .box
     %p No comments yet...
