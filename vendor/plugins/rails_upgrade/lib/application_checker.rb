@@ -15,7 +15,8 @@ module Rails
 
       # Run all the check methods
       def run
-        the_methods = (self.public_methods - Object.methods) - ["run", "initialize"]
+        # Ruby 1.8 returns method names as strings whereas 1.9 uses symbols
+        the_methods = (self.public_methods - Object.methods) - [:run, :initialize, "run", "initialize"]
 
         the_methods.each {|m| send m }
       end
@@ -23,7 +24,7 @@ module Rails
       # Check for deprecated ActiveRecord calls
       def check_ar_methods
         files = []
-        ["find(:all", "find(:first", ":conditions =>", ":joins =>"].each do |v|
+        ["find(:all", "find(:first", "find.*:conditions =>", ":joins =>"].each do |v|
           lines = grep_for(v, "app/")
           files += extract_filenames(lines) || []
         end
@@ -112,6 +113,27 @@ module Rails
         end
       end
 
+      # Check for deprecated constants
+      def check_deprecated_constants
+        files = []
+        ["RAILS_ENV", "RAILS_ROOT", "RAILS_DEFAULT_LOGGER"].each do |v|
+          lines = grep_for(v, "app/")
+          files += extract_filenames(lines) || []
+
+          lines = grep_for(v, "lib/")
+          files += extract_filenames(lines) || []
+        end
+
+        unless files.empty?
+          alert(
+            "Deprecated constant(s)",
+            "Constants like RAILS_ENV, RAILS_ROOT, and RAILS_DEFAULT_LOGGER are now deprecated.",
+            "http://litanyagainstfear.com/blog/2010/02/03/the-rails-module/",
+            files.uniq
+          )
+        end
+      end
+
       # Check for old-style config.gem calls
       def check_gems
         lines = grep_for("config.gem ", "config/*.rb")
@@ -143,8 +165,8 @@ module Rails
         end
 
         files = []
-        ["recipients ", "attachment ", "subject ", "from "].each do |v|
-          lines = grep_for(v, "app/models/")
+        ["recipients ", "attachment(?!s) ", "(?<!:)subject ", "(?<!:)from "].each do |v|
+          lines = grep_for_with_perl_regex(v, "app/models/")
           files += extract_filenames(lines) || []
         end
 
@@ -167,7 +189,7 @@ module Rails
                     grep_for("def manifest", g).empty? ? g : nil
                   end.compact
 
-          if files
+          if !files.empty?
             alert(
               "Old Rails generator API",
               "A plugin in the app is using the old generator API (a new one may be available at http://github.com/trydionel/rails3-generators).",
@@ -199,20 +221,107 @@ module Rails
         end
       end
 
+      # Checks for old-style ERb helpers
+      def check_old_helpers
+        lines = grep_for("<% .* do.*%>", "app/views/**/*")
+        files = extract_filenames(lines)
+
+        if files
+          alert(
+            "Deprecated ERb helper calls",
+            "Block helpers that use concat (e.g., form_for) should use <%= instead of <%.  The current form will continue to work for now, but you will get deprecation warnings since this form will go away in the future.",
+            "http://weblog.rubyonrails.org/",
+            files
+          )
+        end
+      end
+
+      # Checks for old-style AJAX helpers
+      def check_old_ajax_helpers
+        files = []
+        ['link_to_remote','form_remote_tag','remote_form_for'].each do |type|
+          lines = grep_for(type, "app/views/**/*")
+          inner_files = extract_filenames(lines)
+          files += inner_files unless inner_files.nil?
+        end
+
+        unless files.empty?
+          alert(
+            "Deprecated AJAX helper calls",
+            "AJAX javascript helpers have been switched to be unobtrusive and use :remote => true instead of having a seperate function to handle remote requests.",
+            "http://www.themodestrubyist.com/2010/02/24/rails-3-ujs-and-csrf-meta-tags/",
+            files
+          )
+        end
+      end
+
+      # Checks for old cookie secret settings
+      def check_old_cookie_secret
+        lines = grep_for("ActionController::Base.cookie_verifier_secret = ", "config/**/*")
+        files = extract_filenames(lines)
+
+        if files
+          alert(
+            "Deprecated cookie secret setting",
+            "Previously, cookie secret was set directly on ActionController::Base; it's now config.secret_token.",
+            "http://lindsaar.net/2010/4/7/rails_3_session_secret_and_session_store",
+            files
+          )
+        end
+      end
+
+      def check_old_session_secret
+        lines = grep_for("ActionController::Base.session = {", "config/**/*")
+        files = extract_filenames(lines)
+
+        if files
+          alert(
+            "Deprecated session secret setting",
+            "Previously, session secret was set directly on ActionController::Base; it's now config.secret_token.",
+            "http://lindsaar.net/2010/4/7/rails_3_session_secret_and_session_store",
+            files
+          )
+        end
+      end
+
+      # Checks for old session settings
+      def check_old_session_setting
+        lines = grep_for("ActionController::Base.session_store", "config/**/*")
+        files = extract_filenames(lines)
+
+        if files
+          alert(
+            "Old session store setting",
+            "Previously, session store was set directly on ActionController::Base; it's now config.session_store :whatever.",
+            "http://lindsaar.net/2010/4/7/rails_3_session_secret_and_session_store",
+            files
+          )
+        end
+      end
+
     private
+      def grep_for_with_perl_regex(text, where = "./", double_quote = false)
+        grep_for(text, where, double_quote, true)
+      end
+
       # Find a string in a set of files; calls +find_with_grep+ and +find_with_rak+
       # depending on platform.
       #
       # TODO: Figure out if this works on Windows.
-      def grep_for(text, where = "./", double_quote = false)
+      def grep_for(text, where = "./", double_quote = false, perl_regex = false)
         # If they're on Windows, they probably don't have grep.
         @probably_has_grep ||= (Config::CONFIG['host_os'].downcase =~ /mswin|windows|mingw/).nil?
 
-        if @probably_has_grep
-          find_with_grep(text, base_path + where, double_quote)
+        lines = if @probably_has_grep
+          find_with_grep(text, base_path + where, double_quote, perl_regex)
         else
           find_with_rak(text, base_path + where, double_quote)
         end
+
+        # ignore comments
+        lines.gsub! /^\s*#.+$/m, ""
+
+        lines
       end
 
       # Sets a base path for finding files; mostly for testing
@@ -221,13 +330,13 @@ module Rails
       end
 
       # Use the grep utility to find a string in a set of files
-      def find_with_grep(text, where, double_quote)
+      def find_with_grep(text, where, double_quote, perl_regex = false)
         value = ""
         # Specifically double quote for finding 'test_help'
         command = if double_quote
-                    "grep -r \"#{text}\" #{where}"
+                    "grep -r #{"-P" if perl_regex} --exclude=\*.svn\* \"#{text}\" #{where}"
                   else
-                    "grep -r '#{text}' #{where}"
+                    "grep -r #{"-P" if perl_regex} --exclude=\*.svn\* '#{text}' #{where}"
                   end
 
         Open3.popen3(command) do |stdin, stdout, stderr|
@@ -260,9 +369,10 @@ module Rails
       def extract_filenames_from_grep(output)
         return nil if output.empty?
 
-        # I hate rescue nil as much as the next guy but I have a reason here at least...
         fnames = output.split("\n").map do |fn|
-          fn.match(/^(.+?):/)[1] rescue nil
+          if m = fn.match(/^(.+?):/)
+            m[1]
+          end
         end.compact
 
         fnames.uniq
@@ -299,7 +409,7 @@ module Rails
         puts "More information: #{more_info_url}"
         puts
         puts "The culprits: "
-        culprits.each do |c|
+        Array(culprits).each do |c|
           puts "\t- #{c}"
         end
         puts
@@ -312,7 +422,7 @@ module Rails
         puts "#{BOLD}More information:#{CLEAR} #{CYAN}#{more_info_url}"
         puts
         puts "#{WHITE}The culprits: "
-        culprits.each do |c|
+        Array(culprits).each do |c|
           puts "#{YELLOW}\t- #{c}"
         end
       ensure

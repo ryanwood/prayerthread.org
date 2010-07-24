@@ -1,5 +1,6 @@
 require 'test_helper'
 require 'application_checker'
+require 'fileutils'
 
 tmp_dir = "#{File.dirname(__FILE__)}/fixtures/tmp"
 
@@ -119,6 +120,48 @@ class ApplicationCheckerTest < ActiveSupport::TestCase
     assert @checker.alerts.has_key?("Old ActionMailer class API")
   end
 
+  def test_check_mailer_syntax_from
+    make_file("app/models/", "notifications.rb", "def signup\nfrom @user\n end")
+    @checker.check_mailers
+
+    assert @checker.alerts.has_key?("Old ActionMailer class API")
+  end
+
+  def test_check_mailer_syntax_subject
+    make_file("app/models/", "notifications.rb", "def signup\nsubject @subject\n end")
+    @checker.check_mailers
+
+    assert @checker.alerts.has_key?("Old ActionMailer class API")
+  end
+
+  def test_check_mailer_syntax_attachment
+    make_file("app/models/", "notifications.rb", "def signup\nattachment 'application/pdf' do |a|\n end")
+    @checker.check_mailers
+
+    assert @checker.alerts.has_key?("Old ActionMailer class API")
+  end
+
+  def test_new_check_mailer_syntax_from
+    make_file("app/models/", "notifications.rb", "def signup\n:from => @users\n end")
+    @checker.check_mailers
+
+    assert ! @checker.alerts.has_key?("Old ActionMailer class API")
+  end
+
+  def test_new_check_mailer_syntax_subject
+    make_file("app/models/", "notifications.rb", "def signup\n:subject => @users\n end")
+    @checker.check_mailers
+
+    assert ! @checker.alerts.has_key?("Old ActionMailer class API")
+  end
+
+  def test_new_check_mailer_syntax_attachments
+    make_file("app/models/", "notifications.rb", "def signup\nattachments['an-image.jp'] = File.read('an-image.jpg')\n end")
+    @checker.check_mailers
+
+    assert ! @checker.alerts.has_key?("Old ActionMailer class API")
+  end
+
   def test_check_mailer_api
     make_file("app/controllers/", "thing_controller.rb", "def signup\n Notifications.deliver_signup\n end")
     @checker.check_mailers
@@ -138,6 +181,68 @@ class ApplicationCheckerTest < ActiveSupport::TestCase
     @checker.check_plugins
 
     assert @checker.alerts.has_key?("Known broken plugins")
+  end
+
+  def test_ignoring_comments
+    make_file("config/", "routes.rb", "#  map.connect 'fail'")
+    @checker.check_routes
+
+    assert !@checker.alerts.has_key?("Old router API")
+  end
+
+  def test_check_deprecated_constants_in_app_code
+    make_file("app/controllers/", "thing_controller.rb", "class ThingController; THING = RAILS_ENV; end;")
+    @checker.check_deprecated_constants
+
+    assert @checker.alerts.has_key?("Deprecated constant(s)")
+  end
+
+  def test_check_deprecated_constants_in_lib
+    make_file("lib/", "extra_thing.rb", "class ExtraThing; THING = RAILS_ENV; end;")
+    @checker.check_deprecated_constants
+
+    assert @checker.alerts.has_key?("Deprecated constant(s)")
+  end
+
+  def test_check_deprecated_cookie_settings
+    make_file("config/initializers/", "more_settings.rb", "ActionController::Base.cookie_verifier_secret = 'OMG'")
+    @checker.check_old_cookie_secret
+
+    assert @checker.alerts.has_key?("Deprecated cookie secret setting")
+  end
+
+  def test_check_deprecated_session_secret
+    make_file("config/initializers/", "more_settings.rb", "ActionController::Base.session = {\n:whatever => 'woot'\n}")
+    @checker.check_old_session_secret
+
+    assert @checker.alerts.has_key?("Deprecated session secret setting")
+  end
+
+  def test_check_deprecated_session_settings
+    make_file("config/initializers/", "more_settings.rb", "ActionController::Base.session_store = :cookie\nthings.awesome(:whatever)")
+    @checker.check_old_session_setting
+
+    assert @checker.alerts.has_key?("Old session store setting")
+  end
+
+  def test_check_helpers
+    make_file("app/views/users/", "test.html.erb", "<b>blah blah blah</b><% form_for(:thing) do |f| %> <label>doo dah</label> <%= f.whatever %> <% end %>")
+    @checker.check_old_helpers
+
+    assert @checker.alerts.has_key?("Deprecated ERb helper calls")
+  end
+
+  def test_check_old_ajax_helpers
+    make_file("app/views/sections", "section.js", "<%= link_to_remote 'section-', :update => 'sections', :url => {:action => :destroy, :controller => 'sections', :id => @section.id } %>")
+    @checker.check_old_ajax_helpers
+
+    assert @checker.alerts.has_key?("Deprecated AJAX helper calls")
+  end
+
+  def test_check_old_ajax_helpers_empty
+    @checker.check_old_ajax_helpers
+
+    assert ! @checker.alerts.has_key?("Deprecated AJAX helper calls")
   end
 
   def teardown
