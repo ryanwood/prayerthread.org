@@ -56,13 +56,8 @@ class Notification
     end
     
     def build_audience(event)
-      field = "notify_on_#{event.condition}"
-      memberships = case event.condition
-        when "comment_to_originator"
-          Membership.find :all, :conditions => ["group_id IN (?) AND #{field} = ? AND user_id = ?", event.prayer.groups, true, event.prayer.user]
-        else
-          Membership.find :all, :conditions => ["group_id IN (?) AND #{field} = ?", event.prayer.groups, true]
-      end
+      memberships = Membership.where("group_id IN (?) AND notify_on_#{event.condition}", event.prayer.groups, true)
+      memberships.where("user_id = ?", event.prayer.user) if event.condition == 'comment_to_originator'
       memberships.map { |m| m.user }.uniq - event.filtered_users
     end
   

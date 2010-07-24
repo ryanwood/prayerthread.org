@@ -4,7 +4,7 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :body, :on => :create, :message => "can't be blank"
   
-  named_scope :recent, :order => 'created_at DESC', :limit => 5
+  scope :recent, :order => 'created_at DESC', :limit => 5
   
   after_save :mark_thread_updated
   after_create :create_intercession

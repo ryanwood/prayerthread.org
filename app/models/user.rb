@@ -21,11 +21,11 @@ class User < ActiveRecord::Base
   validates_presence_of :first_name, :last_name
   
   # Any user that shares a group
-  named_scope :related, lambda { |user, *excluded| {
-    :joins => :groups, 
-    :conditions => ["groups.id IN (?) and users.id NOT IN (?)", user.groups, excluded << user],
-    :order => "users.first_name, users.last_name",
-    :group => "users.id"
+  scope :related, lambda { |user, *excluded| {
+    joins( :groups ).
+    where( "groups.id IN (?) and users.id NOT IN (?)", user.groups, excluded << user ).
+    order( "users.first_name, users.last_name" ).
+    group( "users.id" )
   }}
   
   def name
