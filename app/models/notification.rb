@@ -66,8 +66,8 @@ class Notification
     end
   
     def create_logger
-      logger = NotificationLogger.new(File.open("#{RAILS_ROOT}/log/notification.log", 'a'))
-      logger.level = RAILS_DEFAULT_LOGGER.level
+      logger = NotificationLogger.new(File.open( Rails.root.join('log', 'notification.log'), 'a'))
+      logger.level = Rails.logger.level
       logger
     end 
 end
