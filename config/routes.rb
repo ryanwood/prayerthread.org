@@ -97,7 +97,7 @@ Prayerthread::Application.routes.draw do |map|
 
   match 'sign_up' => 'users#new', :as => :sign_up
   match 'sign_in' => 'sessions#new', :as => :sign_in
-  match 'sign_out' => 'sessions#destroy', :as => :sign_out, :method => delete
-  match '/' => 'activities#index'
+  match 'sign_out' => 'sessions#destroy', :as => :sign_out, :method => :delete
+  root :to => 'activities#index'
   # match '/:controller(/:action(/:id))'
 end
