@@ -1,14 +1,14 @@
 // This import applies a global reset to any page that imports this stylesheet.
-@import "blueprint/reset.sass";
+@import "blueprint/reset";
 
-// To configure blueprint, edit the partials/base.sass file.
-@import "partials/base.sass";
+// To configure blueprint, edit the partials/base file.
+@import "partials/base";
 
 // Import all the default blueprint modules so that we can access their mixins.
 @import "blueprint";
 
 // Import the non-default scaffolding module.
-@import "blueprint/modules/scaffolding.sass";
+@import "blueprint/scaffolding";
 
 @import "compass/utilities";
 
@@ -36,7 +36,7 @@ body {
   #container {
     @include container; }
   #header, #footer {
-    @include column(24); }
+    @include column($blueprint_grid_columns); }
   #content {
     $content_columns: ceil(3 * $blueprint_grid_columns / 4) - 1;
     @include column($content_columns);
