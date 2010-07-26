@@ -358,7 +358,7 @@ li#comment_count {
       margin: 0; } } }
 
 a.delete {
-  color:= !red {} }
+  color: $red; }
 
 a.pending_invitation_count {
   -moz-background-clip: border;

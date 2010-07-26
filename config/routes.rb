@@ -86,7 +86,7 @@ Prayerthread::Application.routes.draw do |map|
     end
   end
 
-  resource :account, :to => 'users'
+  resource :account, :controller => 'users'
 
   # Clearance Overrides
   resource :session

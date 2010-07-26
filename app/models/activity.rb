@@ -12,6 +12,7 @@ class Activity < ActiveRecord::Base
   
   scope :today,      lambda { where("activities.created_at >= ? AND activities.created_at < ?", Time.zone.now.midnight.utc, Time.zone.now.midnight.tomorrow.utc) }
   scope :yesterday,  lambda { where("activities.created_at >= ? AND activities.created_at < ?", Time.zone.now.midnight.yesterday.utc, Time.zone.now.midnight.utc) }
+  scope :this_week,  lambda { where("activities.created_at >= ? AND activities.created_at < ?", Time.zone.now.beginning_of_week.utc , Time.zone.now.midnight.yesterday.utc) }
   scope :last_week,  lambda { where("activities.created_at >= ? AND activities.created_at < ?", Time.zone.now.beginning_of_week.utc - 7.days, Time.zone.now.beginning_of_week.utc) }
   scope :this_month, lambda { where("activities.created_at >= ? AND activities.created_at < ?", Time.zone.now.beginning_of_month.utc, Time.zone.now.beginning_of_week.utc - 7.days) }
   scope :last_month, lambda { where("activities.created_at >= ? AND activities.created_at < ?", (Time.zone.now.beginning_of_month.utc - 1.day).beginning_of_month.utc, Time.zone.now.beginning_of_month.utc) }
