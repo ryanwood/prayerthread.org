@@ -4,7 +4,7 @@ class Activity < ActiveRecord::Base
   
   validates_presence_of :user, :prayer
   
-  BUCKETS = [:today, :yesterday, :this_week, :last_week]
+  BUCKETS = [:today, :yesterday, :this_week, :last_week, :older_than_last_week]
   
   named_scope :on_behalf_of, lambda { |user| { :joins => :prayer, :conditions => { :prayers => { :user_id => user } } } }
   named_scope :regarding, lambda { |prayer| { :conditions => { :prayer_id => prayer } } }
@@ -16,6 +16,7 @@ class Activity < ActiveRecord::Base
   named_scope :last_week,  lambda { { :conditions => [ "activities.created_at >= ? AND activities.created_at < ?", Time.zone.now.beginning_of_week.utc - 7.days, Time.zone.now.beginning_of_week.utc ] } }
   named_scope :this_month, lambda { { :conditions => [ "activities.created_at >= ? AND activities.created_at < ?", Time.zone.now.beginning_of_month.utc, Time.zone.now.beginning_of_week.utc - 7.days ] } }
   named_scope :last_month, lambda { { :conditions => [ "activities.created_at >= ? AND activities.created_at < ?", (Time.zone.now.beginning_of_month.utc - 1.day).beginning_of_month.utc, Time.zone.now.beginning_of_month.utc ] } }
+  named_scope :older_than_last_week, lambda { { :conditions => [ "activities.created_at < ?", Time.zone.now.beginning_of_week.utc - 7.days ], :limit => 30 } }
   
   named_scope :rolling_week,  lambda { { :conditions => [ "activities.created_at >= ?", 7.days.ago ] } }
   
