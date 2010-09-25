@@ -30,7 +30,7 @@ class Activity < ActiveRecord::Base
   end
   
   def self.allowed?(user, prayer)
-    !self.actor(user).regarding(prayer).today.exists?
+    true
   end
   
   
