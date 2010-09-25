@@ -33,7 +33,7 @@
     
 - content_for :sidebar do
   %h3 Your Photo
-  .account_gravatar= image_tag( @user.gravatar_url, :class => "gravatar" )
+  .account_gravatar= image_tag raw(@user.gravatar_url), :class => "gravatar"
   %p
     A
     = link_to "Gravatar", "http://en.gravatar.com/", :target => "_blank"

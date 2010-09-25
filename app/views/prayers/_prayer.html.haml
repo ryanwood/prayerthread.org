@@ -1,6 +1,6 @@
 .prayer
   .body{ :style => "padding: 1em 0" }
-    .avatar= image_tag @prayer.user.gravatar_url, :class => 'gravatar', :alt => @prayer.user.first_name
+    .avatar= image_tag raw(@prayer.user.gravatar_url), :class => 'gravatar', :alt => @prayer.user.first_name
     .content
       - if @prayer.answered?
         .answer
