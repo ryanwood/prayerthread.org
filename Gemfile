@@ -15,6 +15,12 @@ gem 'gravtastic'       #, '~> 2.2'
 gem 'compass', '>= 0.10.2'
 gem 'capistrano'
 
+
+group :development do
+  gem 'ruby-growl'
+  gem 'bullet', '~> 2.0.0.rc1'
+end
+
 group :test do
   gem 'shoulda'
   gem 'factory_girl'
