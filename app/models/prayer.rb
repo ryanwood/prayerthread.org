@@ -19,14 +19,14 @@ class Prayer < ActiveRecord::Base
   
   has_friendly_id :title, :use_slug => true
   
-  scope :open, :conditions => "answered_at IS NULL and praise = false" 
-  scope :answered, :conditions => "answered_at IS NOT NULL and praise = false" 
-  scope :praise, :conditions => "praise = true"
-  scope :for_user, lambda { |user| {
-    :include => :groups, 
-    :conditions => ['groups.id IN (?) OR prayers.user_id = ?', user.groups.map {|g| g.id }, user.id],
-    :order => 'prayers.thread_updated_at DESC'
-  }}
+  scope :open, where("answered_at IS NULL and praise = ?", false)
+  scope :answered, where("answered_at IS NOT NULL and praise = ?", false)
+  scope :praise, where("praise = ?", true)
+  scope :for_user, lambda { |user|
+    includes(:groups, :user).
+    where('groups.id IN (?) OR prayers.user_id = ?', user.groups.map {|g| g.id }, user.id).
+    order('prayers.thread_updated_at DESC')
+  }
   
   VIEWS = [ :all, :open, :answered, :praise ]
   
