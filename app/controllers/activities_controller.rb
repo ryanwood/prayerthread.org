@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
   before_filter :authenticate
-  load_and_authorize_resource :nested => :prayer
+  authorize_resource
   
   def index
     @activities = Activity.find_all_grouped(current_user)

@@ -1,6 +1,7 @@
 class MembershipsController < ApplicationController
   before_filter :authenticate
-  load_and_authorize_resource :nested => :group, :except => :create
+  load_and_authorize_resource :group, :except => :create
+  load_and_authorize_resource :membership, :through => :group, :except => :create
   
   def index
     load_memberships_and_invites

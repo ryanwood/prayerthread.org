@@ -1,6 +1,9 @@
 class CommentsController < ApplicationController
   before_filter :authenticate
-  load_and_authorize_resource :nested => :prayer
+  
+  load_and_authorize_resource :prayer
+  load_and_authorize_resource :comment, :through => :prayer
+  
   before_filter :check_group_access, :only => :create
   after_filter :send_notifications, :only => :create
   

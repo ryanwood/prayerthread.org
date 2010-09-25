@@ -1,7 +1,8 @@
 class IntercessionsController < ApplicationController
   before_filter :authenticate
-  load_and_authorize_resource :nested => :prayer
-
+  load_and_authorize_resource :prayer
+  load_and_authorize_resource :intercession, :through => :prayer
+  
   def new
     create
   end
