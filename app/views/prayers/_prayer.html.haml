@@ -4,7 +4,8 @@
     .content
       - if @prayer.answered?
         .answer
-          .actions= link_to "Edit Answer", answer_prayer_path(@prayer)
+          - if can? :answer, @prayer
+            .actions= link_to "Edit Answer", answer_prayer_path(@prayer)
           %p
             %strong This prayer has been answered!
           = p(h(@prayer.answer))
