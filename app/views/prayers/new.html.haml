@@ -1,6 +1,6 @@
 - title "New Prayer"
 
-- semantic_form_for @prayer do |form|
+= semantic_form_for @prayer do |form|
   = form.error_messages
   = render :partial => "inputs", :locals => { :form => form }
   = form.buttons

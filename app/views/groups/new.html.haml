@@ -1,6 +1,6 @@
 - title "New Group"
 
-- semantic_form_for @group do |form|
+= semantic_form_for @group do |form|
   = form.error_messages
   = render :partial => "inputs", :locals => { :form => form }
   = form.buttons

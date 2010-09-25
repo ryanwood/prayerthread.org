@@ -2,11 +2,11 @@
 
 %p Enter the email address of the person you wish to invite to this group.
 
-- semantic_form_for [@group, @invitation] do |form|
+= semantic_form_for [@group, @invitation] do |form|
   = form.error_messages
-  - form.inputs do
+  = form.inputs do
     = form.input :recipient_email, :hint => "Something such as 'john@company.com'"
-  - form.buttons do
+  = form.buttons do
     = form.commit_button "Invite"
 
 %p= link_to "Back to the group", @group

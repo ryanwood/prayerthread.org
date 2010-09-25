@@ -1,10 +1,10 @@
 - activity = can?( :edit, @prayer ) ? 'Update' : 'Comment'
 - title "Edit your #{activity}"
 
-- semantic_form_for [@prayer, @comment] do |form|
+= semantic_form_for [@prayer, @comment] do |form|
   = form.error_messages
   = render :partial => "inputs", :locals => { :form => form }
-  - form.buttons do
+  = form.buttons do
     = form.commit_button "Edit #{activity}"
 
 %p

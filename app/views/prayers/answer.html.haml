@@ -6,11 +6,11 @@
     %strong praise
     which doesn't require an answer.
 - else
-  - semantic_form_for @prayer do |form|
+  = semantic_form_for @prayer do |form|
     = form.error_messages
-    - form.inputs do
+    = form.inputs do
       = form.input :answer, :label => "The Answer", :hint => "This is how other's will see this prayer has been answered."
-    - form.buttons do
+    = form.buttons do
       = form.commit_button "Save Answer"
   
 %ul.inline
