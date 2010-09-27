@@ -12,6 +12,14 @@ GIT
     clearance (0.9.0.rc9)
       rails (~> 3.0.0)
 
+GIT
+  remote: http://github.com/indirect/haml-rails.git
+  revision: b463d08592bf7ed9395e8961b898fa26933e5102
+  specs:
+    haml-rails (0.2)
+      haml (~> 3.0.18)
+      rails (~> 3.0.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -175,6 +183,7 @@ DEPENDENCIES
   friendly_id
   gravtastic
   haml
+  haml-rails!
   hirb
   hoptoad_notifier
   interactive_editor

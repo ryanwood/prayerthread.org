@@ -1,0 +1,6 @@
+<%= @prayer.user.name %> marked the prayer, '<%= @prayer.title %>', as answered!
+
+<%= truncate(@prayer.answer, :length => 200) %>
+
+To read more or comment, visit:
+<%= prayer_url( @prayer, :host => HOST ) %>
