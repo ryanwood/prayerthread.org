@@ -5,8 +5,7 @@ class Prayer < ActiveRecord::Base
   has_many :comments, :order => 'created_at DESC', :dependent => :destroy
   has_many :updates, :class_name => "Comment", :conditions => 'user_id = #{user_id}', :order => 'created_at DESC'
   has_many :audience_comments, :class_name => "Comment", :conditions => 'user_id != #{user_id}', :order => 'created_at DESC'
-  # has_many :comments, :order => 'created_at DESC', :dependent => :destroy
-  has_many :activites, :order => 'created_at DESC', :dependent => :destroy
+  has_many :activities, :order => 'created_at DESC', :dependent => :destroy
   has_many :intercessions
   has_many :nudges
   
