@@ -35,7 +35,7 @@ class Invitation < ActiveRecord::Base
   end
   
   def send_invitation_email
-    InvitationMailer.deliver_invitation( self )
+    InvitationMailer.invite(self).deliver
     update_attribute :sent_at, Time.now
   end
   

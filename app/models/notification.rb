@@ -28,7 +28,7 @@ class Notification
       event.prayer = prayer
       event.filtered_users = [prayer.user]
       event.condition = "prayer_#{@event_name}"
-      event.mailer = "deliver_#{event.condition}".to_sym
+      event.mailer = event.condition.to_sym
     elsif @model.kind_of?(Comment) && @event_name == :created
       comment = @model
       event.prayer = @model.prayer
@@ -38,7 +38,7 @@ class Notification
       else
         event.condition = "comment_to_originator"
       end
-      event.mailer = :deliver_comment_created
+      event.mailer = :comment_created
     else
       raise ArgumentError, "There is no '#{@event_name}' notification configured for the #{@model.class} class."
     end
@@ -51,7 +51,7 @@ class Notification
     
     def notify(audience, mailer)
       audience.each do |recipient|
-        NotificationMailer.send(mailer, recipient, @model)
+        NotificationMailer.send(mailer, recipient, @model).deliver
       end
     end
     

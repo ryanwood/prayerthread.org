@@ -16,7 +16,7 @@ class Nudge < Activity
   protected
   
   def notify_user
-    NotificationMailer.deliver_nudge(self)
+    NotificationMailer.nudge(self).deliver
   end
   
 end
