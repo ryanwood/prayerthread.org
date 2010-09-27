@@ -43,12 +43,14 @@ Prayerthread::Application.configure do
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true
+  
+  config.action_mailer.default_url_options = { :host => 'prayerthread.org' }
 end
-
-HOST = "prayerthread.org"
 
 ActionMailer::Base.delivery_method = :sendmail
 ActionMailer::Base.sendmail_settings = {
     :location       => '/usr/sbin/sendmail',
     :arguments      => "-i -t -r donotreply@prayerthread.org"
 }
+
+

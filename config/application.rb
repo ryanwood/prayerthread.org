@@ -44,5 +44,7 @@ module Prayerthread
       g.test_framework :rspec, :fixture => false, :views => false
       g.fixture_replacement :machinist
     end
+    
+    config.action_mailer.default_url_options = { :host => 'prayerthread.local' }
   end
 end
