@@ -53,7 +53,7 @@ class PrayersController < ApplicationController
   
   def destroy
     @prayer.destroy
-    flash[:notice] = "Successfully destroyed prayer."
+    flash[:notice] = "Successfully deleted prayer."
     redirect_to prayers_url
   end
   
