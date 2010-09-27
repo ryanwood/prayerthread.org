@@ -11,3 +11,5 @@ doc/app
 config/database.yml
 *.tmproj
 public/stylesheets/compiled/*.css
+.rvmrc
+.bundle
