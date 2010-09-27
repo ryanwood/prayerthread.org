@@ -3,7 +3,6 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.0'
 gem 'mysql2'
 gem 'haml'
-gem "haml-rails", :git => "http://github.com/indirect/haml-rails.git"    # need git for mailer generator
 gem 'clearance', :git => "git://github.com/thoughtbot/clearance.git"
 gem "formtastic", '~> 1.1.0'
 gem 'cancan'           #, '1.0.2'
@@ -14,20 +13,18 @@ gem 'hoptoad_notifier' #, '2.3.2'
 gem 'gravtastic'       #, '~> 2.2'
 gem 'compass', '>= 0.10.2'
 gem 'capistrano'
+gem 'settingslogic'
 
-# group :test do
-#   gem 'shoulda'
-#   gem 'factory_girl'
-#   gem 'mocha'
-# end
+group :development do
+  gem "haml-rails", :git => "http://github.com/indirect/haml-rails.git"    # need git for mailer generator
 
-# http://iain.nl/2010/07/customizing-irb-2010-edition/
-group :development do 
+  # http://iain.nl/2010/07/customizing-irb-2010-edition/
   gem "wirble" 
   gem "hirb" 
   gem "awesome_print", :require => "ap" 
-  gem "interactive_editor" 
-  gem "launchy"
+  # gem "interactive_editor" 
+
+  # N+1 helper
   gem 'ruby-growl'
   gem 'bullet', '~> 2.0.0.rc1'
 end
