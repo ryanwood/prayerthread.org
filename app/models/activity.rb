@@ -10,15 +10,15 @@ class Activity < ActiveRecord::Base
   scope :regarding, lambda { |prayer| where(:prayers => { :id => prayer}) }
   scope :actor, lambda { |user| where(:users => {:id => user }) }
   
-  scope :today,      lambda { includes(:prayer, :user).where("activities.created_at >= ? AND activities.created_at < ?", Time.zone.now.midnight.utc, Time.zone.now.midnight.tomorrow.utc) }
-  scope :yesterday,  lambda { includes(:prayer, :user).where("activities.created_at >= ? AND activities.created_at < ?", Time.zone.now.midnight.yesterday.utc, Time.zone.now.midnight.utc) }
-  scope :this_week,  lambda { includes(:prayer, :user).where("activities.created_at >= ? AND activities.created_at < ?", Time.zone.now.beginning_of_week.utc , Time.zone.now.midnight.yesterday.utc) }
-  scope :last_week,  lambda { includes(:prayer, :user).where("activities.created_at >= ? AND activities.created_at < ?", Time.zone.now.beginning_of_week.utc - 7.days, Time.zone.now.beginning_of_week.utc) }
-  scope :this_month, lambda { includes(:prayer, :user).where("activities.created_at >= ? AND activities.created_at < ?", Time.zone.now.beginning_of_month.utc, Time.zone.now.beginning_of_week.utc - 7.days) }
-  scope :last_month, lambda { includes(:prayer, :user).where("activities.created_at >= ? AND activities.created_at < ?", (Time.zone.now.beginning_of_month.utc - 1.day).beginning_of_month.utc, Time.zone.now.beginning_of_month.utc) }
-  scope :older_than_last_week, lambda { includes(:prayer, :user).where("activities.created_at < ?", Time.zone.now.beginning_of_week.utc - 7.days).limit(30) }
+  scope :today,      lambda { includes(:prayer, :user).where("activities.created_at >= ? AND activities.created_at < ?", Time.zone.now.midnight.utc, Time.zone.now.midnight.tomorrow.utc).order("created_at DESC") }
+  scope :yesterday,  lambda { includes(:prayer, :user).where("activities.created_at >= ? AND activities.created_at < ?", Time.zone.now.midnight.yesterday.utc, Time.zone.now.midnight.utc).order("created_at DESC") }
+  scope :this_week,  lambda { includes(:prayer, :user).where("activities.created_at >= ? AND activities.created_at < ?", Time.zone.now.beginning_of_week.utc , Time.zone.now.midnight.yesterday.utc).order("created_at DESC") }
+  scope :last_week,  lambda { includes(:prayer, :user).where("activities.created_at >= ? AND activities.created_at < ?", Time.zone.now.beginning_of_week.utc - 7.days, Time.zone.now.beginning_of_week.utc).order("created_at DESC") }
+  scope :this_month, lambda { includes(:prayer, :user).where("activities.created_at >= ? AND activities.created_at < ?", Time.zone.now.beginning_of_month.utc, Time.zone.now.beginning_of_week.utc - 7.days).order("created_at DESC") }
+  scope :last_month, lambda { includes(:prayer, :user).where("activities.created_at >= ? AND activities.created_at < ?", (Time.zone.now.beginning_of_month.utc - 1.day).beginning_of_month.utc, Time.zone.now.beginning_of_month.utc).order("created_at DESC") }
+  scope :older_than_last_week, lambda { includes(:prayer, :user).where("activities.created_at < ?", Time.zone.now.beginning_of_week.utc - 7.days).order("created_at DESC").limit(30) }
   
-  scope :rolling_week,  lambda { includes(:prayer, :user).where("activities.created_at >= ?", 7.days.ago) }
+  scope :rolling_week,  lambda { includes(:prayer, :user).where("activities.created_at >= ?", 7.days.ago).order("created_at DESC") }
   
   before_create :allowed?
   
