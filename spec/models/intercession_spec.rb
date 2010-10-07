@@ -14,8 +14,13 @@ describe Intercession do
       Intercession.allowed?(user, prayer).should be_true
     end
     
+    it "is allowed if it has been more than one day" do
+      Intercession.make!(:prayer => prayer, :user => user, :created_at => 1.day.ago)
+      Intercession.allowed?(user, prayer).should be_true
+    end
+    
     it "is not allowed if the user has already interceded today" do
-      Intercession.make!(:prayer => prayer, :user => user)
+      Intercession.make!(:prayer => prayer, :user => user, :created_at => 5.hours.ago)
       Intercession.allowed?(user, prayer).should be_false
     end
   end
