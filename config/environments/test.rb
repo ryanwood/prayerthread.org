@@ -31,5 +31,9 @@ Prayerthread::Application.configure do
   # config.active_record.schema_format = :sql
   
   config.active_support.deprecation = :stderr
-  
+end
+
+# Have to add this so db records don't hang around.
+Machinist.configure do |config|
+  config.cache_objects = false
 end

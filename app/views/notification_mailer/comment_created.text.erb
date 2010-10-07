@@ -3,4 +3,4 @@
 <%= truncate(@comment.body, :length => 200) %>
 
 To read more or comment, visit:
-<%= prayer_url( @prayer, :host => HOST, :anchor => "comment_#{@comment.id}" ) %>
+<%= prayer_url( @prayer, :anchor => "comment_#{@comment.id}" ) %>

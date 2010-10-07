@@ -49,3 +49,8 @@ Intercession.blueprint do
   prayer
   user { User.make(:confirmed) }
 end
+
+Nudge.blueprint do
+  prayer
+  user { User.make(:confirmed) }
+end
