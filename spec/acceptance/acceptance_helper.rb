@@ -9,3 +9,6 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 # For capybara to recognize Rails routes
 include Rails.application.routes.url_helpers
+
+# I guess including the above wipes out the default options... set it again.
+Rails.application.config.action_mailer.default_url_options = { :host => 'prayerthread.local' }
