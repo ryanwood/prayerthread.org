@@ -6,3 +6,6 @@ RSpec.configuration.include Capybara, :type => :acceptance
 
 # Put your acceptance spec helpers inside /spec/acceptance/support
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
+
+# For capybara to recognize Rails routes
+include Rails.application.routes.url_helpers

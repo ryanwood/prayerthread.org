@@ -2,7 +2,6 @@ class User < ActiveRecord::Base
   include Clearance::User
   is_gravtastic!
   attr_accessor :invitation_token
-  attr_accessible :first_name, :last_name, :invitation_token, :memberships_attributes
   
   after_create :add_recipient_to_invitation
   
@@ -49,8 +48,7 @@ class User < ActiveRecord::Base
       invitation = Invitation.find_by_token(invitation_token) 
       if invitation
         self.invitations << invitation
-        save(false)
-        invitation_token = nil
+        update_attribute :invitation_token, nil
       end
     end
   end
