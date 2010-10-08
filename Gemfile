@@ -33,8 +33,8 @@ end
 # http://blog.davidchelimsky.net/2010/07/11/rspec-rails-2-generators-and-rake-tasks/
 # http://blog.davidchelimsky.net/2010/07/11/rspec-rails-2-generators-and-rake-tasks-part-ii/
 group :development, :test do
-  gem "rspec", ">= 2.0.0.beta.20"
-  gem "rspec-rails", ">= 2.0.0.beta.20"
+  gem "rspec", ">= 2.0.0.rc"
+  gem "rspec-rails", ">= 2.0.0.rc"
   gem 'steak', :git => 'git://github.com/cavalle/steak.git'
 end
 
