@@ -24,8 +24,7 @@ class CommentsController < ApplicationController
       msg = " and marked the prayer answered"
     end
     if @comment.save
-      flash[:notice] = "Successfully created comment#{msg}."
-      redirect_to @prayer
+      redirect_to @prayer, :notice => "Successfully created comment#{msg}."
     else
       render :action => 'new'
     end
@@ -45,8 +44,7 @@ class CommentsController < ApplicationController
   
   def destroy
     @comment.destroy
-    flash[:notice] = "Successfully destroyed comment."
-    redirect_to prayer_comments_url(@prayer)
+    redirect_to prayer_comments_url(@prayer), :notice => "Successfully destroyed comment."
   end
   
   protected
