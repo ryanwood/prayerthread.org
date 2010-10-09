@@ -36,13 +36,29 @@ describe Ability do
   end
 
   context "Groups" do
+    context ":read" do
+      it "can view a group as a member" do
+        Membership.make!(:user => user, :group => group)
+        ability.should be_able_to(:read, group)
+      end
+    
+      it "cannot view a group as a non-member" do
+        ability.should_not be_able_to(:modify, Group.make)
+      end
+    end
+
     it "can create a group" do
       ability.should be_able_to(:create, Group)
     end
 
-    it "can modify groups they own" do
+    it "can modify groups as an owner" do
       ability.should be_able_to(:modify, Group.make(:owner => user))
       ability.should_not be_able_to(:modify, Group.make)
+    end
+    
+    it "can destroy groups as an owner" do
+      ability.should be_able_to(:destroy, Group.make(:owner => user))
+      ability.should_not be_able_to(:destroy, Group.make)
     end
   end
   

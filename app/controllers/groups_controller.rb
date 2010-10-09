@@ -1,22 +1,19 @@
 class GroupsController < ApplicationController
   before_filter :authenticate
+  load_and_authorize_resource :group
   
   def index
-    @groups = current_user.groups
   end
   
   def show
-    @group = current_user.groups.find(params[:id])
     @prayers = @group.prayers.paginate :page => params[:page]
     @intercessions = current_user.intercessions.today.map { |i| i.prayer.id }
   end
   
   def new
-    @group = Group.new
   end
   
   def create
-    @group = Group.new(params[:group])
     @group.owner = current_user
     if @group.save
       flash[:notice] = "Successfully created group."
@@ -31,7 +28,6 @@ class GroupsController < ApplicationController
   end
   
   def update
-    @group = current_user.groups.find(params[:id])
     if @group.update_attributes(params[:group])
       flash[:notice] = "Successfully updated group."
       redirect_to @group
@@ -41,7 +37,6 @@ class GroupsController < ApplicationController
   end
   
   def destroy
-    @group = current_user.groups.find(params[:id])
     @group.destroy
     flash[:notice] = "Successfully destroyed group."
     redirect_to groups_url
