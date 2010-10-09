@@ -1,23 +1,41 @@
 require 'spec_helper'
 require "cancan/matchers"
 
-describe "Ability: A user" do
+describe Ability do
   let(:user){ User.make(:confirmed) }
   let(:ability) { Ability.new(user) }
+  
+  let(:group) { Group.make! }
+  let(:prayer) do
+    p = Prayer.make!
+    group.prayers << p
+    p
+  end
 
-  context "(prayers)" do
+  context "Prayers" do
     it "can only delete prayers they own" do
       ability.should be_able_to(:destroy, Prayer.make(:user => user))
       ability.should_not be_able_to(:destroy, Prayer.make)
     end
 
-    it "can only edit prayers they owns" do
+    it "can only edit prayers they own" do
       ability.should be_able_to(:update, Prayer.make(:user => user))
       ability.should_not be_able_to(:update, Prayer.make)
     end
+    
+    context ":read" do
+      it "can read prayers for groups they belong" do
+        Membership.make!(:user => user, :group => group)
+        ability.should be_able_to(:read, prayer)
+      end
+
+      it "cannot read prayers for groups they do not belong" do
+        ability.should_not be_able_to(:read, prayer)
+      end
+    end
   end
 
-  context "(groups)" do
+  context "Groups" do
     it "can create a group" do
       ability.should be_able_to(:create, Group)
     end
@@ -27,8 +45,23 @@ describe "Ability: A user" do
       ability.should_not be_able_to(:modify, Group.make)
     end
   end
+  
+  context "Comments" do
+    let(:comment) { prayer.comments.build }
+    
+    context ":create" do
+      it "can create comments for prayers in groups they belong" do
+        Membership.make!(:user => user, :group => group)
+        ability.should be_able_to(:create, comment)
+      end
 
-  context "(invitations)" do
+      it "cannot create comments for prayers in groups they do not belong" do
+        ability.should_not be_able_to(:create, comment)
+      end
+    end
+  end
+
+  context "Invitations" do
     it "can delete invitations from a group they own" do
       group = Group.make(:owner => user)
       ability.should be_able_to(:destroy, Invitation.make(:group => group))
@@ -44,7 +77,7 @@ describe "Ability: A user" do
     end
   end
 
-  context "(memberships)" do
+  context "Memberships" do
     it "can delete their own memberships" do 
       membership = Membership.make(:group => Group.make, :user => user)
       ability.should be_able_to(:destroy, membership)

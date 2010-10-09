@@ -2,9 +2,9 @@ class CommentsController < ApplicationController
   before_filter :authenticate
   
   load_and_authorize_resource :prayer
-  load_and_authorize_resource :comment, :through => :prayer
+  load_resource :comment, :through => :prayer
+  authorize_resource :comment, :through => :prayer, :except => [:new, :create]
   
-  before_filter :check_group_access, :only => :create
   after_filter :send_notifications, :only => :create
   
   def index
@@ -12,9 +12,11 @@ class CommentsController < ApplicationController
   end
   
   def new
+    authorize! :new, @prayer => Comment
   end
   
   def create
+    authorize! :new, @prayer => Comment
     @comment.user = current_user
     msg = ''
     if params[:comment] && params[:comment].has_key?(:prayer)
@@ -48,12 +50,6 @@ class CommentsController < ApplicationController
   end
   
   protected
-    
-    def check_group_access
-      allowed_groups = @prayer.groups
-      current_user.groups.each { |g| return true if allowed_groups.include?(g) }
-      unauthorized!
-    end
     
     def send_notifications
       Notification.fire( :created, @comment )

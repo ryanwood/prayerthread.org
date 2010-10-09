@@ -21,12 +21,9 @@ class Ability
     
     can [:read, :create], Intercession
 
-    can [:read, :create], Comment
-    # can :create, Comment do |comment|
-    #   allowed_groups = comment.prayer.groups
-    #   @user.groups.each { |g| return true if allowed_groups.include?(g) }
-    #   false
-    # end
+    can [:read, :create], Comment do |comment|
+      comment && has_access_to(comment.prayer.groups)
+    end
     can :modify, Comment, :user => @user
     
     can :create, Invitation, :group => { :owner => @user }

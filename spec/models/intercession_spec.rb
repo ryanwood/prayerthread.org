@@ -20,7 +20,7 @@ describe Intercession do
     end
     
     it "is not allowed if the user has already interceded today" do
-      Intercession.make!(:prayer => prayer, :user => user, :created_at => 5.hours.ago)
+      Intercession.make!(:prayer => prayer, :user => user)
       Intercession.allowed?(user, prayer).should be_false
     end
   end
