@@ -42,7 +42,6 @@ end
 Membership.blueprint do
   group
   user   { User.make(:confirmed) }
-  notification_level { 1 }
 end
 
 Intercession.blueprint do

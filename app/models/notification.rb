@@ -4,62 +4,23 @@ class NotificationLogger < Logger
   end 
 end
 
-class Event < Struct.new(:prayer, :condition, :mailer, :filtered_users)
-end
-
 class Notification
   
-  EVENTS = [:created, :answered]
-
   def self.fire(event, model)
     Delayed::Job.enqueue new(event, model)
   end
   
-  def initialize(event, model)
-    raise(ArgumentError, "Invalid event for notification: #{event}.") unless EVENTS.include?(event)
-    @event_name = event
-    @model = model
+  def initialize(event_type, model)
+    @event = Event.new(event_type, model)
   end
   
   def perform
-    event = Event.new
-    if @model.kind_of? Prayer
-      prayer = @model
-      event.prayer = prayer
-      event.filtered_users = [prayer.user]
-      event.condition = "prayer_#{@event_name}"
-      event.mailer = event.condition.to_sym
-    elsif @model.kind_of?(Comment) && @event_name == :created
-      comment = @model
-      event.prayer = @model.prayer
-      event.filtered_users = [@model.user]
-      if comment.user == comment.prayer.user
-        event.condition = "comment_from_originator"
-      else
-        event.condition = "comment_to_originator"
-      end
-      event.mailer = :comment_created
-    else
-      raise ArgumentError, "There is no '#{@event_name}' notification configured for the #{@model.class} class."
+    @event.audience.each do |recipient|
+      NotificationMailer.send(@event.mailer, recipient, @model).deliver
     end
-    
-    audience = build_audience(event)
-    notify(audience, event.mailer)
   end
     
   private
-    
-    def notify(audience, mailer)
-      audience.each do |recipient|
-        NotificationMailer.send(mailer, recipient, @model).deliver
-      end
-    end
-    
-    def build_audience(event)
-      memberships = Membership.where("group_id IN (?) AND notify_on_#{event.condition}", event.prayer.groups, true)
-      memberships.where("user_id = ?", event.prayer.user) if event.condition == 'comment_to_originator'
-      memberships.map { |m| m.user }.uniq - event.filtered_users
-    end
   
     def logger
       @logger ||= create_logger
