@@ -10,8 +10,8 @@ class Notification
     Delayed::Job.enqueue new(event, model)
   end
   
-  def initialize(event_type, model)
-    @event = Event.new(event_type, model)
+  def initialize(event, model)
+    @event = Event.new(event, model)
   end
   
   def perform
