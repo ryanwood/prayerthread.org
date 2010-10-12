@@ -10,13 +10,14 @@ describe Nudge do
     let(:prayer) { Prayer.make! }
     let(:user) { User.make! }
     
-    it "is allowed if the user has not interceded today" do
+    it "is allowed if the user has not nudged at all" do
+      prayer.should have(0).nudges
       Nudge.allowed?(user, prayer).should be_true
     end
 
     it "is allowed if it has been more than week" do
-      Intercession.make!(:prayer => prayer, :user => user, :created_at => 2.week.ago)
-      Intercession.allowed?(user, prayer).should be_true
+      Nudge.make!(:prayer => prayer, :user => user, :created_at => 2.week.ago)
+      Nudge.allowed?(user, prayer).should be_true
     end
     
     it "is not allowed if the user has already nudged this week" do

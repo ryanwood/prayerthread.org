@@ -10,7 +10,8 @@ describe Intercession do
     let(:prayer) { Prayer.make! }
     let(:user) { User.make! }
     
-    it "is allowed if the user has not interceded today" do
+    it "is allowed if the user has not interceded" do
+      prayer.should have(0).intercessions
       Intercession.allowed?(user, prayer).should be_true
     end
     
