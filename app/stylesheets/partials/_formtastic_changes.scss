@@ -2,8 +2,8 @@
 form.formtastic {
   padding: 2em;
   margin: 0;
-  label, input, textarea {
-    font-size: 1.1em; }
+  // label, input, textarea {
+  //   font-size: 1.1em; }
   input, textarea {
     padding: 3px 0; }
   .virtual_input {
@@ -14,8 +14,8 @@ form.formtastic {
     margin-bottom: 1em; }
   fieldset ol li.error {
     padding: 5px; }
-  fieldset.buttons li input {
-    font-size: 1.1em; }
+  // fieldset.buttons li input {
+  //  font-size: 1.1em; }
   fieldset.membership {
     border-top: 1px solid #999999;
     padding: 1em;
@@ -24,6 +24,17 @@ form.formtastic {
       padding: 0 0.5em;
       font-size: 1.1em;
       color: $blue; } } }
+
+form.formtastic fieldset ol {
+  li.string input, 
+  li.password input,
+  li.text textarea {
+    border: 1px solid $light_blue;
+    width: 70%;
+    padding: 5px; }
+  li.string, li.password, li.text {
+    label {
+      padding-top: 6px; } } }
 
 //form#account_form
 // fieldset.inputs, fieldset.membership

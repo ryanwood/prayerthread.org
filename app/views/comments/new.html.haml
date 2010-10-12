@@ -1,4 +1,4 @@
-- title "#{can?( :edit, @prayer ) ? "Add an Update" : "Add a New Comment"} for '#{@prayer.title}'"
+- title can?( :edit, @prayer ) ? "Add an Update" : "Add a New Comment", :subtitle => "for prayer '#{@prayer.title}'"
 
 %p= link_to "Back to Prayer", @prayer
 

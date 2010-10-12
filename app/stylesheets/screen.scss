@@ -9,6 +9,7 @@
 
 // Import the non-default scaffolding module.
 @import "blueprint/scaffolding";
+//@import "blueprint/buttons";
 
 @import "compass/utilities";
 
@@ -65,10 +66,10 @@ h1 {
   margin-top: 10px;
   font-size: 2.5em;
   letter-spacing: -2px;
-  padding-bottom: 5px;
+  padding-bottom: 15px;
   border-bottom: 1px solid $light_gray;
   .subtitle {
-    padding-top: 5px;
+    padding-top: 10px;
     font-weight: normal;
     letter-spacing: 0;
     font-style: italic;
@@ -77,8 +78,9 @@ h1 {
 
 h2 {
   font-size: 1.6em;
-  margin-top: 15px;
-  border-bottom: 1px dotted $light_blue; }
+  margin: 35px 0 25px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid $light_gray; }
 
 h3 {
   font-size: 1.4em;
@@ -222,7 +224,7 @@ table#members_table {
     font-size: 0.9em;
     clear: left;
     .content {
-      padding-left: 7em; }
+      margin-left: 7em; }
     h3 {
       margin: 0;
       padding: 0;
@@ -266,17 +268,20 @@ table#members_table {
         padding: 0; } } } }
 
 .prayer {
+  clear: left;
+  h2 {
+    .actions {
+      font-size: 12px; } }
   .avatar {
     float: left; }
   .content {
-    padding-left: 9em;
+    margin-left: 9em;
+    padding-left: 10px;
+    .original {
+      background-color: #E5ECF9; }
     p {
       padding: 0 0 1em 0;
       line-height: 1.5em; }
-    hr {
-      border: 0;
-      background: url(../../images/dotted_horizontal_border.png) bottom repeat-x;
-      height: 2px; }
     .actions {
       padding: 0 0 10px 10px;
       font-size: 0.8em; }
@@ -291,6 +296,28 @@ table#members_table {
         color: $orange; }
       img {
         vertical-align: bottom; } } }
+  hr {
+    @include container;
+    width: 100%;
+    border-width: 0;
+    background: url(../../images/dotted_horizontal_border.png) bottom repeat-x;
+    height: 10px;
+    margin: 1em 0; }
+
+  .comments {
+    .comment {
+      background: url(../../images/dotted_horizontal_border.png) bottom repeat-x;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+      .avatar {
+        width: 7em;
+        text-align: right; }
+      p.time {
+        @include bulleted;
+        padding-top: 10px;
+        font-size: 0.8em; } }
+    .update .content {
+      border-left: 2px solid $light_blue; } }
   .answer {
     margin-top: 0;
     h3 {
@@ -318,7 +345,7 @@ img.gravatar {
 li#comment_count {
   padding-left: 12px;
   background: url(../../images/comment.png) center left no-repeat; }
-
+/*
 .comments .comment {
   padding: 5px;
   margin: 0 0 10px 0;
@@ -348,7 +375,7 @@ li#comment_count {
     font-size: 0.8em; }
   .actions {
     font-size: 0.8em; } }
-
+*/
 #sidebar .comments .comment {
   font-size: 0.85em;
   .content {
@@ -408,7 +435,7 @@ hr {
   border-bottom: 1px solid #999999; }
 
 .date {
-  font-size: 70%;
+  font-size: 0.6em;
   text-transform: uppercase;
   color: $dark_gray; }
 
@@ -494,4 +521,11 @@ a.print {
   a {
     color: #aadd44;
     font-size: 11px;
-    font-weight: bold; } }
+    font-weight: bold; } }    
+/*
+button {
+  color: #FFF;
+  font-size: 1.4em;
+  @include button-button;
+  @include button-colors($blue, $light_blue, $blue); }
+*/

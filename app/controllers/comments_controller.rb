@@ -8,11 +8,13 @@ class CommentsController < ApplicationController
   after_filter :send_notifications, :only => :create
   
   def index
-    @comments = @prayer.comments
+    # @comments = @prayer.comments
+    redirect_to prayer_path(@prayer, :anchor => 'comments')
   end
   
   def new
     authorize! :new, @prayer => Comment
+    redirect_to prayer_path(@prayer, :anchor => 'new_comment')
   end
   
   def create
@@ -44,7 +46,7 @@ class CommentsController < ApplicationController
   
   def destroy
     @comment.destroy
-    redirect_to prayer_comments_url(@prayer), :notice => "Successfully destroyed comment."
+    redirect_to prayer_path(@prayer), :notice => "Successfully deleted comment."
   end
   
   protected

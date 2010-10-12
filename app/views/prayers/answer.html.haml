@@ -9,7 +9,7 @@
   = semantic_form_for @prayer do |form|
     = form.error_messages
     = form.inputs do
-      = form.input :answer, :label => "The Answer", :hint => "This is how other's will see this prayer has been answered."
+      = form.input :answer, :label => "The Answer", :hint => "This is how other's will see this prayer has been answered.", :input_html => { :rows => 6 }
     = form.buttons do
       = form.commit_button "Save Answer"
   

@@ -19,4 +19,7 @@ module PrayersHelper
     @detail == 1
   end
   
+  def comment_type
+    can?(:modify, @prayer) ? "Update" : "Comment"
+  end
 end

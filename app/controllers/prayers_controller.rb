@@ -16,8 +16,8 @@ class PrayersController < ApplicationController
   end
   
   def show
-    @recent_comments = @prayer.audience_comments.recent
-    @updates = @prayer.updates
+    @comments = @prayer.comments
+    @comment = @prayer.comments.new
   end
   
   def new

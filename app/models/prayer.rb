@@ -2,12 +2,12 @@ class Prayer < ActiveRecord::Base
   attr_accessible :title, :body, :answer, :praise, :group_ids
 
   belongs_to :user
-  has_many :comments, :order => 'created_at DESC', :dependent => :destroy
-  has_many :updates, :class_name => "Comment", :conditions => 'user_id = #{user_id}', :order => 'created_at DESC'
-  has_many :audience_comments, :class_name => "Comment", :conditions => 'user_id != #{user_id}', :order => 'created_at DESC'
+  has_many :comments, :dependent => :destroy
+  has_many :updates, :class_name => "Comment", :conditions => 'user_id = #{user_id}'
+  has_many :audience_comments, :class_name => "Comment", :conditions => 'user_id != #{user_id}'
   has_many :activities, :order => 'created_at DESC', :dependent => :destroy
   has_many :intercessions, :dependent => :destroy
-  has_many :nudges
+  has_many :nudges, :dependent => :destroy
   
   has_and_belongs_to_many :groups
   
@@ -39,6 +39,10 @@ class Prayer < ActiveRecord::Base
   
   def answered?
     !answered_at.nil?
+  end
+
+  def intercessors
+    @intercessors ||= intercessions.map {|i| i.user }.uniq
   end
   
   protected

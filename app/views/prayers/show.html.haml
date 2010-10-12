@@ -4,12 +4,19 @@
   
 - content_for :sidebar do
 
-  - if can?( :edit, @prayer )
-    %h3 Communicate
-    %ul.links    
-      %li.first= link_to "Share an Update", new_prayer_comment_path(@prayer)
+  %h3 Communicate
+  %ul.links
+    - if can?( :edit, @prayer )
+      %li.first= link_to "Edit the Original Prayer", edit_prayer_path(@prayer)
       - unless @prayer.answered? || @prayer.praise?
         %li= link_to "Mark as Answered", answer_prayer_path(@prayer)
-      %li= link_to "Edit the Original Prayer", edit_prayer_path(@prayer)
+    - else
+      %li.first= link_to "Add a new Comment", '#new_comment'
+    %li= link_to "Add a new Prayer", new_prayer_path
 
-  = render :partial => "/comments/recent"
+  - unless @prayer.intercessors.empty?
+    %h3 Who prayed for this?
+    %ul.links
+      - @prayer.intercessors.each do |intercessor|
+        %li= intercessor.name
+    %p= link_to "See all activity", activities_path

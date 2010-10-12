@@ -1,0 +1,17 @@
+- prayer = comment.prayer
+- is_update = prayer.user == comment.user
+%div[comment]{ :class => is_update ? "update" : "" }
+  .avatar= image_tag raw(comment.user.gravatar_url(:size => 40)), :class => 'gravatar', :alt => comment.user.first_name
+  .content
+    - if can? :modify, comment
+      .actions
+        %ul.inline
+          %li.first= link_to "edit", edit_prayer_comment_path(prayer, comment)
+          %li= link_to "delete", prayer_comment_path(prayer, comment), :method => :delete, :confirm => "Are you sure you want to delete this #{is_update ? 'update' : 'comment'}?"
+    %p.date
+      %strong= comment.user.name
+      posted 
+      = distance_of_time_in_words(comment.created_at, prayer.created_at)
+      later
+      = "(on #{comment.created_at.strftime('%B %d')})"
+    = p(comment.body, false)

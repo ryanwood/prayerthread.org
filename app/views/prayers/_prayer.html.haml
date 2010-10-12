@@ -1,48 +1,53 @@
 .prayer
-  .body{ :style => "padding: 1em 0" }
-    .avatar= image_tag raw(@prayer.user.gravatar_url), :class => 'gravatar', :alt => @prayer.user.first_name
-    .content
-      - if @prayer.answered?
-        .answer
-          - if can? :answer, @prayer
-            .actions= link_to "Edit Answer", answer_prayer_path(@prayer)
-          %p
-            %strong This prayer has been answered!
-          = p(@prayer.answer)
-
-      - unless @prayer.answered?
-        %ul#activities.inline
-          - if Intercession.allowed?( current_user, @prayer )
-            %li.first
-              = link_to "I prayed for this today", new_prayer_intercession_path(@prayer), :class => "intercede"
-              = image_tag "question-small.png", :title => "Let others know that you are praying for them."
-          - else
-            %li.first Thanks for praying today.
-
-          - if cannot?( :modify, prayer ) && Nudge.allowed?( current_user, @prayer )
-            %li
-              = link_to "Nudge", new_prayer_nudge_path(@prayer), :class => "nudge"
-              = image_tag "question-small.png", :title => "Nudging sends a gentle reminder to come back and provide an update or answer for this prayer."
-      
-      = render :partial => "/prayers/meta", :locals => { :prayer => @prayer }
-      
-      - @updates.each do |update|
+  .avatar= image_tag raw(@prayer.user.gravatar_url), :class => 'gravatar', :alt => @prayer.user.first_name
+  .content
+    %p.date
+      %strong= @prayer.name
+      posted on
+      = @prayer.created_at.strftime('%A, %B %d, %Y')
+    
+    %p= p(@prayer.body, false)
+    
+    - if @prayer.answered?
+      .answer
+        - if can? :answer, @prayer
+          .actions= link_to "Edit Answer", answer_prayer_path(@prayer)
         %p
-          - if can? :modify, update
-            .actions
-              %ul.inline
-                %li.first= link_to "edit", edit_prayer_comment_path(update.prayer, update)
-                %li= link_to "delete", prayer_comment_path(update.prayer, update), :method => :delete, :confirm => "Are you sure you want to delete this update?"
-          %span.date= update.created_at.strftime('%a, %b %d')
-          = p(update.body, false)
-        %hr
-      %p
-        %span.date= @prayer.created_at.strftime('%a, %b %d')
-        = p(@prayer.body, false)
-      
-  .action_area
-    %ul.inline.noprint
-      %li.first= link_to raw("&larr; Back to my Prayer List"), prayers_path
-      - if can?( :destroy, @prayer )
-        %li= link_to "Permanently Delete this Prayer", @prayer, :method => :delete,                    |
-          :confirm => 'Are you sure? This will permanently delete this prayer and all it\'s comments.' |
+          %strong This prayer has been answered!
+        = p(@prayer.answer)
+    - else
+      %ul#activities.inline
+        - if Intercession.allowed?( current_user, @prayer )
+          %li.first
+            = link_to "I prayed for this today", new_prayer_intercession_path(@prayer), :class => "intercede"
+            = image_tag "question-small.png", :title => "Let others know that you are praying for them."
+        - else
+          %li.first Thanks for praying today.
+
+        - if cannot?( :modify, prayer ) && Nudge.allowed?( current_user, @prayer )
+          %li
+            = link_to "Nudge", new_prayer_nudge_path(@prayer), :class => "nudge"
+            = image_tag "question-small.png", :title => "Nudging sends a gentle reminder to come back and provide an update or answer for this prayer."     
+   
+    .action_area
+      %ul.inline.noprint
+        %li.first= link_to raw("&larr; Back to my Prayer List"), prayers_path
+        - if can?( :destroy, @prayer )
+          %li= link_to "Permanently Delete this Prayer", @prayer, :method => :delete, :confirm => "Are you sure? This will permanently delete this prayer and all it's comments."
+ 
+  %h2{ :id => 'comments' } 
+    Comments &amp; Updates
+    - unless @comments.empty?
+      .actions
+        =link_to "Add a new #{comment_type}", "#new_comment"
+
+  .comments
+    = render :partial => "comments/comment", :collection => @comments
+
+  %h3{ :id => "new_comment" }== Add a new #{comment_type}
+  #comment_form
+    = semantic_form_for [@prayer, @comment] do |form|
+      = form.error_messages
+      = render :partial => "comments/inputs", :locals => { :form => form }
+      = form.buttons do
+        = form.commit_button "Add #{comment_type}"
