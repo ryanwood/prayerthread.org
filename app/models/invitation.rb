@@ -18,8 +18,8 @@ class Invitation < ActiveRecord::Base
   
   before_save :initialize_invitation_token
   
-  scope :pending, :conditions => { :accepted_at => nil, :ignored => false }, :order => "sent_at DESC"
-  scope :pending_and_ignored, :conditions => { :accepted_at => nil }
+  scope :pending, includes(:group).where(:accepted_at => nil, :ignored => false).order("sent_at DESC")
+  scope :pending_and_ignored, where(:accepted_at => nil)
   
   after_create :send_invitation_email, :unless => :accepted?
   
