@@ -47,10 +47,10 @@ Prayerthread::Application.configure do
   config.action_mailer.default_url_options = { :host => 'prayerthread.org' }
 end
 
-ActionMailer::Base.delivery_method = :sendmail
-ActionMailer::Base.sendmail_settings = {
-    :location       => '/usr/sbin/sendmail',
-    :arguments      => "-i -t -r donotreply@prayerthread.org"
-}
+ActionMailer::Base.delivery_method = :smtp
+# ActionMailer::Base.sendmail_settings = {
+#     :location       => '/usr/sbin/sendmail',
+#     :arguments      => "-i -t -f donotreply@prayerthread.org"
+# }
 
 
