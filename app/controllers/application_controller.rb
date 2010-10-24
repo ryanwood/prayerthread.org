@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   layout 'application'
-  before_filter :ensure_domain
+  # before_filter :ensure_domain
   include Clearance::Authentication
   
   # include ExceptionNotifiable
@@ -19,9 +19,9 @@ class ApplicationController < ActionController::Base
   #   redirect_to( :action => :index )
   # end
 
-  def ensure_domain
-    if Rails.env.production? && request.env['HTTP_HOST'] != HOST
-      redirect_to "http://#{HOST}"
-    end
-  end
+  # def ensure_domain
+  #   if Rails.env.production? && request.env['HTTP_HOST'] != HOST
+  #     redirect_to "http://#{HOST}"
+  #   end
+  # end
 end

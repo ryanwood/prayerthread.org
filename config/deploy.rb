@@ -1,13 +1,23 @@
+require "bundler/capistrano"
+
 set :application,   'prayerthread.org'
 set :repository,    'git@sourcescape.unfuddle.com:sourcescape/prayerthread.git'
-set :deploy_to,     "/var/www/#{application}"
+# set :deploy_to,     "/var/www/#{application}"
+set :deploy_to,     "/var/rails/#{application}"
+set :user,          "deploy"
 set :port,          22022
 set :scm,           :git
 set :deploy_via,    :remote_cache
+set :branch,        'rails-3-0'
+
+default_run_options[:pty] = true
 
 set :rails_env,     'production' # needed for delayed_job
 
-server "208.78.97.190", :app, :web, :db, :primary => true
+# server "208.78.97.190", :app, :web, :db, :primary => true
+server "174.122.43.234", :app, :web, :db, :primary => true
+
+default_environment['PATH'] = "$PATH:/opt/ruby-enterprise/bin"
 
 # Callbacks
 after "deploy:update_code", "db:symlink" 
@@ -42,8 +52,8 @@ task :log do
   end
 end
 
-Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'hoptoad_notifier-*')].each do |vendored_notifier|
-  $: << File.join(vendored_notifier, 'lib')
-end
-
-require 'hoptoad_notifier/capistrano'
+# Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'hoptoad_notifier-*')].each do |vendored_notifier|
+#   $: << File.join(vendored_notifier, 'lib')
+# end
+#
+# require 'hoptoad_notifier/capistrano'

@@ -1,6 +1,6 @@
 class NotificationMailer < ActionMailer::Base
   include ActionView::Helpers::TextHelper
-  default :from => "notifications@prayerthread.org"
+  default :from => Settings.mail.from
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
