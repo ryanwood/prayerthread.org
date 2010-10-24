@@ -8,7 +8,6 @@ set :user,          "deploy"
 set :port,          22022
 set :scm,           :git
 set :deploy_via,    :remote_cache
-set :branch,        'rails-3-0'
 
 default_run_options[:pty] = true
 
