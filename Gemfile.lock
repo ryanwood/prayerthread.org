@@ -75,6 +75,7 @@ GEM
     compass (0.10.5)
       haml (>= 3.0.4)
     culerity (0.2.12)
+    daemon-spawn (0.4.0)
     daemons (1.1.0)
     database_cleaner (0.5.2)
     delayed_job (2.1.0.pre2)
@@ -173,6 +174,7 @@ DEPENDENCIES
   capybara (>= 0.3.9)
   clearance!
   compass (>= 0.10.2)
+  daemon-spawn
   database_cleaner
   delayed_job (~> 2.1.0.pre2)
   faker

@@ -8,6 +8,7 @@ gem "formtastic", '~> 1.1.0'
 gem 'cancan'           #, '1.0.2'
 gem 'friendly_id'      #, '2.2.7'
 gem "will_paginate", "~> 3.0.pre2"    #, '~> 2.3.11'
+gem 'daemon-spawn' # Needed for delayed job backgrounding
 gem 'delayed_job', "~> 2.1.0.pre2"
 gem 'hoptoad_notifier' #, '2.3.2'
 gem 'gravtastic'       #, '~> 2.2'
