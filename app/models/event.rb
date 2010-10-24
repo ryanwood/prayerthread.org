@@ -1,5 +1,5 @@
 class Event
-  attr_reader :type, :condition, :prayer, :filtered_users, :mailer
+  attr_reader :type, :source, :condition, :prayer, :filtered_users, :mailer
 
   TYPES = [:created, :answered]
   MAP = { :created => [Prayer, Comment], :answered => [Prayer] }

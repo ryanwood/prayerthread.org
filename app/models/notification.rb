@@ -6,17 +6,17 @@ end
 
 class Notification
   
-  def self.fire(event, model)
-    Delayed::Job.enqueue new(event, model)
+  def self.fire(event, source)
+    Delayed::Job.enqueue new(event, source)
   end
   
-  def initialize(event, model)
-    @event = Event.new(event, model)
+  def initialize(event, source)
+    @event = Event.new(event, source)
   end
   
   def perform
     @event.audience.each do |recipient|
-      NotificationMailer.send(@event.mailer, recipient, @model).deliver
+      NotificationMailer.send(@event.mailer, recipient, @event.source).deliver
     end
   end
     
