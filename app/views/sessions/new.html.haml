@@ -1,10 +1,14 @@
 - title "Sign in"
-- semantic_form_for :session, :url => session_path, :html => { :id => "new_session" } do |form|
-  - form.inputs do
+= semantic_form_for :session, :url => session_path, :html => { :id => "new_session" } do |form|
+  = form.inputs do
     = form.input :email
     = form.input :password, :as => :password
-  - form.buttons do
+  = form.buttons do
     = form.commit_button "Sign in"
+    -# For use with blueprint buttons...
+    -# %button{ :type => 'submit', :class => "button positive" } Sign In
+
+    
 
 %ul
   %li= link_to "Sign up", new_user_path

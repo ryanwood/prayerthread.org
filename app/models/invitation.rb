@@ -12,12 +12,14 @@ class Invitation < ActiveRecord::Base
   validates_format_of :recipient_email, 
     :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i,
     :message => "is not a valid email format, e.g. john@company.com"
-  validate_on_create :membership_does_not_exist, :pending_invitation_does_not_exists
+  validate :membership_does_not_exist, 
+    :pending_invitation_does_not_exists, 
+    :on => :create
   
   before_save :initialize_invitation_token
   
-  named_scope :pending, :conditions => { :accepted_at => nil, :ignored => false }, :order => "sent_at DESC"
-  named_scope :pending_and_ignored, :conditions => { :accepted_at => nil }
+  scope :pending, includes(:group).where(:accepted_at => nil, :ignored => false).order("sent_at DESC")
+  scope :pending_and_ignored, where(:accepted_at => nil)
   
   after_create :send_invitation_email, :unless => :accepted?
   
@@ -33,7 +35,7 @@ class Invitation < ActiveRecord::Base
   end
   
   def send_invitation_email
-    InvitationMailer.deliver_invitation( self )
+    InvitationMailer.invite(self).deliver
     update_attribute :sent_at, Time.now
   end
   

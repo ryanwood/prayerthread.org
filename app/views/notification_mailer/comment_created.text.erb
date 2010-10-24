@@ -1,0 +1,6 @@
+<%= @comment.user.name %> commented on '<%= @prayer.title %>'.
+
+<%= truncate(@comment.body, :length => 200) %>
+
+To read more or comment, visit:
+<%= prayer_url( @prayer, :anchor => "comment_#{@comment.id}" ) %>

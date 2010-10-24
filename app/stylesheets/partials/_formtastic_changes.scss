@@ -1,0 +1,55 @@
+/* Formtastic Overrides */
+form.formtastic {
+  padding: 2em;
+  margin: 0;
+  // label, input, textarea {
+  //   font-size: 1.1em; }
+  input, textarea {
+    padding: 3px 0; }
+  .virtual_input {
+    margin: 0 0 1em 25%; }
+  input[type="checkbox"], input[type="radio"], input.checkbox, input.radio {
+    top: 0; }
+  fieldset ol li {
+    margin-bottom: 1em; }
+  fieldset ol li.error {
+    padding: 5px; }
+  // fieldset.buttons li input {
+  //  font-size: 1.1em; }
+  fieldset.membership {
+    border-top: 1px solid #999999;
+    padding: 1em;
+    legend {
+      margin-left: 1em;
+      padding: 0 0.5em;
+      font-size: 1.1em;
+      color: $blue; } } }
+
+form.formtastic fieldset ol {
+  li.string input, 
+  li.password input,
+  li.text textarea {
+    border: 1px solid $light_blue;
+    width: 70%;
+    padding: 5px; }
+  li.string, li.password, li.text {
+    label {
+      padding-top: 6px; } } }
+
+//form#account_form
+// fieldset.inputs, fieldset.membership
+//   margin: 1em 0
+//   padding: 1.5em
+//   border-top: 1px solid #999
+//   legend
+//     color = !blue
+//     padding: 0 .5em
+//     margin-left: 1em
+// fieldset.membership
+//   padding: 3px
+//   ol
+//     padding-left: 20px
+//     margin: 0.5em
+//     li
+//       label
+//         font-weight: normal

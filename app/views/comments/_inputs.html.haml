@@ -1,2 +1,2 @@
-- form.inputs do
-  = form.input :body, :label => can?( :edit, @prayer ) ? "Your Update" : "Your Comment or Encouragement"
+= form.inputs do
+  = form.input :body, :label => can?( :edit, @prayer ) ? "Your Update" : "Your Comment or Encouragement", :input_html => { :rows => 6 }

@@ -15,7 +15,7 @@
     - for prayer in @prayers
       %div[prayer]
         .avatar
-          = image_tag prayer.user.gravatar_url( :size => 50 ), :class => 'gravatar', :alt => prayer.user.first_name
+          = image_tag raw(prayer.user.gravatar_url( :size => 50 )), :class => 'gravatar', :alt => prayer.user.first_name
         .content
           %h3= link_to h(prayer.title), prayer
           = render :partial => "/prayers/meta", :locals => { :prayer => prayer }

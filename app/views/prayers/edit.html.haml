@@ -9,7 +9,7 @@
   %p 
     %strong This pages should only be used to correct the original prayer request or change its groups.
 
-- semantic_form_for @prayer do |form|
+= semantic_form_for @prayer do |form|
   = form.error_messages
   = render :partial => "inputs", :locals => { :form => form }
   = form.buttons

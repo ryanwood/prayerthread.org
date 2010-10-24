@@ -1,3 +1,4 @@
+.bundle
 log/*.log
 db/*.db
 db/*.sqlite3
@@ -12,4 +13,3 @@ config/database.yml
 *.tmproj
 public/stylesheets/compiled/*.css
 .rvmrc
-.bundle

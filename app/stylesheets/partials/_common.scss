@@ -1,0 +1,36 @@
+@mixin rounded-corners {
+  -moz-border-radius: 0.5em;
+  -webkit-border-radius: 0.5em; }
+
+@mixin rounded-top {
+  -moz-border-radius-topleft: 0.5em;
+  -moz-border-radius-topright: 0.5em;
+  -webkit-border-radius-topleft: 0.5em;
+  -webkit-border-radius-topright: 0.5em; }
+
+@mixin bulleted {
+  margin-left: 1px;
+  padding-left: 10px;
+  background: url(../../images/bullet.png) center left no-repeat; }
+
+.callout, .answer {
+  padding: 10px;
+  border: 2px solid $yellow;
+  margin: 1em 0;
+  padding: 0.8em; 
+  background-color: $light_yellow;
+  color: $brown; }
+
+ul.inline {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  li {
+    display: inline;
+    margin: 0 0 0 0.25em;
+    padding: 0 0 0 0.6em;
+    border-left: 1px solid $gray; }
+  li.first {
+    margin-left: 0;
+    padding-left: 0;
+    border-left-width: 0; } }

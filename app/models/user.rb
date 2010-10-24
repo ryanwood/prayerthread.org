@@ -2,7 +2,6 @@ class User < ActiveRecord::Base
   include Clearance::User
   is_gravtastic!
   attr_accessor :invitation_token
-  attr_accessible :first_name, :last_name, :invitation_token, :memberships_attributes
   
   after_create :add_recipient_to_invitation
   
@@ -21,12 +20,12 @@ class User < ActiveRecord::Base
   validates_presence_of :first_name, :last_name
   
   # Any user that shares a group
-  named_scope :related, lambda { |user, *excluded| {
-    :joins => :groups, 
-    :conditions => ["groups.id IN (?) and users.id NOT IN (?)", user.groups, excluded << user],
-    :order => "users.first_name, users.last_name",
-    :group => "users.id"
-  }}
+  scope :related, lambda { |user, *excluded|
+    joins( :groups ).
+    where( "groups.id IN (?) and users.id NOT IN (?)", user.groups, excluded << user ).
+    order( "users.first_name, users.last_name" ).
+    group( "users.id" )
+  }
   
   def name
     "#{first_name} #{last_name}"
@@ -42,10 +41,6 @@ class User < ActiveRecord::Base
     accept_invitation!
   end
   
-  def interceded_today?(prayer)
-    intercessions.today.regarding(prayer).exists?
-  end
-  
   protected
   
   def add_recipient_to_invitation
@@ -53,8 +48,7 @@ class User < ActiveRecord::Base
       invitation = Invitation.find_by_token(invitation_token) 
       if invitation
         self.invitations << invitation
-        save(false)
-        invitation_token = nil
+        update_attribute :invitation_token, nil
       end
     end
   end

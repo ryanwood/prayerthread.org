@@ -1,18 +1,16 @@
-# Filters added to this controller apply to all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
-
 class ApplicationController < ActionController::Base
-  before_filter :ensure_domain
+  protect_from_forgery
+  layout 'application'
+  # before_filter :ensure_domain
   include Clearance::Authentication
   
   # include ExceptionNotifiable
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
-
-  # Scrub sensitive parameters from your log
-  filter_parameter_logging :password
   
-  rescue_from CanCan::AccessDenied do
+  rescue_from CanCan::AccessDenied do |e|
+    logger.warn { "ACCESS DENIED: User #{current_user.name} (#{current_user.id}) was denied #{e.action.to_s.upcase} access to #{e.subject.class} (#{e.subject.try(:id)})" }
+    logger.debug{ e.subject.inspect }
     render :template => "/shared/no_access"
   end
   
@@ -21,10 +19,9 @@ class ApplicationController < ActionController::Base
   #   redirect_to( :action => :index )
   # end
 
-  def ensure_domain
-    if RAILS_ENV == 'production' && request.env['HTTP_HOST'] != HOST
-      redirect_to "http://#{HOST}"
-    end
-  end
+  # def ensure_domain
+  #   if Rails.env.production? && request.env['HTTP_HOST'] != HOST
+  #     redirect_to "http://#{HOST}"
+  #   end
+  # end
 end
-

@@ -1,14 +1,14 @@
-- title "#{can?( :edit, @prayer ) ? "Add an Update" : "Add a New Comment"} for '#{@prayer.title}'"
+- title can?( :edit, @prayer ) ? "Add an Update" : "Add a New Comment", :subtitle => "for prayer '#{@prayer.title}'"
 
 %p= link_to "Back to Prayer", @prayer
 
-- semantic_form_for [@prayer, @comment] do |form|
+= semantic_form_for [@prayer, @comment] do |form|
   = form.error_messages
   = render :partial => "inputs", :locals => { :form => form }
-  - unless current_user.interceded_today?(@prayer)
-    - form.inputs do
+  - if Intercession.allowed?(current_user, @prayer)
+    = form.inputs do
       = form.input :intercede, :label => "I prayed for this today", :as => :boolean
-  - form.buttons do
+  = form.buttons do
     = form.commit_button can?( :edit, @prayer ) ? "Add Update" : "Add Comment"
 
 - desc = can?( :edit, @prayer ) ? "sharing an update" : "commenting"

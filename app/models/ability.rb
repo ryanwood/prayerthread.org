@@ -8,35 +8,25 @@ class Ability
     alias_action :edit, :update, :destroy, :to => :modify
     
     can :create, Group
-    can :modify, Group do |group|
-      group && group.owner == @user
-    end
+    can :read, Group, :users => { :id => @user.id }
+    can :modify, Group, :owner => @user
     
     can [:index, :create], Prayer
-    can :show, Prayer do |prayer|
+    can :read, Prayer do |prayer|
       prayer && (prayer.user == @user || has_access_to(prayer.groups) )
     end
-    can [:modify, :answer], Prayer do |prayer|
-      prayer && prayer.user == @user
-    end
+    can [:modify, :answer], Prayer, :user => @user
     
     can [:read, :create], Activity
     
     can [:read, :create], Intercession
 
-    can [:read, :create], Comment
-    # can :create, Comment do |comment|
-    #   allowed_groups = comment.prayer.groups
-    #   @user.groups.each { |g| return true if allowed_groups.include?(g) }
-    #   false
-    # end
-    can :modify, Comment do |comment|
-      comment && comment.user == @user
+    can [:read, :create], Comment do |comment|
+      comment && has_access_to(comment.prayer.groups)
     end
+    can :modify, Comment, :user => @user
     
-    can :create, Invitation do |invitation|
-      invitation && @user == invitation.group.owner
-    end
+    can :create, Invitation, :group => { :owner => @user }
     can :destroy, Invitation do |invitation|
       invitation && ( @user == invitation.group.owner || @user == invitation.recipient )
     end

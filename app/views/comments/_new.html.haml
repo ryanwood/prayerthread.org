@@ -1,0 +1,5 @@
+%h3= can?( :edit, @prayer ) ? "Add an Update" : "Add a New Comment"
+
+= form_for [@prayer, @comment] do |f|
+  = f.text_area :body, :style => "width:200px;"
+  = f.submit can?( :edit, @prayer ) ? "Add Update" : "Add Comment"

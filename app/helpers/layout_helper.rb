@@ -5,10 +5,10 @@
 module LayoutHelper
   def title(page_title, opts = {})
     options = { :show => true, :subtitle => nil }.merge(opts)
-    @content_for_title = page_title.to_s
+    content_for(:title) { page_title.to_s }
     @show_title = options[:show]
     if options[:subtitle]
-      @content_for_subtitle = options[:subtitle].to_s
+      content_for(:subtitle) { options[:subtitle].to_s }
       @show_subtitle = options[:show]
     end
   end

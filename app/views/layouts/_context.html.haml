@@ -1,7 +1,7 @@
 - if signed_in?
   %ul.inline
     %li.first
-      = image_tag current_user.gravatar_url( :size => 20 ), :alt => current_user.first_name
+      = image_tag raw(current_user.gravatar_url( :size => 20 )), :alt => current_user.first_name
       ="Welcome #{current_user.first_name}!"
     %li
       = link_to "Invites", invitations_path

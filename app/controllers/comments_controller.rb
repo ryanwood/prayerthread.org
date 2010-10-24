@@ -1,17 +1,24 @@
 class CommentsController < ApplicationController
   before_filter :authenticate
-  load_and_authorize_resource :nested => :prayer
-  before_filter :check_group_access, :only => :create
+  
+  load_and_authorize_resource :prayer
+  load_resource :comment, :through => :prayer
+  authorize_resource :comment, :through => :prayer, :except => [:new, :create]
+  
   after_filter :send_notifications, :only => :create
   
   def index
-    @comments = @prayer.comments
+    # @comments = @prayer.comments
+    redirect_to prayer_path(@prayer, :anchor => 'comments')
   end
   
   def new
+    authorize! :new, @prayer => Comment
+    redirect_to prayer_path(@prayer, :anchor => 'new_comment')
   end
   
   def create
+    authorize! :new, @prayer => Comment
     @comment.user = current_user
     msg = ''
     if params[:comment] && params[:comment].has_key?(:prayer)
@@ -19,8 +26,7 @@ class CommentsController < ApplicationController
       msg = " and marked the prayer answered"
     end
     if @comment.save
-      flash[:notice] = "Successfully created comment#{msg}."
-      redirect_to @prayer
+      redirect_to @prayer, :notice => "Successfully created comment#{msg}."
     else
       render :action => 'new'
     end
@@ -40,17 +46,10 @@ class CommentsController < ApplicationController
   
   def destroy
     @comment.destroy
-    flash[:notice] = "Successfully destroyed comment."
-    redirect_to prayer_comments_url(@prayer)
+    redirect_to prayer_path(@prayer), :notice => "Successfully deleted comment."
   end
   
   protected
-    
-    def check_group_access
-      allowed_groups = @prayer.groups
-      current_user.groups.each { |g| return true if allowed_groups.include?(g) }
-      unauthorized!
-    end
     
     def send_notifications
       Notification.fire( :created, @comment )

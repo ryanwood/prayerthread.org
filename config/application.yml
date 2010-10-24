@@ -1,0 +1,14 @@
+defaults: &defaults
+  host: prayerthread.local
+  mail:
+    from: prayerthread.org <donotreply@prayerthread.org>
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  host: prayerthread.org

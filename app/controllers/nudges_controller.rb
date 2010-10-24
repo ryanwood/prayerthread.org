@@ -1,6 +1,7 @@
 class NudgesController < ApplicationController
   before_filter :authenticate
-  load_and_authorize_resource :nested => :prayer
+  load_and_authorize_resource :prayer
+  load_and_authorize_resource :nudge, :through => :prayer
 
   def new
     create

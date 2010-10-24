@@ -1,8 +1,8 @@
 - title "Your Account"
 
-- semantic_form_for @user, :html => {:id => "account_form"} do |form|
+= semantic_form_for @user, :html => {:id => "account_form"} do |form|
   = form.error_messages :header_message => "Oops - We couldn't update your account."
-  - form.inputs do
+  = form.inputs do
     = form.input :first_name
     = form.input :last_name
     = form.input :email, :hint => "Note: This will change your login as well."
@@ -20,20 +20,20 @@
       \/
       = link_to_function("Select None", "$('input.group_event').attr('checked', false);")
   - form.semantic_fields_for :memberships do |membership|
-    - form.inputs :name => membership.object.group.name, :class => "membership" do
+    = form.inputs :name => membership.object.group.name, :class => "membership" do
       = membership.input :notification_level, :label => false, :as => :radio, :collection => Membership::NOTIFICATION_LEVELS
     -#  
-      - form.inputs :name => membership.object.group.name, :class => "membership" do
+      = form.inputs :name => membership.object.group.name, :class => "membership" do
         = membership.input :notify_on_create, :label => "A new prayer is created", :class => "group_event"
         = membership.input :notify_on_update, :label => "A prayer is commented on, updated, or answered", :class => "group_event"
   
-  - form.buttons do
+  = form.buttons do
     = form.commit_button "Update Account"
   
     
 - content_for :sidebar do
   %h3 Your Photo
-  .account_gravatar= image_tag( @user.gravatar_url, :class => "gravatar" )
+  .account_gravatar= image_tag raw(@user.gravatar_url), :class => "gravatar"
   %p
     A
     = link_to "Gravatar", "http://en.gravatar.com/", :target => "_blank"
