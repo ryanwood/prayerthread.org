@@ -45,7 +45,7 @@ describe GroupsController do
         Group.should_receive(:new).and_return(group)
         post :create
       end
-      it { should redirect_to(group_memberships_url(group)) }
+      it { should redirect_to(group_memberships_path(group)) }
       it { should set_the_flash.to(/Successfully created group/) }
     end
     
@@ -88,7 +88,7 @@ describe GroupsController do
         Group.should_receive(:find).and_return(group)
         put :update, :id => group
       end
-      it { should redirect_to(group_url(group)) }
+      it { should redirect_to(group_path(group)) }
       it { should set_the_flash.to(/Successfully updated group/) }
     end
     
@@ -110,7 +110,7 @@ describe GroupsController do
       end
       it { should assign_to(:group) }
       it { should respond_with(:redirect) }
-      it { should redirect_to(groups_url) }
+      it { should redirect_to(groups_path) }
       it { should set_the_flash.to(/Success/) }
     end
     

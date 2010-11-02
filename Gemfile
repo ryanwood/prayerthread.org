@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0'
+gem 'rails', '3.0.1'
 gem 'mysql2'
 gem 'haml'
 gem 'clearance', :git => "git://github.com/thoughtbot/clearance.git"
@@ -34,8 +34,8 @@ end
 # http://blog.davidchelimsky.net/2010/07/11/rspec-rails-2-generators-and-rake-tasks/
 # http://blog.davidchelimsky.net/2010/07/11/rspec-rails-2-generators-and-rake-tasks-part-ii/
 group :development, :test do
-  gem "rspec", ">= 2.0.0.rc"
-  gem "rspec-rails", ">= 2.0.0.rc"
+  gem "rspec", ">= 2.0.1"
+  gem "rspec-rails", ">= 2.0.1"
   gem 'steak', :git => 'git://github.com/cavalle/steak.git'
 end
 

@@ -14,22 +14,16 @@ describe CommentsController do
     before(:each) do
       get :index, :prayer_id => prayer
     end
-    it { should assign_to(:comments) }
-    it { should assign_to(:prayer).with(prayer) }
-    it { should respond_with(:success) }
-    it { should render_template(:index) }
-    it { should_not set_the_flash }
+    it { should respond_with(:redirect) }
+    it { should redirect_to(prayer_path(prayer, :anchor => 'comments')) }
   end
   
   describe "on GET to :new" do
     before(:each) do
       get :new, :prayer_id => prayer
     end
-    it { should assign_to(:comment) }
-    it { should assign_to(:prayer).with(prayer) }
-    it { should respond_with(:success) }
-    it { should render_template(:new) }
-    it { should_not set_the_flash }
+    it { should respond_with(:redirect) }
+    it { should redirect_to(prayer_path(prayer, :anchor => 'new_comment')) }
   end
   
   describe "on POST to :create" do
@@ -49,7 +43,7 @@ describe CommentsController do
         stub_nested_comment!(prayer, comment, :new)
         post :create, :prayer_id => prayer
       end
-      it { should redirect_to(prayer_url(prayer)) }
+      it { should redirect_to(prayer_path(prayer)) }
       it { should set_the_flash.to(/Successfully created comment/) }
     end
     
@@ -105,7 +99,7 @@ describe CommentsController do
         stub_nested_comment!(prayer, comment)
         put :update, :prayer_id => prayer, :id => comment
       end
-      it { should redirect_to(prayer_url(prayer)) }
+      it { should redirect_to(prayer_path(prayer)) }
     end
   end
   
@@ -117,7 +111,7 @@ describe CommentsController do
       it { should assign_to(:comment) }
       it { should assign_to(:prayer).with(prayer) }
       it { should respond_with(:redirect) }
-      it { should redirect_to(prayer_comments_url(prayer)) }
+      it { should redirect_to(prayer_path(prayer)) }
       it { should set_the_flash.to(/Success/) }
     end
     

@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include Clearance::User
-  is_gravtastic!
+  include Gravtastic
+  has_gravatar
   attr_accessor :invitation_token
   
   after_create :add_recipient_to_invitation
