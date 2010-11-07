@@ -6,7 +6,7 @@ class GroupsController < ApplicationController
   end
   
   def show
-    @prayers = @group.prayers.paginate :page => params[:page]
+    @prayers = @group.prayers.paginate :page => params[:page], :order => "thread_updated_at DESC"
     @intercessions = current_user.intercessions.today.map { |i| i.prayer.id }
   end
   
