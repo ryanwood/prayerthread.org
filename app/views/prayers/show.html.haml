@@ -15,7 +15,7 @@
     %li= link_to "Add a new Prayer", new_prayer_path
 
   - unless @prayer.intercessors.empty?
-    %h3 Who prayed for this?
+    %h3 Who praying?
     %ul.links
       - @prayer.intercessors.each do |intercessor|
         %li= intercessor.name
