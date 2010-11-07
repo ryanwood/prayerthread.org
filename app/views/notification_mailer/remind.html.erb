@@ -1,0 +1,53 @@
+<p>Here is your weekly PrayerThread reminder. Thanks for allowing God to impact others through your life.</p>
+
+<h1 style="margin-top: 10px; font-size: 1.4em; padding: 15px 0 5px; border-bottom: 1px solid #eeeeee; color: #00275E;">
+  Recent Prayers and Updates in your Groups
+</h1>
+
+<% unless @recent.empty? %>
+  <% @recent.each do |prayer| %>
+    <p>
+      <span class="date" style="font-size: 0.7em; text-transform: uppercase; color: #666666;"><%= prayer.created_at.strftime("%b %d") %></span>
+      <span class="prayer" style="font-size: 1.2em; font-weight: bold;"><%= link_to prayer.title, prayer_url(prayer), :style => "color: #00275e;" %></span> by <%= prayer.user.name %>
+    </p>
+  <% end %>
+<% else %>
+  <p>There have been no new prayers or updates in your group(s) this week.</p>
+  <p><%= link_to "Do you have a new prayer to share?", new_prayer_url, :style => "color: #00275e;" %></p>
+<% end %>
+<p><%= link_to "View your prayer list", prayers_url, :style => "color: #00275e;" %></p>
+
+<% unless @unanswered.empty? %>
+<h1 style="margin-top: 10px; font-size: 1.4em; padding: 15px 0 5px; border-bottom: 1px solid #eeeeee; color: #00275E;">
+  Your Unanswered Prayers
+</h1>
+<p>
+  Please review these prayers and consider providing an update on the
+  prayer or marking it answered. Remember that those praying for you
+  really want to hear about how God is working in your life.
+</p>
+<% @unanswered.each do |prayer| %>
+  <p>
+    <span style="font-size: 1.2em; font-weight: bold;"><%= link_to prayer.title, prayer_url(prayer), :class => "prayer", :style => "color: #00275e;" %></span>
+    <span class="actions" style="font-size: 0.7em; text-transform: uppercase; color: #666666;">
+      | <%= link_to "Share an update", prayer_url(prayer, :anchor => "new_comment"), :style => "color: #00275e;" %> |
+      <%= link_to "Mark as answered", answer_prayer_url(prayer), :style => "color: #00275e;"  %>
+    </span><br />
+    <div class="date" style="font-size: 0.7em; text-transform: uppercase; color: #666666;">
+      Last Comment/Update was <%= prayer.thread_updated_at.strftime("%b %d, %Y") %></div>
+  </p>
+<% end %>
+<% end %>
+<% unless @intercessions.empty? %>
+<h1 style="margin-top: 10px; font-size: 1.4em; padding: 15px 0 5px; border-bottom: 1px solid #eeeeee; color: #00275E;">
+  Praying for You This Week
+</h1>
+<p>
+  <strong>Be encouraged!</strong>
+  <%= @intercessions.map{|i| i.user.name }.to_sentence %> <%= @intercessions.size == 1 ? "has" : "have" %> been praying for you this week.
+</p>
+<% end %>
+<p>
+  Remember, you can always encourage others by clicking the "I prayed for this today"
+  link on any prayer. This lets the person know you are praying for them.
+</p>

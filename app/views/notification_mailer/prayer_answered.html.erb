@@ -1,0 +1,8 @@
+<p>
+  <%= @prayer.user.name %> marked the prayer,
+  <strong><%= link_to(@prayer.title, prayer_url(@prayer), link_style_hash) %></strong>, as answered!
+</p>
+
+<p><%= prayer_snippet(@prayer, :answer) %></p>
+
+<%= render :partial => "links", :locals => { :prayer => @prayer } %>

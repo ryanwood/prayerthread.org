@@ -1,0 +1,8 @@
+<p>
+  <%= @comment.user.name %> commented on
+  <strong><%= link_to @prayer.title, prayer_url(@prayer), link_style_hash %></strong>:
+</p>
+
+<p><%= comment_snippet(@comment) %></p>
+
+<%= render :partial => "links", :locals => { :prayer => @prayer } %>

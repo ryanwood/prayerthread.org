@@ -1,0 +1,8 @@
+<p>
+  <%= @prayer.user.name %> has created a new <%= @prayer.praise? ? 'praise': 'prayer' %>,
+  <strong><%= link_to @prayer.title, prayer_url(@prayer), link_style_hash %></strong>:
+</p>
+
+<p><%= prayer_snippet(@prayer, :body) %></p>
+
+<%= render :partial => "links", :locals => { :prayer => @prayer } %>

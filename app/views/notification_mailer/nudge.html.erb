@@ -1,0 +1,6 @@
+<p><%= @nudge.user.name %> nudged you for an update on <em><%= @nudge.prayer.title %></em>.</p>
+
+<p>
+  <%= link_to "Head this way to provide an update or mark the prayer as answered.", prayer_url( @nudge.prayer ) %><br />
+  <%= link_to "View your prayer list.", prayers_url %>
+</p>

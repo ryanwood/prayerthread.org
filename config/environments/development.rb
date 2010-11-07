@@ -32,4 +32,19 @@ Prayerthread::Application.configure do
     Bullet.rails_logger = true
     Bullet.disable_browser_cache = true
   end
+
+  config.action_mailer.perform_deliveries = false
+
+  # config.action_mailer.delivery_method = :smtp
+  #
+  # config.action_mailer.smtp_settings = {
+  #   :address => 'smtp.gmail.com',
+  #   :domain => 'prayerthread.org',
+  #   :port => 587,
+  #   :user_name => 'ryan@prayerthread.org',
+  #   :password => '21eel!a',
+  #   :authentication => 'plain',
+  #   :enable_starttls_auto => true
+  # }
+
 end

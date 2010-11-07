@@ -1,0 +1,25 @@
+<table style="margin: 1em; width: 90%">
+  <tr>
+    <td id="header">
+      <div id="header" style="border-bottom: 1px solid #A8B1B8; font-size: 1.5em; letter-spacing: 0.8em; margin: 0.5em 0px; padding-bottom: 0.5em;">
+        <a href="http://prayerthread.org/" style="text-decoration: none; color: #6d98ab;">prayer<span class="alt" style="color: #00275E; font-weight: bold;">thread</span></a>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td id="content">
+      <p>Hi <%= @recipient.first_name %>,</p>
+      <%= yield %>
+    </td>
+  </tr>
+  <tr>
+    <td id="footer">
+      <p style="border-top: 1px solid #A8B1B8; font-size: 0.9em; color: #666; margin: 1em 0; padding-top: 1em;">
+        This message sent from PrayerThread.<br />
+        <%= link_to "Manage your email preferences.", account_url, :style => "color: #00275e;" %><br /><br />
+        Prayer Thread: <%= link_to "www.prayerthread.org", "http://www.prayerthread.org", :style => "color: #00275e;" %><br />
+        - DO NOT REPLY TO THIS EMAIL -
+      </p>
+    </td>
+  </tr>
+</table>
