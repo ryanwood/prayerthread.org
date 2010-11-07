@@ -8,6 +8,7 @@ set :user,          "deploy"
 set :port,          22022
 set :scm,           :git
 set :deploy_via,    :remote_cache
+set :keep_releases, 5
 
 default_run_options[:pty] = true
 
