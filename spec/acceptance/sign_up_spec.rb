@@ -8,7 +8,7 @@ feature "Sign Up", %q{
 
   scenario "User signs up with invalid data" do
     visit '/sign_up'
-    click 'Sign up'
+    click_button 'Sign up'
     should_have_errors
   end
 
@@ -19,7 +19,7 @@ feature "Sign Up", %q{
     fill_in 'Email', :with => 'ryan.wood@gmail.com'
     fill_in 'Password', :with => 'password'
     fill_in 'Confirm password', :with => 'password'
-    click 'Sign up'
+    click_button 'Sign up'
     should_see "You will receive an email within the next few minutes. It contains instructions for confirming your account."
     should_be_on "sign_in"
   end
@@ -52,7 +52,7 @@ feature "Sign Up", %q{
       :user_id => user,
       :token   => user.confirmation_token)
     should_be_signed_in
-    click 'Sign Out'
+    click_link 'Sign Out'
     visit new_user_confirmation_path(
       :user_id => user,
       :token   => user.confirmation_token)

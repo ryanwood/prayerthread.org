@@ -5,7 +5,7 @@ module HelperMethods
     visit "/sign_in"
     fill_in "Email", :with => email
     fill_in "Password", :with => password
-    click "Sign in"
+    click_button "Sign in"
   end
 
 # [:notice, :error].each do |name|

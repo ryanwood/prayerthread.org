@@ -10,7 +10,7 @@ feature "Password Reset", %q{
     User.find_by_email('email@person.com').should be_nil
     visit new_password_path
     fill_in "Email address", :with => 'email@person.com'
-    click "Reset password"
+    click_button "Reset password"
     should_see "Unknown email"
   end
 
@@ -18,7 +18,7 @@ feature "Password Reset", %q{
     user = User.make!(:confirmed)
     visit new_password_path
     fill_in "Email address", :with => user.email
-    click "Reset password"
+    click_button "Reset password"
     should_see "instructions for changing your password"
     should_be_on sign_in_path
   end
@@ -30,7 +30,7 @@ feature "Password Reset", %q{
       :token   => user.confirmation_token))
     fill_in "Choose password", :with => 'mynewpassword' 
     fill_in "Confirm password", :with => 'notmynewpassword' 
-    click "Save this password"
+    click_button "Save this password"
     should_have_errors
     should_be_signed_out
   end
@@ -42,7 +42,7 @@ feature "Password Reset", %q{
       :token   => user.confirmation_token))
     fill_in "Choose password", :with => 'newpassword' 
     fill_in "Confirm password", :with => 'newpassword' 
-    click "Save this password"
+    click_button "Save this password"
     should_be_signed_in
     visit sign_out_path
     sign_in_as user, 'newpassword'
