@@ -40,4 +40,15 @@ class NotificationMailer < ActionMailer::Base
     mail( :to => @recipient.full_email,
           :subject => "Nudge from #{@nudge.user.name} on #{truncate(@nudge.prayer.title, :length => 40)}" )
   end
+
+  def remind(recipient)
+    @recipient = recipient
+    @recent = Prayer.created_or_updated_this_week.for_user(recipient).limit(5)
+    @unanswered = Prayer.open.by(recipient).order('thread_updated_at ASC')
+    @intercessions = Intercession.on_behalf_of(recipient).rolling_week
+
+    # unless @recent.empty? && @unanswered.empty? && @intercessions.empty?
+      mail( :to => @recipient.full_email, :subject => "PrayerThread Update" )
+    # end
+  end
 end

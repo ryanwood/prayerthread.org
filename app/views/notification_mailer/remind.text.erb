@@ -1,0 +1,36 @@
+<% unless @intercessions.empty? %>
+Be encouraged! <%= @intercessions.map{|i| i.user.name }.to_sentence %> prayed for you this week.
+
+<% end %>
+Recent Prayers and Updates in your Groups
+-----------------------------------------
+
+<% unless @recent.empty? %>
+<% @recent.each do |prayer| %>
+<%= prayer.created_at.strftime("%b %d") %>: "<%= prayer.title %>" by <%= prayer.user.name %>
+  View: <%= prayer_url(prayer) %>
+<% end %>
+
+More? <%= prayers_url %>
+<% else %>
+There have been no new prayers or updates in your group(s) this week.
+
+Do you have a new prayer to share?
+<%= new_prayer_url %>
+<% end %>
+
+<% unless @unanswered.empty? %>
+Your Unanswered Prayers
+-----------------------
+Please review these prayers and consider providing an update on the
+prayer or marking it answered. Remember that those praying for you
+really want to hear about how God is working in your life.
+
+<% @unanswered.each do |prayer| %>
+"<%= prayer.title %>"
+  Last Comment/Update: <%= prayer.thread_updated_at.strftime("%b %d, %Y") %>
+  Provide Update: <%= prayer_url(prayer, :anchor => "new_comment") %>
+  Mark as Answered: <%= answer_prayer_url(prayer) %>
+
+<% end %>
+<% end %>

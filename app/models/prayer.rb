@@ -26,6 +26,8 @@ class Prayer < ActiveRecord::Base
     where('groups.id IN (?) OR prayers.user_id = ?', user.groups.map {|g| g.id }, user.id).
     order('prayers.thread_updated_at DESC')
   }
+  scope :created_or_updated_this_week, where("thread_updated_at > ?", 7.days.ago)
+  scope :by, lambda { |user| where( :user_id => user ) }
   
   VIEWS = [ :all, :open, :answered, :praise ]
   

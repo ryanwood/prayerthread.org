@@ -19,6 +19,10 @@ describe NotificationMailer do
       mail.body.encoded.should match("#{owner.name} has created a new prayer, '#{prayer.title}'.")
       mail.body.encoded.should match(prayer.body)
     end
+
+    it "includes the link to the prayer" do
+      mail.body.encoded.should match(prayer_url(prayer))
+    end
   end
 
   describe "prayer_answered" do
@@ -32,6 +36,10 @@ describe NotificationMailer do
 
     it "renders the body" do
       mail.body.encoded.should match("#{owner.name} marked the prayer, '#{prayer.title}', as answered!")
+    end
+
+    it "includes the link to the prayer" do
+      mail.body.encoded.should match(prayer_url(prayer))
     end
   end
   
@@ -50,6 +58,10 @@ describe NotificationMailer do
     it "renders the body" do
       mail.body.encoded.should match("#{commentor.name} commented on 'My Prayer'.")
     end
+
+    it "includes the link to the prayer" do
+      mail.body.encoded.should match(prayer_url(prayer))
+    end
   end
 
   describe "nudge" do
@@ -66,6 +78,24 @@ describe NotificationMailer do
     it "renders the body" do
       mail.body.encoded.should match("#{nudge.user.name} nudged you for an update on '#{prayer.title}'.")
     end
+
+    it "includes the link to the prayer" do
+      mail.body.encoded.should match(prayer_url(prayer))
+    end
+  end
+
+  describe "remind" do
+    let(:mail) { NotificationMailer.remind(recipient) }
+
+    it_should_behave_like "any notification"
+
+    it "renders the headers" do
+      mail.subject.should eq("PrayerThread Update" )
+    end
+
+    # it "renders the body" do
+    #   mail.body.encoded.should match("#{owner.name} marked the prayer, '#{prayer.title}', as answered!")
+    # end
   end
 
 end

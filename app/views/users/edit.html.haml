@@ -12,8 +12,13 @@
     #password_change_area{ :style => "display:none;" }
       = form.input :password, :input_html => { :value => '', :autocomplete => "off" }
       = form.input :password_confirmation, :label => "Confirm password", :input_html => { :value => '', :autocomplete => "off" }
-  
-  %h3 Email Notifications
+
+  %h3 General Notifications
+  = form.inputs do
+    = form.input :send_reminder, :label => "Send a weekly email reminder of recent prayers and encouragement"
+    = form.input :send_announcements, :label => "Send (very periodic) announcements about site updates"
+
+  %h3 Group Notifications
   -#
     %p.checkbox_selectors
       = link_to_function("Select All", "$('input.group_event').attr('checked', true);")

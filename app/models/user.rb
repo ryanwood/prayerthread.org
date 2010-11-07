@@ -27,6 +27,8 @@ class User < ActiveRecord::Base
     order( "users.first_name, users.last_name" ).
     group( "users.id" )
   }
+  scope :remindable, where('send_reminder = ?', true)
+  scope :beta, joins( :groups ).where( "groups.id = ?", Group.find_by_name('JCA') )
   
   def name
     "#{first_name} #{last_name}"
