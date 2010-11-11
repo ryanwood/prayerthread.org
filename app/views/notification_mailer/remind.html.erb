@@ -15,7 +15,9 @@
   <p>There have been no new prayers or updates in your group(s) this week.</p>
   <p><%= link_to "Do you have a new prayer to share?", new_prayer_url, :style => "color: #00275e;" %></p>
 <% end %>
-<p><%= link_to "View your prayer list", prayers_url, :style => "color: #00275e;" %></p>
+<p>
+  <%= link_to "View your prayer list", prayers_url, :style => "color: #00275e;" %>
+</p>
 
 <% unless @unanswered.empty? %>
 <h1 style="margin-top: 10px; font-size: 1.4em; padding: 15px 0 5px; border-bottom: 1px solid #eeeeee; color: #00275E;">
