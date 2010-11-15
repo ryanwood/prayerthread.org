@@ -11,12 +11,13 @@ module NotificationMailerHelper
   def comment_snippet(comment, length = 200)
     snippet(
       comment.body,
-      link_to(more_text, prayer_url( comment, :anchor => "comment_#{comment.id}"), link_style_hash),
+      link_to(more_text, prayer_url( comment.prayer, :anchor => "comment_#{comment.id}"), link_style_hash),
       length
     )
   end
 
   def snippet(text, omission, length = 200)
+    # text.match(/(.{200}.*?\n)/m)
     raw( truncate( h( text ), :length => 200, :omission => omission) )
   end
 
