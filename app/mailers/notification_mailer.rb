@@ -45,7 +45,7 @@ class NotificationMailer < ActionMailer::Base
     @recipient = recipient
     @recent = Prayer.created_or_updated_this_week.for_user(recipient).limit(5)
     @unanswered = Prayer.open.by(recipient).order('thread_updated_at ASC')
-    @intercessions = Intercession.on_behalf_of(recipient).rolling_week
+    @intercessions = Intercession.on_behalf_of(recipient).rolling_week.uniq
 
     # unless @recent.empty? && @unanswered.empty? && @intercessions.empty?
       mail( :to => @recipient.full_email, :subject => "PrayerThread Update" )
