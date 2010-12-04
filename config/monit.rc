@@ -1,0 +1,82 @@
+# an example Monit configuration file for delayed_job
+# See: http://stackoverflow.com/questions/1226302/how-to-monitor-delayedjob-with-monit/1285611
+#
+# To use:
+# 1. copy to /var/www/apps/{app_name}/shared/delayed_job.monitrc
+# 2. replace {app_name} as appropriate
+# 3. add this to your /etc/monit/monitrc
+#
+#   include /var/rails/prayerthread.org/shared/delayed_job.monitrc
+
+check process delayed_job
+  with pidfile /var/rails/prayerthread.org/shared/pids/delayed_job.pid
+  start program = "/usr/bin/env RAILS_ENV=production /var/rails/prayerthread.org/current/script/delayed_job start"
+  stop program = "/usr/bin/env RAILS_ENV=production /var/rails/prayerthread.org/current/script/delayed_job stop"
+
+
+# Examples for other stuff
+#
+# set daemon  60
+# set logfile syslog facility log_daemon
+# set mailserver localhost
+# set mail-format { from: monit@ebm.avalerehealth.net }
+# set alert root@localhost
+# set httpd port 2812 and
+#      SSL ENABLE
+#      PEMFILE  /var/certs/monit.pem
+#      allow admin:test
+# 
+# check process sshd with pidfile /var/run/sshd.pid
+#    start program  "/etc/init.d/sshd start"
+#    stop program  "/etc/init.d/sshd stop"
+#    if failed port 22 protocol ssh then restart
+#    if 5 restarts within 5 cycles then timeout
+# 
+# check process nginx with pidfile /var/run/nginx.pid
+#    group www
+#    start program = "/etc/init.d/nginx start"
+#    stop program  = "/etc/init.d/nginx stop"
+#    if failed host ebm.avalerehealth.netm port 80 protocol http
+#       and request "/monit/token" then restart
+#    if cpu is greater than 60% for 2 cycles then alert
+#    if cpu > 80% for 5 cycles then restart
+#    if totalmem > 500 MB for 5 cycles then restart
+#    if children > 250 then restart
+#    if loadavg(5min) greater than 10 for 8 cycles then stop
+#    if 3 restarts within 5 cycles then timeout
+# 
+# check process postfix with pidfile /var/spool/postfix/pid/master.pid
+#    group mail
+#    start program = "/etc/init.d/postfix start"
+#    stop  program = "/etc/init.d/postfix stop"
+#    if failed port 25 protocol smtp then restart
+#    if 5 restarts within 5 cycles then timeout
+# 
+# check process pro_4000 with pidfile /home/deploy/cer_portal/production/current/tmp/pids/thin.4000.pid
+#   group ebm_production
+#   start program = "/opt/ruby-enterprise-1.8.7-2010.02/bin/thin start -C /home/deploy/cer_portal/conf/production.yml --only 4000" 
+#   stop program = "/opt/ruby-enterprise-1.8.7-2010.02/bin/thin stop -P /home/deploy/cer_portal/production/current/tmp/pids/thin.4000.pid" 
+#   if totalmem > 120.0 MB for 5 cycles then restart 
+#   if failed host 127.0.0.1 port 4000 then restart 
+#   if cpu usage > 95% for 3 cycles then restart 
+#   if 5 restarts within 5 cycles then timeout
+#   
+# check process pro_4001 with pidfile /home/deploy/cer_portal/production/current/tmp/pids/thin.4001.pid
+#   group ebm_production
+#   start program = "/opt/ruby-enterprise-1.8.7-2010.02/bin/thin start -C /home/deploy/cer_portal/conf/production.yml --only 4001" 
+#   stop program = "/opt/ruby-enterprise-1.8.7-2010.02/bin/thin stop -P /home/deploy/cer_portal/production/current/tmp/pids/thin.4001.pid" 
+#   if totalmem > 120.0 MB for 5 cycles then restart 
+#   if failed host 127.0.0.1 port 4001 then restart 
+#   if cpu usage > 95% for 3 cycles then restart 
+#   if 5 restarts within 5 cycles then timeout
+#   
+# check process pro_4002 with pidfile /home/deploy/cer_portal/production/current/tmp/pids/thin.4002.pid
+#   group ebm_production
+#   start program = "/opt/ruby-enterprise-1.8.7-2010.02/bin/thin start -C /home/deploy/cer_portal/conf/production.yml --only 4002" 
+#   stop program = "/opt/ruby-enterprise-1.8.7-2010.02/bin/thin stop -P /home/deploy/cer_portal/production/current/tmp/pids/thin.4002.pid" 
+#   if totalmem > 120.0 MB for 5 cycles then restart 
+#   if failed host 127.0.0.1 port 4002 then restart 
+#   if cpu usage > 95% for 3 cycles then restart 
+#   if 5 restarts within 5 cycles then timeout
+# 
+# 
