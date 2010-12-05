@@ -1,3 +1,7 @@
-check process delayed_job with pidfile  /var/www/prayerthread.org/shared/pids/delayed_job.pid 
-  start program = "/bin/su -c '/usr/bin/env RAILS_ENV=production PATH=$PATH:/usr/local/bin /var/www/prayerthread.org/current/script/delayed_job start' - ryanwood" 
-  stop program = "/bin/su -c 'usr/bin/env RAILS_ENV=production PATH=$PATH:/usr/local/bin /var/www/prayerthread.org/current/script/delayed_job stop' - ryanwood"
+check process delayed_job with pidfile  /var/rails/prayerthread.org/shared/pids/delayed_job.pid
+  start program = "/bin/su - deploy -c 'RAILS_ENV=production \
+    BUNDLE_GEMFILE=/var/rails/prayerthread.org/current/Gemfile \
+    /var/rails/prayerthread.org/current/script/delayed_job start'"
+  stop program  = "/bin/su - deploy -c 'RAILS_ENV=production \
+    BUNDLE_GEMFILE=/var/rails/prayerthread.org/current/Gemfile \
+    /var/rails/prayerthread.org/current/script/delayed_job stop'"
