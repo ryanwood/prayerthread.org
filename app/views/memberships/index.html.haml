@@ -3,11 +3,8 @@
 #members
   - if can? :modify, @group
     = render :partial => "/invitations/new"
-    %h3 Pending Invitations
     =render :partial => "/invitations/pending", :locals => { :invitations => @invitations }
-
   = render :partial => "/memberships/list"
-  
   
 - content_for :sidebar do
   = render :partial => "/groups/links"

@@ -13,7 +13,6 @@
       and invite other's to join.
 
 - unless @sent_invitations.empty?
-  %h3 Pending Invitations You Sent
   = render :partial => "pending", :locals => { :invitations => @sent_invitations, :show_group => true }
     
 %p= link_to raw("&laquo; Back to your prayer list"), prayers_path
