@@ -35,7 +35,7 @@
                 - if can? :modify, prayer
                   %li= link_to 'Answered?', answer_prayer_path(prayer)
 
-                - if Intercession.allowed?( current_user, prayer )
+                - if can? :intercede, prayer
                   %li
                     = link_to "I prayed for this today", new_prayer_intercession_path(prayer), :class => "intercede"
                     = image_tag "question-small.png", :title => "Let #{prayer.user.first_name} know that you are praying for #{prayer.title}."

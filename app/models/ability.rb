@@ -16,6 +16,9 @@ class Ability
       prayer && (prayer.user == @user || has_access_to(prayer.groups) )
     end
     can [:modify, :answer], Prayer, :user => @user
+    can :intercede, Prayer do |prayer|
+      Intercession.allowed?(@user, prayer)
+    end
     
     can [:read, :create], Activity
     

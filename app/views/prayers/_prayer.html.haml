@@ -17,7 +17,7 @@
         = p(@prayer.answer)
     - else
       %ul#activities.inline
-        - if Intercession.allowed?( current_user, @prayer )
+        - if can? :intercede, @prayer
           %li.first
             = link_to "I prayed for this today", new_prayer_intercession_path(@prayer), :class => "intercede"
             = image_tag "question-small.png", :title => "Let others know that you are praying for them."
