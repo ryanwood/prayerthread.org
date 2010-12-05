@@ -17,7 +17,7 @@ class PrayersController < ApplicationController
   
   def show
     @comments = @prayer.comments
-    @comment = @prayer.comments.new
+    @comment = @prayer.comments.new( :intercede => 1 )
   end
   
   def new

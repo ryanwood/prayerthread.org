@@ -1,2 +1,5 @@
 = form.inputs do
   = form.input :body, :label => can?( :edit, @prayer ) ? "Your Update" : "Your Comment or Encouragement", :input_html => { :rows => 6 }
+  - if can? :intercede, @prayer
+    = form.inputs do
+      = form.input :intercede, :label => "I prayed for this today", :as => :boolean

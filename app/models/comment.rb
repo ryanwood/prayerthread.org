@@ -11,7 +11,7 @@ class Comment < ActiveRecord::Base
   
   attr_reader :intercede
   def intercede=(val)
-    @intercede = (val == '1')
+    @intercede = (val.to_s == '1')
   end
   
   protected

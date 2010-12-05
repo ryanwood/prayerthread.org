@@ -36,7 +36,7 @@
           %li= link_to "Permanently Delete this Prayer", @prayer, :method => :delete, :confirm => "Are you sure? This will permanently delete this prayer and all it's comments."
  
   %h2{ :id => 'comments' } 
-    Comments &amp; Updates
+    The Thread
     - unless @comments.empty?
       .actions
         =link_to "Add a new #{comment_type}", "#new_comment"
