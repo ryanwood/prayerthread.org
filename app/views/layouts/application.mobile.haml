@@ -2,8 +2,12 @@
 %html{html_attrs}
   %head
     %title= "PrayerThread :: #{h(yield(:title))}"
-    %meta{ :name => "viewport", :content => "width=320" }
-    = stylesheet_link_tag 'formtastic', 'compiled/mobile'
+    %meta{ :name => "viewport", :content => "width=device-width" }
+    = stylesheet_link_tag 'compiled/mobile'
+    = javascript_include_tag 'jquery-1.4.2.min', 'rails.js', 'mobile.js'
+    -# 
+      = stylesheet_link_tag 'iui/iui.css'
+      = javascript_include_tag 'iui/iui.js', :cache => true
   %body
     #header
       -# menu
@@ -16,4 +20,7 @@
       - if show_title?
         %h1
           =h yield(:title)
-      = yield
+      .inner= yield
+    #footer
+      .mobile_switch
+        = link_to "Switch to the standard site.", standard_path

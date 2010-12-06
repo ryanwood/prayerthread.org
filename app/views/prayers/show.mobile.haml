@@ -1,0 +1,24 @@
+.prayer
+  - title @prayer.title
+  %p.author
+    by
+    = @prayer.name
+    on
+    = @prayer.created_at.strftime('%b %d, %Y')
+  .section
+    .avatar= image_tag raw(@prayer.user.gravatar_url), :alt => @prayer.user.first_name
+    = simple_format(@prayer.body)
+    %br{ :clear => "both" }
+  - unless @comments.empty?
+    - @comments.each do |comment|
+      .section
+        %p.posted
+          %strong= comment.user.name
+          = distance_of_time_in_words(comment.created_at, @prayer.created_at)
+          later
+        .avatar= image_tag raw(comment.user.gravatar_url(:size => 45)), :alt => comment.user.first_name
+        = simple_format(comment.body)
+        %br{ :clear => "both" }
+  %p.back
+    &larr;
+    = link_to "Back to Prayers", prayers_path

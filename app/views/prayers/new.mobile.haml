@@ -1,0 +1,24 @@
+%div{ :style => "padding:10px;" }
+  = title "New Prayer"
+  = form_for @prayer do |form|
+    = form.error_messages
+    %p
+      = form.label :title
+      %br
+      = form.text_field :title
+    %p
+      = form.check_box :praise
+      = form.label :praise, "This is a praise (rather than a request)"
+    %p
+      = form.label :body
+      %br
+      = form.text_area :body
+    %p
+      - current_user.groups.each do |group|
+        = check_box_tag 'group_ids[]', group.id, :id => "group_#{group.id}"
+        = form.label "group_#{group.id}", group.name
+        %br
+    %p
+      =form.submit "Create Prayer"
+      or
+      = link_to "Cancel", prayers_path

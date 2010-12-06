@@ -1,32 +1,24 @@
-- title prayer_title(@view)
-
-%ul.inline
-  %li.first{ :class => (@view == :all ? 'selected' : '') }= link_to "All", prayers_path
-  %li{ :class => (@view == :open ? 'selected' : '') }= link_to "Open", prayers_path( :view => 'open')
-  %li{ :class => (@view == :answered ? 'selected' : '') }= link_to "Answered", prayers_path( :view => 'answered')
-  %li{ :class => (@view == :praise ? 'selected' : '') }= link_to "Praises", prayers_path( :view => 'praise')
+- title prayer_title(@view), :show => false
 -#
-  - unless current_user.groups.empty?
-    %h3 My Groups
-    %ul.links
-      - current_user.groups.each do |group|
-        %li= link_to h(group.name), group
+  .menu
+    %ul#views
+      %li.first{ :class => (@view == :all ? 'selected' : '') }= link_to "All", prayers_path
+      %li{ :class => (@view == :open ? 'selected' : '') }= link_to "Open", prayers_path( :view => 'open')
+      %li{ :class => (@view == :answered ? 'selected' : '') }= link_to "Answered", prayers_path( :view => 'answered')
+      %li{ :class => (@view == :praise ? 'selected' : '') }= link_to "Praises", prayers_path(:view => 'praise')
+= form_tag prayers_path, :method => :get do
+  .command_bar
+    = select_tag :view, options_for_select(Prayer::VIEWS.map{ |v| [v.to_s.humanize, v] }, @view)
+    %ul
+      %li= link_to "New Prayer", new_prayer_path
 
 - if @prayers.empty?
-  .box
-    - if current_user.groups.empty?
-      %strong Welcome to prayerthread.org! We're glad you're here.
-      %p
-        To start out, you'll need to
-        = link_to "create a group", new_group_path
-        where you can share your prayers.
-    -else
-      No prayers here...
-      = link_to "Why not add one?", new_prayer_path
+  No prayers here...
+  -# = link_to "Why not add one?", new_prayer_path
 - else
-  .prayers
+  %ul.prayers
     - for prayer in @prayers
-      %div[prayer]
+      %li[prayer]
         -# .actions
           %ul.inline
             %li.first#comment_count= link_to pluralize(prayer.comments_count, "Comment"), prayer_comments_path(prayer)
@@ -36,15 +28,14 @@
                 %li= link_to 'Answered?', answer_prayer_path(prayer)
             - else
               %li= link_to 'Share Comment', new_prayer_comment_path(prayer)
-        %h3
-          = link_to h(prayer.title), prayer, :class => 'prayer_title'
-          %span.author= "(#{prayer.name})"
-        .preview
-          = "#{time_ago_in_words(prayer.created_at)} ago :"
-          = truncate(prayer.body, :length => 180)
-        - if prayer.answered?
-          .answer
-            %strong Answer:
-            = truncate(prayer.answer, :length => 170)
-
+        %a{ :href => prayer_path(prayer) }
+          .next= image_tag 'iui/listArrow.png'
+          .avatar= image_tag raw(prayer.user.gravatar_url(:size => 35)), :alt => prayer.user.first_name
+          %strong= prayer.title
+          |
+          %span.author= prayer.user.first_name
+          .preview
+            %span.date= prayer.created_at.strftime("%b %d") 
+            = truncate(prayer.body, :length => 100)
+          
   = will_paginate @prayers

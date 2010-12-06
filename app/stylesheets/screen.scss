@@ -529,3 +529,7 @@ button {
   @include button-button;
   @include button-colors($blue, $light_blue, $blue); }
 */
+.mobile_switch {
+  margin: 5px 0;
+  font-weight: bold;
+}

@@ -47,7 +47,11 @@
       #sidebar
         = yield(:sidebar)
         
-      #footer 
+      #footer
+        - if is_mobile_device?
+          .mobile_switch
+            On a mobile device?
+            = link_to "Switch to the mobile site.", mobile_path
         Copyright &copy;2010 
         = link_to "sourcescape.com", "http://sourcescape.com", :target => "_blank"
         &bull;
