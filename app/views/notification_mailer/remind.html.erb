@@ -46,7 +46,7 @@
 </h1>
 <p>
   <strong>Be encouraged!</strong>
-  <%= @intercessions.map{|i| i.user.name }.to_sentence %> <%= @intercessions.size == 1 ? "has" : "have" %> been praying for you this week.
+  <%= @intercessors.to_sentence %> <%= @intercessors.size == 1 ? "has" : "have" %> been praying for you this week.
 </p>
 <% end %>
 <p>
