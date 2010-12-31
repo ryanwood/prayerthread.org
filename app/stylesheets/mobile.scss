@@ -38,7 +38,12 @@ body {
 .container {
   padding: 0; 
 }
-
+.inner {
+  padding: 10px;
+}
+body#prayers .inner {
+  padding: 0;
+}
 h1 {
   font-size: 1.4em;
   font-weight: normal;
@@ -105,7 +110,7 @@ ul#views {
   
 .prayer {
   p {
-    padding: 5px 15px;
+    padding: 5px 0px;
   }
   .section {
     clear: both;
@@ -188,8 +193,23 @@ form.formtastic fieldset.buttons {
     margin: 8px 0;
   }
 }
-form#new_prayer {
-  input[type='text'], textarea {
-    width: 100%;
-  }
+label {
+  font-weight:bold;
+}
+input[type='email'], input[type='text'], input[type='password'], textarea {
+  width: 100%;
+  padding: 8px;
+  font-size:1.2em;
+}
+input[type="submit"] {
+    background: $dark_blue;
+    width: 200px;
+    font-size: 1.1em;
+    padding: 9px;
+    letter-spacing: 1px;
+    border: none;
+    color: #FFF;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
 }

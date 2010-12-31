@@ -1,18 +1,17 @@
 %div{ :style => "padding:10px;" }
   = title "Sign in"
   = form_for :session, :url => session_path, :html => { :id => "new_session" } do |form|
-    = form.error_messages
     %p
       = form.label :email
       %br
-      = form.text_field :email
+      = form.text_field :email, :type => "email"
     %p
       = form.label :password
       %br
       = form.password_field :password
     %p
       = form.submit "Sign In"
-
+-#
   %ul
     %li= link_to "Sign up", new_user_path
     %li= link_to "Forgot password?", new_password_path
