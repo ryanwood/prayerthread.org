@@ -15,11 +15,11 @@ class IntercessionsController < ApplicationController
       msg = "Sorry, there was a problem."
     end
     respond_to do |format|
-      format.html { 
-        flash[:notice] = msg
-        redirect_to prayers_path 
-      }
       format.js { render :text => msg }
+      format.all { 
+        flash[:notice] = msg
+        redirect_to @prayer
+      }
     end
   end
 end

@@ -22,3 +22,15 @@
   %p.back
     &larr;
     = link_to "Back to Prayers", prayers_path
+    - if can? :intercede, @prayer
+      |
+      = link_to "I prayed for this today", new_prayer_intercession_path(@prayer), :class => "intercede"
+
+  %h3{ :id => "new_comment" }== Add a new #{comment_type}
+  #comment_form
+    = form_for [@prayer, @comment] do |f|
+      %p
+        = f.label :body, can?( :edit, @prayer ) ? "Your Update" : "Your Comment or Encouragement"
+        %br
+        = f.text_area :body, :rows => 3
+      %p= f.submit "Add #{comment_type}"
