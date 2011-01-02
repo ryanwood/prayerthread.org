@@ -86,6 +86,11 @@ h3 {
   font-size: 1.4em;
   margin: 10px 0;
   color: $dark_gray; }
+  
+h4 {
+  font-weight: bold;
+  margin: 5px 0;
+}
 
 .box {
   @include box;
@@ -218,6 +223,11 @@ table#members_table {
 
 .prayers {
   margin-bottom: 1em;
+  .last_update {
+    background-color: $box;
+    padding: 10px;
+    margin: 5px 0;
+  }
   .prayer {
     padding: 10px 0;
     background: url(../../images/dotted_horizontal_border.png) bottom repeat-x;

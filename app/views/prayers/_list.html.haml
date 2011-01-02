@@ -20,7 +20,14 @@
           %h3= link_to h(prayer.title), prayer
           = render :partial => "/prayers/meta", :locals => { :prayer => prayer }
           - if show_detail?
-            .full= p(prayer.body)
+            -# TODO: Need to refactor this to prevent N+1, consider assing last_update_id to prayers...
+            - unless prayer.updates.empty?
+              - last_update = prayer.updates.last
+              .last_update
+                %h4== Last Update (#{last_update.created_at.strftime("%b %d %Y")}):
+                = simple_format(prayer.updates.last.body)
+            .full
+              = simple_format(prayer.body)
           - else
             .preview= truncate(prayer.body, :length => 180)
           .actions
