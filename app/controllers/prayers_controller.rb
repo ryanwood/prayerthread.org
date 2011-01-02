@@ -57,20 +57,11 @@ class PrayersController < ApplicationController
     redirect_to prayers_url
   end
   
+  
   protected
   
-    def send_notifications
-      Notification.fire(:created, @prayer)
-    end
-    
-    def set_view
-      view = (params[:view] || cookies[:view] || 'all').to_sym
-      detail = (params[:details] || cookies[:detail] || 0).to_i
-      length = { :expires => 6.months.from_now }
-      cookies[:view] = length.merge( :value => view )
-      cookies[:detail] = length.merge( :value => detail )
-      
-      @view = view
-      @detail = detail
-    end
+  def send_notifications
+    Notification.fire(:created, @prayer)
+  end
+
 end

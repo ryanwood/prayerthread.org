@@ -1,4 +1,8 @@
-- title "#{@group.name} : Prayers", :subtitle => @group.description
+- title "#{@group.name} : #{prayer_title(@view)}", :subtitle => @group.description
+
+= render :partial => "/invitations/pending_message"
+
+= render :partial => "command_bar"
 
 #prayers
   =render :partial => "/prayers/list"

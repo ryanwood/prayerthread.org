@@ -2,12 +2,16 @@ class GroupsController < ApplicationController
   before_filter :authenticate
   load_and_authorize_resource :group
   
-  def index
-  end
-  
   def show
-    @prayers = @group.prayers.paginate :page => params[:page], :order => "thread_updated_at DESC"
+    set_view
+    if params[:print]
+      @prayers = @group.prayers.find_view(@view, current_user).paginate( :page => 1, :per_page => 50 )
+    else
+      @prayers = @group.prayers.find_view(@view, current_user).paginate( :page => params[:page] )
+    end
+    
     @intercessions = current_user.intercessions.today.map { |i| i.prayer.id }
+    render :layout => (params[:print] ? 'print' : 'application')
   end
   
   def new

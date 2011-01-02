@@ -25,4 +25,18 @@ class ApplicationController < ActionController::Base
   #     redirect_to "http://#{HOST}"
   #   end
   # end
+
+
+  protected
+
+  def set_view
+    view = (params[:view] || cookies[:view] || 'all').to_sym
+    detail = (params[:details] || cookies[:detail] || 0).to_i
+    length = { :expires => 6.months.from_now }
+    cookies[:view] = length.merge( :value => view )
+    cookies[:detail] = length.merge( :value => detail )
+
+    @view = view
+    @detail = detail
+  end
 end
