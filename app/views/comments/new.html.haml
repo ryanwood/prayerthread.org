@@ -13,7 +13,7 @@
 
 - desc = can?( :edit, @prayer ) ? "sharing an update" : "commenting"
 %h3= "You are #{desc} on the following prayer:"
-.box= p(@prayer.body)
+.box= simple_format(@prayer.body)
     
 - content_for :sidebar do
   = render :partial => "/shared/formatting_help"

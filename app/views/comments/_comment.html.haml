@@ -14,4 +14,4 @@
       = distance_of_time_in_words(comment.created_at, prayer.created_at)
       later
       = "(on #{comment.created_at.strftime('%B %d')})"
-    = p(comment.body, false)
+    = simple_format(comment.body)

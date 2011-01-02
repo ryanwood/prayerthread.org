@@ -6,7 +6,7 @@
       posted on
       = @prayer.created_at.strftime('%A, %B %d, %Y')
     
-    %p= p(@prayer.body, false)
+    = simple_format(@prayer.body)
     
     - if @prayer.answered?
       .answer
@@ -14,7 +14,7 @@
           .actions= link_to "Edit Answer", answer_prayer_path(@prayer)
         %p
           %strong This prayer has been answered!
-        = p(@prayer.answer)
+        = simple_format(@prayer.answer)
     - else
       %ul#activities.inline
         - if can? :intercede, @prayer
