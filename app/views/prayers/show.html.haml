@@ -16,7 +16,7 @@
 
   - unless @prayer.intercessors.empty?
     %h3 Who is praying?
-    %ul.links
+    .intercessors
       - @prayer.intercessors.each do |intercessor|
-        %li= intercessor.name
+        = image_tag raw(intercessor.gravatar_url( :size => 40 )), :class => 'gravatar', :alt => intercessor.name, :title => intercessor.name
     %p= link_to "See all activity", activities_path
