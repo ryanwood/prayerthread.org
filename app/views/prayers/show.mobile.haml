@@ -7,6 +7,11 @@
     = @prayer.created_at.strftime('%b %d, %Y')
   .section
     .avatar= image_tag raw(@prayer.user.gravatar_url), :alt => @prayer.user.first_name
+    - if @prayer.answered?
+      .answer
+        %p
+          %strong This prayer has been answered!
+        = simple_format(@prayer.answer)
     = simple_format(@prayer.body)
     %br{ :clear => "both" }
   - unless @comments.empty?
