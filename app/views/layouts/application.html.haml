@@ -47,6 +47,18 @@
       #sidebar
         = yield(:sidebar)
         
+        %h3 Want to help?
+        %p{ :style => "text-align:center;"}= render "shared/paypal"
+        %p
+          This project is a labor of love and is solely supported by donation from 
+          PrayerThread users. If you find this tool useful, please consider 
+          helping out. 
+        %p
+          No amount is too small to help offset development &amp; server costs 
+          (or a date night with my wife).
+        %p Thanks so much, 
+        %p -Ryan
+        
       #footer
         - if is_mobile_device?
           .mobile_switch
