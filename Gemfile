@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.3'
+gem 'rails', '~> 3.0.0'
 gem 'mysql2'
 gem 'haml'
 gem 'clearance', :git => "git://github.com/thoughtbot/clearance.git"
