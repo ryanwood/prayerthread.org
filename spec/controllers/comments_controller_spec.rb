@@ -47,11 +47,6 @@ describe CommentsController do
       it { should set_the_flash.to(/Successfully created comment/) }
     end
     
-    it "fires a comment created notification" do
-      Notification.should_receive(:fire).with(:created, instance_of(Comment))
-      post :create, :prayer_id => prayer.id
-    end
-    
     it "doesn't create a comment for prayers I don't have access to" do
       comment.stub!(:valid?).and_return(true)
       comment.should_not_receive(:create)

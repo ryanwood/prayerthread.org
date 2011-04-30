@@ -5,8 +5,6 @@ class CommentsController < ApplicationController
   load_resource :comment, :through => :prayer
   authorize_resource :comment, :through => :prayer, :except => [:new, :create]
   
-  after_filter :send_notifications, :only => :create
-  
   def index
     # @comments = @prayer.comments
     redirect_to prayer_path(@prayer, :anchor => 'comments')
@@ -48,11 +46,5 @@ class CommentsController < ApplicationController
     @comment.destroy
     redirect_to prayer_path(@prayer), :notice => "Successfully deleted comment."
   end
-  
-  protected
-    
-    def send_notifications
-      Notification.fire( :created, @comment )
-    end
-  
+
 end

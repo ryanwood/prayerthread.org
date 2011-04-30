@@ -1,7 +1,6 @@
 class PrayersController < ApplicationController
   before_filter :authenticate
   load_and_authorize_resource
-  after_filter :send_notifications, :only => :create
   
   def index
     set_view
@@ -41,9 +40,7 @@ class PrayersController < ApplicationController
   end
   
   def update
-    previously_answered = @prayer.answered?
     if @prayer.update_attributes(params[:prayer])
-      Notification.fire(:answered, @prayer) if !previously_answered && @prayer.answered?
       flash[:notice] = "Successfully updated prayer."
       redirect_to @prayer
     else
@@ -55,13 +52,6 @@ class PrayersController < ApplicationController
     @prayer.destroy
     flash[:notice] = "Successfully deleted prayer."
     redirect_to prayers_url
-  end
-  
-  
-  protected
-  
-  def send_notifications
-    Notification.fire(:created, @prayer)
   end
 
 end
