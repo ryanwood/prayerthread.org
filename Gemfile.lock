@@ -101,7 +101,7 @@ GEM
     haml (3.0.23)
     highline (1.6.1)
     hirb (0.3.4)
-    hoptoad_notifier (2.3.11)
+    hoptoad_notifier (2.4.9)
       activesupport
       builder
     i18n (0.5.0)
