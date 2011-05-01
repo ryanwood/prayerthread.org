@@ -53,3 +53,7 @@ Nudge.blueprint do
   prayer
   user { User.make(:confirmed) }
 end
+
+Announcement.blueprint do
+  # Attributes here
+end

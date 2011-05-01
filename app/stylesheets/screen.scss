@@ -96,6 +96,14 @@ h4 {
   @include box;
   margin: 1em 0; }
 
+#announcements_box {
+  clear: both;
+  @include box;
+  background-color: lightyellow;
+  margin: 1em 0;
+  border: 1px solid $blue;
+}
+
 .hidden {
   display: none; }
 
@@ -525,7 +533,6 @@ a.print {
   color: #111111;
   background-color: white;
   border: 5px solid $blue;
-  width: 150px;
   padding: 1em;
   margin-left: 1em;
   a {

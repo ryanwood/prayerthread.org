@@ -7,6 +7,11 @@ class Ability
     
     alias_action :edit, :update, :destroy, :to => :modify
     
+    can :read, Announcement
+    can :manage, Announcement do
+      @user.email == 'ryan.wood@gmail.com'
+    end
+    
     can :read, User do |user|
       user && @user.related?(user)
     end

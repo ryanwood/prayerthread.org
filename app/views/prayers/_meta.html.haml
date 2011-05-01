@@ -1,7 +1,7 @@
 .meta
   %ul
     %li.first.created
-      %strong= prayer.name
+      %strong= link_to prayer.name, prayer.user
       = "created #{time_ago_in_words(prayer.created_at)} ago."
       - if prayer.created_at != prayer.thread_updated_at
         The
