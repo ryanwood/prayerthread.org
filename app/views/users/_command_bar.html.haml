@@ -1,0 +1,11 @@
+.command_bar
+  = link_to "Print this View", user_path( @user, :view => @view.to_s, :detail => @detail, :print => 1 ), :class => 'print', :target => "_blank", :title => "This will launch a print-friendly view with up to 50 prayers."
+  %ul
+    %li{ :class => ('active' unless show_detail?) }
+      = link_to "Summary", user_path( @user, :view => @view, :details => 0 )
+    %li{ :class => ('active' if show_detail?) }
+      = link_to "Detail", user_path( @user, :view => @view, :details => 1 )
+  %ul
+    - Prayer::VIEWS.each do |view|
+      %li{ :class => ('active' if view == @view) }
+        = link_to view.to_s.humanize, user_path( @user, :view => view, :detail => @detail )

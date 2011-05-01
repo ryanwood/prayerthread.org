@@ -9,8 +9,8 @@
   - @memberships.each do |membership|
     - user = membership.user
     %tr
-      %td.gravatar= image_tag raw(user.gravatar_url( :size => 35 )), :class => 'gravatar'
-      %td.name= user.name
+      %td.gravatar= link_to( image_tag( raw(user.gravatar_url( :size => 35 )), :class => 'gravatar' ), user_path(membership.user) )
+      %td.name= link_to( user.name, user_path(membership.user) )
       %td.email= user.email
       %td.status
         - if user == @group.owner

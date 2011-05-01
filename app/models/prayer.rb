@@ -18,6 +18,7 @@ class Prayer < ActiveRecord::Base
   
   has_friendly_id :title, :use_slug => true
   
+  scope :all, where('1=1')
   scope :open, where("answered_at IS NULL and praise = ?", false)
   scope :answered, where("answered_at IS NOT NULL and praise = ?", false)
   scope :praise, where("praise = ?", true)
@@ -27,7 +28,11 @@ class Prayer < ActiveRecord::Base
     order('prayers.thread_updated_at DESC')
   }
   scope :created_or_updated_this_week, where("thread_updated_at > ?", 7.days.ago)
-  scope :by, lambda { |user| where( :user_id => user ) }
+  scope :within_groups, lambda { |groups| 
+    includes(:groups).
+    where('groups.id IN (?)', groups.map {|g| g.id }).
+    order('prayers.thread_updated_at DESC')
+  }
   
   VIEWS = [ :all, :open, :answered, :praise ]
   
@@ -35,9 +40,18 @@ class Prayer < ActiveRecord::Base
     15
   end
   
-  def self.find_view(view, user)
-    view == :all ? for_user(user) : send(view).for_user(user)
+  def self.view(view)
+    VIEWS.include?(view) ? send(view) : send(:all)
   end
+  
+  # def self.find_view_for(view, user)
+  #   view == :all ? for_user(user) : send(view).for_user(user)
+  # end
+  # 
+  # def self.find_view_by(view, user, viewer)
+  #   view == :all ? by_user(user) : send(view).by_user(user)
+  #   view.within_groups(viewer.groups)
+  # end
   
   def answered?
     !answered_at.nil?

@@ -2,8 +2,15 @@ class UsersController < Clearance::UsersController
   before_filter :authenticate, :except => [:new, :create]
   
   def show
-    @user = current_user
-    render :action => "edit"
+    @user = User.find(params[:id])
+    authorize! :show, @user
+    
+    set_view
+    page_params = params[:print] ? { :page => 1, :per_page => 50 } : { :page => params[:page] }
+    @prayers = @user.prayers.view(@view).within_groups(current_user.groups).paginate(page_params)
+    
+    @intercessions = current_user.intercessions.today.map { |i| i.prayer.id }
+    render :layout => (params[:print] ? 'print' : 'application')
   end
   
   def edit

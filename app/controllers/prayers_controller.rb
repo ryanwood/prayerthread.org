@@ -4,11 +4,8 @@ class PrayersController < ApplicationController
   
   def index
     set_view
-    if params[:print]
-      @prayers = Prayer.find_view(@view, current_user).paginate( :page => 1, :per_page => 50 )
-    else
-      @prayers = Prayer.find_view(@view, current_user).paginate( :page => params[:page] )
-    end
+    page_params = params[:print] ? { :page => 1, :per_page => 50 } : { :page => params[:page] }
+    @prayers = Prayer.view(@view).for_user(current_user).paginate(page_params)
     
     @intercessions = current_user.intercessions.today.map { |i| i.prayer.id }
     render :layout => (params[:print] ? 'print' : 'application')

@@ -86,7 +86,7 @@ Prayerthread::Application.routes.draw do
     end
   end
 
-  resource :account, :controller => 'users'
+  match 'account' => 'users#edit'
 
   # Clearance Overrides
   resource :session

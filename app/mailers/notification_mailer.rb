@@ -44,7 +44,7 @@ class NotificationMailer < ActionMailer::Base
   def remind(recipient)
     @recipient = recipient
     @recent = Prayer.created_or_updated_this_week.for_user(recipient).limit(5)
-    @unanswered = Prayer.open.by(recipient).order('thread_updated_at ASC')
+    @unanswered = recipient.prayers.open.order('thread_updated_at ASC')
     @intercessions = Intercession.on_behalf_of(recipient).rolling_week
     @intercessors = @intercessions.map{|i| i.user.name }.uniq
 

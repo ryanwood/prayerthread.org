@@ -18,5 +18,5 @@
     %h3 Who is praying?
     .intercessors
       - @prayer.intercessors.each do |intercessor|
-        = image_tag raw(intercessor.gravatar_url( :size => 40 )), :class => 'gravatar', :alt => intercessor.name, :title => intercessor.name
+        = link_to( image_tag( raw(intercessor.gravatar_url( :size => 40 )), :class => 'gravatar', :alt => intercessor.name, :title => intercessor.name ), user_path(intercessor) )
     %p= link_to "See all activity", activities_path

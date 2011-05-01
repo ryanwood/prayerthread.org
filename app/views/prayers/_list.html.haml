@@ -6,16 +6,16 @@
         To start out, you'll need to 
         = link_to "create a group", new_group_path
         where you can share your prayers.
-    -else
+    - else
       No prayers here...
-      = link_to "Why not add one?", new_prayer_path
+      = link_to( "Why not add one?", new_prayer_path ) unless @user
 - else
   = will_paginate @prayers
   .prayers
     - for prayer in @prayers
       %div[prayer]
         .avatar
-          = image_tag raw(prayer.user.gravatar_url( :size => 50 )), :class => 'gravatar', :alt => prayer.user.first_name
+          = link_to( image_tag( raw(prayer.user.gravatar_url( :size => 50 )), :class => 'gravatar', :alt => prayer.user.first_name ), user_path(prayer.user) )
         .content
           %h3= link_to h(prayer.title), prayer
           = render :partial => "/prayers/meta", :locals => { :prayer => prayer }

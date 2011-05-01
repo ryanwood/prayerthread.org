@@ -7,6 +7,10 @@ class Ability
     
     alias_action :edit, :update, :destroy, :to => :modify
     
+    can :read, User do |user|
+      user && @user.related?(user)
+    end
+    
     can :create, Group
     can :read, Group, :users => { :id => @user.id }
     can :modify, Group, :owner => @user

@@ -44,6 +44,10 @@ class User < ActiveRecord::Base
     accept_invitation!
   end
   
+  def related?(user)
+    (groups.map(&:id) & user.groups.map(&:id)).any?
+  end
+  
   protected
   
   def add_recipient_to_invitation
