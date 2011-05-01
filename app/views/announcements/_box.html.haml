@@ -3,4 +3,4 @@
     -for announcement in current_announcements
       %div[announcement]
         = simple_format(announcement.message)
-        %p#hide_announcement= link_to "Hide Announcements", hide_announcements_path, :remote => true
+        %p#hide_announcement= link_to "Hide Announcements", hide_announcements_path #, :remote => true
