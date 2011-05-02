@@ -4,14 +4,12 @@ class GroupsController < ApplicationController
   
   def show
     set_view
-    if params[:print]
-      @prayers = @group.prayers.find_view(@view, current_user).paginate( :page => 1, :per_page => 50 )
-    else
-      @prayers = @group.prayers.find_view(@view, current_user).paginate( :page => params[:page] )
-    end
+    page_params = params[:print] ? { :page => 1, :per_page => 50 } : { :page => params[:page] }
+    @prayers = @group.prayers.view(@view).for_user(current_user).paginate(page_params)
     
     @intercessions = current_user.intercessions.today.map { |i| i.prayer.id }
     render :layout => (params[:print] ? 'print' : 'application')
+    
   end
   
   def new
