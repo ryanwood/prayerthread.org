@@ -24,10 +24,6 @@ group :development do
   gem "hirb" 
   gem "awesome_print", :require => "ap" 
   # gem "interactive_editor" 
-
-  # N+1 helper
-  gem 'ruby-growl'
-  gem 'bullet', '~> 2.0.0.rc1'
 end
 
 # Needed for rake tasks as a railstie
