@@ -13,6 +13,8 @@ class MembershipsController < ApplicationController
     # This creates an invitation for a membership, not the membership directly
     @invitation = @group.invitations.build(params[:invitation])
     @invitation.sender = current_user
+    # Attempt to find an existing user to link to this invite
+    @invitation.recipient = User.find_by_email(@invitation.recipient_email)
     if @invitation.save
       flash[:notice] = "Successfully sent invitation for #{@invitation.recipient_email}."
       redirect_to group_memberships_path(@group)
