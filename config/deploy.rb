@@ -1,5 +1,8 @@
 require "bundler/capistrano"
 
+set :whenever_command, "bundle exec whenever"
+require "whenever/capistrano"
+
 set :application,   'prayerthread.org'
 set :repository,    'git@sourcescape.unfuddle.com:sourcescape/prayerthread.git'
 # set :deploy_to,     "/var/www/#{application}"
