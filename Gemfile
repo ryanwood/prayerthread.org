@@ -15,6 +15,7 @@ gem 'gravtastic'       #, '~> 2.2'
 gem 'compass', '>= 0.10.2'
 gem 'capistrano'
 gem 'settingslogic'
+gem 'postmark-rails'
 
 group :development do
   gem "haml-rails", :git => "http://github.com/indirect/haml-rails.git"    # need git for mailer generator
@@ -24,6 +25,7 @@ group :development do
   gem "hirb" 
   gem "awesome_print", :require => "ap" 
   # gem "interactive_editor" 
+  gem "mail_safe"
 end
 
 # Needed for rake tasks as a railstie

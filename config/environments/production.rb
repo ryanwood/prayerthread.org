@@ -49,7 +49,10 @@ Prayerthread::Application.configure do
   config.active_support.deprecation = :log
 end
 
-ActionMailer::Base.delivery_method = :smtp
+# Uncomment this line to make Webbynode work
+# ActionMailer::Base.delivery_method = :smtp
+
+# Older config
 # ActionMailer::Base.sendmail_settings = {
 #     :location       => '/usr/sbin/sendmail',
 #     :arguments      => "-i -t -f donotreply@prayerthread.org"

@@ -22,7 +22,7 @@ module Prayerthread
     # Activate observers that should always be running
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
     config.active_record.observers = :prayer_observer, :comment_observer
-    
+
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = 'Eastern Time (US & Canada)'
@@ -39,13 +39,15 @@ module Prayerthread
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password, :password_confirmation]
-    
+
     config.generators do |g|
       g.template_engine :haml
       g.test_framework :rspec, :fixture => false, :views => false
       g.fixture_replacement :machinist
     end
-    
+
     config.action_mailer.default_url_options = { :host => 'prayerthread.local' }
+    config.action_mailer.delivery_method   = :postmark
+    config.action_mailer.postmark_settings = { :api_key => "bbd3dae6-0fda-4700-8c4d-8a379358f517" }
   end
 end
