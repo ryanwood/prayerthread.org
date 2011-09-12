@@ -1,7 +1,7 @@
 defaults: &defaults
   host: prayerthread.local
   mail:
-    from: prayerthread.org <donotreply@prayerthread.org>
+    from: prayerthread.org <notifications@prayerthread.org>
 
 development:
   <<: *defaults
