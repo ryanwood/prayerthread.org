@@ -48,8 +48,8 @@ class NotificationMailer < ActionMailer::Base
     @intercessions = Intercession.on_behalf_of(recipient).rolling_week
     @intercessors = @intercessions.map{|i| i.user.name }.uniq
 
-    # unless @recent.empty? && @unanswered.empty? && @intercessions.empty?
+    unless @recent.empty? && @unanswered.empty? && @intercessions.empty?
       mail( :to => @recipient.full_email, :subject => "PrayerThread Update" )
-    # end
+    end
   end
 end
