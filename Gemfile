@@ -13,7 +13,6 @@ gem 'compass', '>= 0.10.2'
 gem 'capistrano'
 gem 'settingslogic'
 gem 'postmark-rails'
-gem 'delayed_job', '~> 2.1.0'
 
 group :development do
   gem "haml-rails", :git => "http://github.com/indirect/haml-rails.git"    # need git for mailer generator

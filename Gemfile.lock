@@ -62,11 +62,7 @@ GEM
       rails (>= 3.0)
     compass (0.10.6)
       haml (>= 3.0.4)
-    daemons (1.2.2)
     database_cleaner (0.6.0)
-    delayed_job (2.1.4)
-      activesupport (~> 3.0)
-      daemons
     diesel (0.1.5)
       railties
     diff-lcs (1.1.2)
@@ -175,7 +171,6 @@ DEPENDENCIES
   clearance (~> 0.11.2)
   compass (>= 0.10.2)
   database_cleaner
-  delayed_job (~> 2.1.0)
   faker
   formtastic (~> 1.1.0)
   friendly_id
