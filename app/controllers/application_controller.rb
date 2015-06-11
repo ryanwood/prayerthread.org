@@ -4,17 +4,17 @@ class ApplicationController < ActionController::Base
   # before_filter :ensure_domain
   include Clearance::Authentication
   has_mobile_fu
-  
+
   # include ExceptionNotifiable
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
-  
+
   rescue_from CanCan::AccessDenied do |e|
     logger.warn { "ACCESS DENIED: User #{current_user.name} (#{current_user.id}) was denied #{e.action.to_s.upcase} access to #{e.subject.class} (#{e.subject.try(:id)})" }
     logger.debug{ e.subject.inspect }
     render :template => "/shared/no_access"
   end
-  
+
   # rescue_from ActiveRecord::RecordNotFound do
   #   flash[:error] = "Sorry, we couldn't find what you were looking for."
   #   redirect_to( :action => :index )

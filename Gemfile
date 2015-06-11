@@ -1,22 +1,19 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.0.0'
+gem 'rails', '~> 3.1.0'
 gem 'mysql2'
 gem 'haml'
-gem 'clearance', :git => "git://github.com/thoughtbot/clearance.git"
+gem 'clearance', ' ~> 0.11.2'
 gem "formtastic", '~> 1.1.0'
 gem 'cancan'           #, '1.0.2'
 gem 'friendly_id'      #, '2.2.7'
 gem "will_paginate", "~> 3.0.pre2"    #, '~> 2.3.11'
-gem 'daemon-spawn' # Needed for delayed job backgrounding
-gem 'delayed_job', "~> 2.1.0.pre2"
-gem 'hoptoad_notifier' #, '2.3.2'
 gem 'gravtastic'       #, '~> 2.2'
 gem 'compass', '>= 0.10.2'
 gem 'capistrano'
 gem 'settingslogic'
 gem 'postmark-rails'
-gem 'whenever', :require => false
+gem 'delayed_job', '~> 2.1.0'
 
 group :development do
   gem "haml-rails", :git => "http://github.com/indirect/haml-rails.git"    # need git for mailer generator
@@ -25,8 +22,6 @@ group :development do
   gem "wirble" 
   gem "hirb" 
   gem "awesome_print", :require => "ap" 
-  # gem "interactive_editor" 
-  gem "mail_safe"
 end
 
 # Needed for rake tasks as a railstie
@@ -40,7 +35,7 @@ end
 
 group :test do
   gem "shoulda"
-  gem "capybara", ">= 0.3.9"
+  # gem "capybara", ">= 0.3.9"
   gem "machinist", ">= 2.0.0.beta2"
   gem "faker"
   gem "database_cleaner"

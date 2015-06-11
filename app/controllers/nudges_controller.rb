@@ -1,5 +1,5 @@
 class NudgesController < ApplicationController
-  before_filter :authenticate
+  before_filter :authorize
   load_and_authorize_resource :prayer
   load_and_authorize_resource :nudge, :through => :prayer
 
@@ -15,9 +15,9 @@ class NudgesController < ApplicationController
       msg = "Sorry, we had a problem nudging."
     end
     respond_to do |format|
-      format.html { 
+      format.html {
         flash[:notice] = msg
-        redirect_to prayers_path 
+        redirect_to prayers_path
       }
       format.js { render :text => msg }
     end

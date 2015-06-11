@@ -43,10 +43,13 @@ Prayerthread::Application.configure do
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true
-  
+
   config.action_mailer.default_url_options = { :host => 'prayerthread.org' }
-  
+
   config.active_support.deprecation = :log
+  config.action_mailer.delivery_method   = :postmark
+  config.action_mailer.postmark_settings = { :api_key => "bbd3dae6-0fda-4700-8c4d-8a379358f517" }
+
 end
 
 # Uncomment this line to make Webbynode work

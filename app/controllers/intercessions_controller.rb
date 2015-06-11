@@ -1,12 +1,12 @@
 class IntercessionsController < ApplicationController
-  before_filter :authenticate
+  before_filter :authorize
   load_and_authorize_resource :prayer
   load_and_authorize_resource :intercession, :through => :prayer
-  
+
   def new
     create
   end
-  
+
   def create
     intercession = @prayer.intercessions.build( :user => current_user )
     if intercession.save
@@ -16,7 +16,7 @@ class IntercessionsController < ApplicationController
     end
     respond_to do |format|
       format.js { render :text => msg }
-      format.all { 
+      format.all {
         flash[:notice] = msg
         redirect_to @prayer
       }

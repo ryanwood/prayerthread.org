@@ -1,5 +1,4 @@
 class InvitationMailer < ActionMailer::Base
-  default_url_options[:host] = Settings.host
   default :from => Settings.mail.from
 
   # Subject can be set in your I18n file at config/locales/en.yml

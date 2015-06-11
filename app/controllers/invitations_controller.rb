@@ -1,17 +1,17 @@
 class InvitationsController < ApplicationController
-  before_filter :authenticate, :except => :confirm
+  before_filter :authorize, :except => :confirm
   before_filter :load_group, :only => [:new, :create, :resend]
   before_filter :forbid_missing_token, :only => [:confirm]
-  
+
   def index
     @invitations = current_user.invitations.pending_and_ignored
     @sent_invitations = current_user.sent_invitations.pending
   end
-  
+
   def new
     @invitation = Invitation.new
   end
-  
+
   # Invitations are created in the memberships controller
   #
   # def create
@@ -24,7 +24,7 @@ class InvitationsController < ApplicationController
   #     render :action => 'new'
   #   end
   # end
-  
+
   def destroy
     @invitation = Invitation.find(params[:id])
     if can? :destroy, @invitation
@@ -35,7 +35,7 @@ class InvitationsController < ApplicationController
     end
     redirect_to invitations_path
   end
-  
+
   def confirm
     @invitation = Invitation.pending.find_by_id_and_token(params[:id], params[:token])
     if @invitation
@@ -53,7 +53,7 @@ class InvitationsController < ApplicationController
       redirect_to root_path
     end
   end
-  
+
   def accept
     @invitation = Invitation.pending.find_by_id_and_token(params[:id], params[:token])
     if @invitation
@@ -65,7 +65,7 @@ class InvitationsController < ApplicationController
       redirect_to root_path
     end
   end
-  
+
   def ignore
     begin
       @invitation = current_user.invitations.find(params[:id])
@@ -76,7 +76,7 @@ class InvitationsController < ApplicationController
     end
     redirect_to invitations_path
   end
-  
+
   def resend
     @invitation = @group.invitations.find(params[:id])
     if @invitation && can?( :create, @invitation )
@@ -87,13 +87,13 @@ class InvitationsController < ApplicationController
     end
     redirect_to group_memberships_path(@group)
   end
-  
+
   private
-  
+
   def load_group
     @group = Group.find(params[:group_id])
   end
-  
+
   def forbid_missing_token
     if params[:token].blank?
       raise ActionController::Forbidden, "missing token"

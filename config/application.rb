@@ -37,6 +37,8 @@ module Prayerthread
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
+    config.assets.enabled = false
+
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password, :password_confirmation]
 
@@ -45,9 +47,5 @@ module Prayerthread
       g.test_framework :rspec, :fixture => false, :views => false
       g.fixture_replacement :machinist
     end
-
-    config.action_mailer.default_url_options = { :host => 'prayerthread.local' }
-    config.action_mailer.delivery_method   = :postmark
-    config.action_mailer.postmark_settings = { :api_key => "bbd3dae6-0fda-4700-8c4d-8a379358f517" }
   end
 end

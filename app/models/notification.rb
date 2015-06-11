@@ -1,34 +1,25 @@
-class NotificationLogger < Logger
-  def format_message(severity, timestamp, progname, msg)
-    "#{timestamp.to_formatted_s(:db)} #{severity} #{msg}\n" 
-  end 
-end
+class Notification < ActiveRecord::Base
+  belongs_to :source, polymorphic: true
 
-class Notification
-  
+  validates_presence_of :source, :event_type
+
   def self.fire(event, source)
-    Delayed::Job.enqueue new(event, source)
+    create(event_type: event, source: source)
   end
-  
-  def initialize(event, source)
-    @event = Event.new(event, source)
+
+  def self.not_sent
+    where(sent: false)
   end
-  
-  def perform
-    @event.audience.each do |recipient|
-      NotificationMailer.send(@event.mailer, recipient, @event.source).deliver
+
+  def event
+    @event ||= Event.new(event_type.to_sym, source)
+  end
+
+  def send!
+    event.audience.each do |recipient|
+      NotificationMailer.send(event.mailer, recipient, event.source).deliver
     end
+
+    update_attributes(sent: true)
   end
-    
-  private
-  
-    def logger
-      @logger ||= create_logger
-    end
-  
-    def create_logger
-      logger = NotificationLogger.new(File.open( Rails.root.join('log', 'notification.log'), 'a'))
-      logger.level = Rails.logger.level
-      logger
-    end 
 end

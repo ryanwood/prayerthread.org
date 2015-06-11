@@ -1,18 +1,18 @@
 class UsersController < Clearance::UsersController
-  before_filter :authenticate, :except => [:new, :create]
-  
+  before_filter :authorize, :except => [:new, :create]
+
   def show
     @user = User.find(params[:id])
     authorize! :show, @user
-    
+
     set_view
     page_params = params[:print] ? { :page => 1, :per_page => 50 } : { :page => params[:page] }
     @prayers = @user.prayers.view(@view).within_groups(current_user.groups).paginate(page_params)
-    
+
     @intercessions = current_user.intercessions.today.map { |i| i.prayer.id }
     render :layout => (params[:print] ? 'print' : 'application')
   end
-  
+
   def edit
     @user = current_user
   end
@@ -29,7 +29,7 @@ class UsersController < Clearance::UsersController
   end
 
   # Clearance Overrides
-  
+
   def new
     @user = User.new(params[:user])
     cookies[:invitation_token] = { :value => params[:token], :expires => 1.year.from_now } if params[:token]
@@ -51,5 +51,5 @@ class UsersController < Clearance::UsersController
       render :template => 'users/new'
     end
   end
-  
+
 end

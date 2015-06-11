@@ -2,4 +2,4 @@
 -if count_pending > 0
   .box
     %strong= "You have #{pluralize(count_pending, 'pending invitation')}."
-    = "#{link_to "Click here to review and accept", invitations_path}."
+    #{link_to "Click here to review and accept", invitations_path}.

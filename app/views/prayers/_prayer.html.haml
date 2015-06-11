@@ -5,9 +5,9 @@
       %strong= @prayer.name
       posted on
       = @prayer.created_at.strftime('%A, %B %d, %Y')
-    
+
     = simple_format(@prayer.body)
-    
+
     - if @prayer.answered?
       .answer
         - if can? :answer, @prayer
@@ -27,15 +27,15 @@
         - if cannot?( :modify, prayer ) && Nudge.allowed?( current_user, @prayer )
           %li
             = link_to "Nudge", new_prayer_nudge_path(@prayer), :class => "nudge"
-            = image_tag "question-small.png", :title => "Nudging sends a gentle reminder to come back and provide an update or answer for this prayer."     
-   
+            = image_tag "question-small.png", :title => "Nudging sends a gentle reminder to come back and provide an update or answer for this prayer."
+
     .action_area
       %ul.inline.noprint
         %li.first= link_to raw("&larr; Back to my Prayer List"), prayers_path
         - if can?( :destroy, @prayer )
           %li= link_to "Permanently Delete this Prayer", @prayer, :method => :delete, :confirm => "Are you sure? This will permanently delete this prayer and all it's comments."
- 
-  %h2{ :id => 'comments' } 
+
+  %h2{ :id => 'comments' }
     The Thread
     - unless @comments.empty?
       .actions

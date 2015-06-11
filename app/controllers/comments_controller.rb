@@ -1,20 +1,20 @@
 class CommentsController < ApplicationController
-  before_filter :authenticate
-  
+  before_filter :authorize
+
   load_and_authorize_resource :prayer
   load_resource :comment, :through => :prayer
   authorize_resource :comment, :through => :prayer, :except => [:new, :create]
-  
+
   def index
     # @comments = @prayer.comments
     redirect_to prayer_path(@prayer, :anchor => 'comments')
   end
-  
+
   def new
     authorize! :new, @prayer => Comment
     redirect_to prayer_path(@prayer, :anchor => 'new_comment')
   end
-  
+
   def create
     authorize! :new, @prayer => Comment
     @comment.user = current_user
@@ -29,10 +29,10 @@ class CommentsController < ApplicationController
       render :action => 'new'
     end
   end
-  
+
   def edit
   end
-  
+
   def update
     if @comment.update_attributes(params[:comment])
       flash[:notice] = "Successfully updated comment."
@@ -41,7 +41,7 @@ class CommentsController < ApplicationController
       render :action => 'edit'
     end
   end
-  
+
   def destroy
     @comment.destroy
     redirect_to prayer_path(@prayer), :notice => "Successfully deleted comment."

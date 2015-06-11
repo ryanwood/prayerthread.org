@@ -1,13 +1,13 @@
 class MembershipsController < ApplicationController
-  before_filter :authenticate
+  before_filter :authorize
   load_and_authorize_resource :group, :except => :create
   load_and_authorize_resource :membership, :through => :group, :except => :create
-  
+
   def index
     load_memberships_and_invites
     @invitation = Invitation.new
   end
-  
+
   def create
     @group = Group.find(params[:group_id])
     # This creates an invitation for a membership, not the membership directly
@@ -23,16 +23,16 @@ class MembershipsController < ApplicationController
       render :action => 'index'
     end
   end
-  
+
   def destroy
     user = @membership.user
     @membership.destroy
     flash[:notice] = "Successfully removed #{user.name} from #{@group.name}."
     redirect_to group_memberships_url(@group)
   end
-  
+
   protected
-  
+
     def load_memberships_and_invites
       @memberships = @group.memberships
       @invitations = @group.invitations.pending
