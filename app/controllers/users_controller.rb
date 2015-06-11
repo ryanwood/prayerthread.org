@@ -45,6 +45,7 @@ class UsersController < Clearance::UsersController
     @user = User.new params[:user]
     @invitation = Invitation.find_by_token(params[:user][:invitation_token]) if params[:user][:invitation_token]
     if @user.save
+      sign_in(@user)
       flash_notice_after_create
       redirect_to(url_after_create)
     else
